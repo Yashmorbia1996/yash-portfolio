@@ -12,29 +12,30 @@
 @import "@fontsource/jetbrains-mono/500.css";
 
 @theme {
-  /* ── Premium Deep Dark Mode palette ── */
-  --color-background: hsl(222 47% 7%);         /* slate-950 ~#0f172a */
-  --color-foreground: hsl(215 20% 65%);         /* slate-300 — base body text */
-  --color-card: hsl(222 47% 9%);               /* slightly lighter than bg */
-  --color-card-foreground: hsl(215 20% 65%);
-  --color-popover: hsl(222 47% 9%);
-  --color-popover-foreground: hsl(215 20% 65%);
-  --color-primary: hsl(186 100% 42%);           /* cyan accent */
-  --color-primary-foreground: hsl(222 47% 7%);
-  --color-secondary: hsl(215 28% 13%);
-  --color-secondary-foreground: hsl(210 40% 98%);
-  --color-muted: hsl(215 28% 13%);
-  --color-muted-foreground: hsl(215 16% 47%);   /* slate-400/500 */
-  --color-accent: hsl(215 28% 15%);
-  --color-accent-foreground: hsl(210 40% 98%);
+  /* ── Linear Ash (Light) — default / :root ── */
+  --color-background: #F4F5F8;
+  --color-foreground: #1A1A21;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1A1A21;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #1A1A21;
+  --color-primary-accent: #5E6AD2;             /* Linear indigo */
+  --color-primary: #5E6AD2;                    /* alias — keeps shadcn/ui components working */
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #ECEDF0;
+  --color-secondary-foreground: #1A1A21;
+  --color-muted: #ECEDF0;
+  --color-muted-foreground: #8A8F98;
+  --color-accent: #ECEDF0;
+  --color-accent-foreground: #1A1A21;
   --color-destructive: hsl(0 62.8% 50%);
-  --color-destructive-foreground: hsl(210 40% 98%);
-  --color-border: hsl(215 28% 17%);             /* slate-800 subtle borders */
-  --color-input: hsl(215 28% 17%);
-  --color-ring: hsl(186 100% 42%);
-  --color-brand: hsl(186 100% 42%);
-  --color-surface: hsl(222 47% 9%);
-  --color-surface-elevated: hsl(215 28% 13%);
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #E8E9EC;
+  --color-input: #E8E9EC;
+  --color-ring: #5E6AD2;
+  --color-brand: #5E6AD2;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #ECEDF0;
 
   /* Fonts */
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
@@ -63,30 +64,31 @@
   --radius: 0.75rem;
 }
 
-/* Dark mode CSS variable overrides — kept in sync with @theme defaults above */
+/* ── Linear Midnight (Dark) — .dark overrides ── */
 .dark {
-  --color-background: hsl(222 47% 7%);
-  --color-foreground: hsl(215 20% 65%);
-  --color-card: hsl(222 47% 9%);
-  --color-card-foreground: hsl(215 20% 65%);
-  --color-popover: hsl(222 47% 9%);
-  --color-popover-foreground: hsl(215 20% 65%);
-  --color-primary: hsl(186 100% 42%);
-  --color-primary-foreground: hsl(222 47% 7%);
-  --color-secondary: hsl(215 28% 13%);
-  --color-secondary-foreground: hsl(210 40% 98%);
-  --color-muted: hsl(215 28% 13%);
-  --color-muted-foreground: hsl(215 16% 47%);
-  --color-accent: hsl(215 28% 15%);
-  --color-accent-foreground: hsl(210 40% 98%);
+  --color-background: #08090A;
+  --color-foreground: #F4F5F8;
+  --color-card: #121315;
+  --color-card-foreground: #F4F5F8;
+  --color-popover: #121315;
+  --color-popover-foreground: #F4F5F8;
+  --color-primary-accent: #5E6AD2;
+  --color-primary: #5E6AD2;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #1C1D1F;
+  --color-secondary-foreground: #F4F5F8;
+  --color-muted: #1C1D1F;
+  --color-muted-foreground: #8A8F98;
+  --color-accent: #1C1D1F;
+  --color-accent-foreground: #F4F5F8;
   --color-destructive: hsl(0 62.8% 50%);
-  --color-destructive-foreground: hsl(210 40% 98%);
-  --color-border: hsl(215 28% 17%);
-  --color-input: hsl(215 28% 17%);
-  --color-ring: hsl(186 100% 42%);
-  --color-brand: hsl(186 100% 42%);
-  --color-surface: hsl(222 47% 9%);
-  --color-surface-elevated: hsl(215 28% 13%);
+  --color-destructive-foreground: #F4F5F8;
+  --color-border: #222326;
+  --color-input: #222326;
+  --color-ring: #5E6AD2;
+  --color-brand: #5E6AD2;
+  --color-surface: #121315;
+  --color-surface-elevated: #1C1D1F;
 }
 
 /* Single container for navbar, hero, sections, footer */
@@ -112,14 +114,14 @@ body {
   font-family: var(--font-sans);
   background-image: radial-gradient(
     circle,
-    color-mix(in srgb, var(--color-brand) 6%, transparent) 1px,
+    color-mix(in srgb, var(--color-primary-accent) 6%, transparent) 1px,
     transparent 1px
   );
   background-size: 24px 24px;
 }
 
 h1, h2, h3 {
-  color: hsl(210 40% 98%); /* slate-50 — bright headings against slate-300 body */
+  color: var(--color-foreground);
 }
 
 /* ── prose styles for MDX content ── */
@@ -171,9 +173,10 @@ h1, h2, h3 {
 
 @layer utilities {
   /* Depth via subtle ring + border instead of heavy drop shadows */
-  .shadow-card { box-shadow: 0 0 0 1px rgba(255,255,255,0.06); }
-  .shadow-card-hover { box-shadow: 0 0 0 1px rgba(255,255,255,0.10), 0 8px 32px rgba(0,0,0,0.3); }
+  .shadow-card { box-shadow: 0 0 0 1px var(--color-border); }
+  .shadow-card-hover { box-shadow: 0 0 0 1px var(--color-border), 0 8px 32px color-mix(in srgb, var(--color-foreground) 8%, transparent); }
   .text-brand { color: var(--color-brand); }
+  .text-primary-accent { color: var(--color-primary-accent); }
   .bg-surface { background-color: var(--color-surface); }
   .bg-surface-elevated { background-color: var(--color-surface-elevated); }
   .border-brand { border-color: var(--color-brand); }

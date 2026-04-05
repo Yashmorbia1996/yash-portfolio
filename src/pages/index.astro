@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Hero } from '../components/Hero';
+import { CapabilitiesGrid } from '../components/CapabilitiesGrid';
 import { FeaturedProjects } from '../components/FeaturedProjects';
 import { AboutSection } from '../components/AboutSection';
+import { NextSection } from '../components/NextSection';
 import { getCollection } from 'astro:content';
 
 const projects = await getCollection('projects');
@@ -10,6 +12,8 @@ const projects = await getCollection('projects');
 
 <BaseLayout>
   <Hero client:load />
+  <CapabilitiesGrid client:visible />
   <FeaturedProjects projects={projects} client:visible />
   <AboutSection client:visible />
+  <NextSection client:visible />
 </BaseLayout>

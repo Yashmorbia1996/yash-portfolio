@@ -1,8 +1,8 @@
 export const siteConfig = {
   // Personal info — update these with your details
   name: "Your Name",
-  role: "Your Role / Title",
-  bio: "A brief one-or-two sentence bio that describes who you are and what you do. Keep it personal and authentic.",
+  role: "Senior Mechanical Engineer",
+  bio: "Senior Mechanical Engineer specializing in FDA-cleared electromechanical systems, precision packaging, and thermal management.",
   avatar: "/images/avatar.svg",
   location: "San Francisco, CA",
 

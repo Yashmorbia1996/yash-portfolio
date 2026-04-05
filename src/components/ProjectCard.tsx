@@ -12,15 +12,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ title, summary, tags, slug, cover, liveUrl, repoUrl, date, duration }: ProjectCardProps) {
   return (
-    <article className="group relative rounded-3xl bg-white/5 ring-1 ring-white/8 hover:ring-white/15 hover:-translate-y-1 transition-all duration-300">
-      {/* Neon glow behind cover image — bleeds outside the card intentionally */}
-      {cover && (
-        <div
-          className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-40 bg-gradient-to-b from-violet-500/20 via-fuchsia-500/10 to-transparent blur-3xl pointer-events-none"
-          aria-hidden="true"
-        />
-      )}
-
+    <article className="group relative rounded-3xl bg-card border border-border hover:border-primary-accent/40 hover:-translate-y-1 transition-all duration-300">
       <a href={`/projects/${slug}`} className="block rounded-t-3xl overflow-hidden">
         <div className="aspect-video bg-muted/50 overflow-hidden">
           {cover ? (
@@ -42,7 +34,7 @@ export function ProjectCard({ title, summary, tags, slug, cover, liveUrl, repoUr
       </a>
 
       <div className="p-6 md:p-8">
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3 group-hover:text-cyan-400 transition-colors">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3 group-hover:text-primary-accent transition-colors">
           <a href={`/projects/${slug}`}>{title}</a>
         </h2>
         {(date || duration) && (
@@ -57,7 +49,7 @@ export function ProjectCard({ title, summary, tags, slug, cover, liveUrl, repoUr
           {tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full text-xs px-2.5 py-0.5 border border-slate-700/60 text-slate-400 bg-transparent"
+              className="rounded-full text-xs px-2.5 py-0.5 border border-border text-muted-foreground bg-transparent"
             >
               {tag}
             </span>
@@ -66,7 +58,7 @@ export function ProjectCard({ title, summary, tags, slug, cover, liveUrl, repoUr
         <div className="flex items-center gap-6">
           <a
             href={`/projects/${slug}`}
-            className="text-sm text-slate-400 hover:text-cyan-400 transition-colors duration-200"
+            className="text-sm text-muted-foreground hover:text-primary-accent transition-colors duration-200"
           >
             Read case study →
           </a>

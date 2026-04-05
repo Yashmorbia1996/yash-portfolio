@@ -13,7 +13,7 @@ export function Section({ children, className, label, id }: SectionProps) {
       <div className="site-container">
         {label && (
           <p className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-8 flex items-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary" />
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary-accent" />
             {label}
           </p>
         )}
