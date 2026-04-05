@@ -42,7 +42,7 @@ export function ProjectCard({ title, summary, tags, slug, cover, liveUrl, repoUr
             {date?.getFullYear()}{duration ? ` • ${duration}` : ''}
           </p>
         )}
-        <p className="text-muted-foreground leading-relaxed mb-6">
+        <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
           {summary}
         </p>
         <div className="flex flex-wrap gap-2 mb-6">

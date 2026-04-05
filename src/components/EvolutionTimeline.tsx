@@ -81,57 +81,56 @@ export function EvolutionTimeline({
       <h2 className="font-heading text-2xl md:text-3xl font-normal tracking-[-0.02em] text-foreground mb-2">
         Design Evolution
       </h2>
-      <p className="text-sm text-muted-foreground mb-10">
+      <p className="text-sm text-slate-600 dark:text-slate-300 mb-10">
         From initial concept to production-optimized system.
       </p>
 
       <ol className="space-y-0">
         {steps.map((step, index) => (
-          <li key={step.number} className="relative flex gap-5 md:gap-8">
-            {/* ── Spine: dot + connecting line ── */}
-            <div className="flex flex-col items-center flex-shrink-0 w-8">
-              {/* Glowing dot */}
-              <div
-                className="relative z-10 w-8 h-8 rounded-full bg-background border-2 border-primary-accent flex items-center justify-center"
-                style={{ boxShadow: "0 0 14px rgba(94, 106, 210, 0.35)" }}
-              >
-                <span className="text-xs font-bold text-primary-accent">
-                  {step.number}
-                </span>
-              </div>
-              {/* Vertical connector line */}
-              {index < steps.length - 1 && (
-                <div className="flex-1 w-px bg-border mt-1.5 mb-1.5 min-h-[3rem]" />
-              )}
-            </div>
+          <li key={step.number} className="relative">
+            <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-start">
 
-            {/* ── Content: text + image ── */}
-            <div
-              className={cn(
-                "flex-1 grid gap-5 pt-1 md:grid-cols-2",
-                index < steps.length - 1 ? "pb-14" : "pb-2"
-              )}
-            >
-              {/* Text block */}
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.08em] text-primary-accent mb-2">
-                  {step.number}. {step.phase}
-                </p>
-                <h3 className="text-base font-semibold text-foreground mb-2 leading-snug tracking-[-0.01em]">
-                  Design Decision
-                </h3>
-                <p className="text-sm font-medium text-foreground/75 mb-3 italic leading-relaxed">
-                  "{step.decision}"
-                </p>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {step.description}
-                </p>
+              {/* ── Left column: spine + text ── */}
+              <div className="flex gap-4">
+                {/* Spine: badge + connecting line */}
+                <div className="flex flex-col items-center flex-shrink-0 w-8">
+                  <div
+                    className="relative z-10 w-8 h-8 rounded-full bg-background border-2 border-primary-accent flex items-center justify-center flex-shrink-0"
+                    style={{ boxShadow: "0 0 14px rgba(94, 106, 210, 0.35)" }}
+                  >
+                    <span className="text-xs font-bold text-primary-accent">
+                      {step.number}
+                    </span>
+                  </div>
+                  {index < steps.length - 1 && (
+                    <div className="flex-1 w-px bg-border mt-1.5 mb-0 min-h-[3rem]" />
+                  )}
+                </div>
+
+                {/* Text block */}
+                <div className={cn("pt-1", index < steps.length - 1 ? "pb-14" : "pb-2")}>
+                  <p className="text-xs font-semibold uppercase tracking-[0.08em] text-primary-accent mb-2">
+                    {step.phase}
+                  </p>
+                  <h3 className="text-base font-semibold text-foreground mb-2 leading-snug tracking-[-0.01em]">
+                    Design Decision
+                  </h3>
+                  <p className="text-sm font-medium text-foreground/75 mb-3 italic leading-relaxed">
+                    "{step.decision}"
+                  </p>
+                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
               </div>
 
-              {/* Image block */}
-              <div className="rounded-2xl border border-dashed border-border bg-muted/40 aspect-video flex flex-col items-center justify-center gap-1.5 text-muted-foreground/40 overflow-hidden">
-                <ImagePlaceholder src={step.imageSrc} alt={step.imageAlt} />
+              {/* ── Right column: image ── */}
+              <div className={cn("pt-1", index < steps.length - 1 ? "pb-14" : "pb-2")}>
+                <div className="rounded-xl border border-border bg-muted/30 aspect-video flex flex-col items-center justify-center gap-1.5 text-muted-foreground/40 overflow-hidden shadow-inner">
+                  <ImagePlaceholder src={step.imageSrc} alt={step.imageAlt} />
+                </div>
               </div>
+
             </div>
           </li>
         ))}

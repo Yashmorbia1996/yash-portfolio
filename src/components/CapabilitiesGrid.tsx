@@ -41,15 +41,15 @@ export function CapabilitiesGrid() {
         {capabilities.map(({ icon: Icon, title, description }) => (
           <div
             key={title}
-            className="group rounded-2xl bg-card border border-border p-6 transition-all duration-200 ease-out hover:scale-[1.015] hover:border-primary-accent/50 hover:shadow-card-hover"
+            className="group rounded-2xl bg-card border border-border p-8 transition-all duration-200 ease-out hover:scale-[1.015] hover:border-primary-accent/50 hover:shadow-card-hover"
           >
-            <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-primary-accent/10 text-primary-accent">
-              <Icon className="w-5 h-5" strokeWidth={1.75} />
+            <div className="mb-5 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary-accent/10 text-primary-accent">
+              <Icon className="w-8 h-8" strokeWidth={1.5} />
             </div>
-            <h3 className="text-base font-semibold text-foreground mb-2 tracking-[-0.01em]">
+            <h3 className="text-lg font-semibold text-foreground mb-2 tracking-[-0.01em]">
               {title}
             </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
               {description}
             </p>
           </div>

@@ -1,0 +1,35 @@
+---
+title: "Thermal Redesign Journey"
+summary: "Resolved chronic overtemperature faults in a deployed electromechanical analyzer by redesigning the thermal management stack — reducing peak junction temperature by 34°C and eliminating 91% of field thermal faults."
+date: 2023-05-01
+featured: true
+cover: "/images/projects/project-3.svg"
+tags: ["Thermal Analysis", "SolidWorks", "DFM", "Heat Transfer"]
+---
+
+## Overview
+
+A deployed Class II analyzer was generating thermal fault alarms at 3.2 per 100 units per month in the field. Root cause was traced to an underspecified thermal path between a power MOSFET and the chassis ground plane.
+
+## Problem
+
+The original design used a TO-220 MOSFET with a single-layer thermal pad and no heatsink. At 40°C ambient — common in clinical settings — junction temperature exceeded the 125°C limit under sustained load. Field service bulletins and firmware throttling were band-aids; a hardware fix was required.
+
+## Approach
+
+Thermal analysis in SolidWorks Simulation (cross-validated against an ANSYS Icepak model):
+
+1. Modeled the baseline thermal path: junction → case → pad → PCB → chassis
+2. Identified bottleneck: 8°C/W thermal resistance at the PCB-to-chassis interface caused by an undersized thermal via array
+3. Evaluated three design alternatives: heatsink extrusion, copper slug insert, and via-in-pad redesign
+
+Recommended solution: copper slug press-fitted into the PCB with direct chassis contact, plus re-routing of thermal vias to a 4×4 array pattern.
+
+DFM review confirmed the slug was machinable at cost parity with the original BOM. ECO process completed in one revision cycle without requiring a new product verification build.
+
+## Outcome
+
+- Peak junction temperature: 89°C → 55°C (34°C reduction)
+- Field thermal fault rate: 3.2 → 0.28 per 100 units/month (−91%)
+- No firmware throttling required — full performance spec restored
+- Solution adopted as the thermal design standard for the next-generation platform
