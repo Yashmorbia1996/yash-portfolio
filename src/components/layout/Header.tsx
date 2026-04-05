@@ -1,102 +1,44 @@
-import { useState } from "react";
-import { Menu } from "lucide-react";
+import { Briefcase, FileText, User, Home } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
-import { ThemeProvider } from "@/components/ThemeProvider";
+
+const iconMap = { Briefcase, FileText, User, Home } as const;
+type IconKey = keyof typeof iconMap;
 
 interface HeaderProps {
   currentPath?: string;
 }
 
-function HeaderInner({ currentPath = "/" }: HeaderProps) {
-  const [open, setOpen] = useState(false);
-  const { name, nav } = siteConfig;
+export function Header({ currentPath = "/" }: HeaderProps) {
+  const { nav } = siteConfig;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 border-b border-border/40 bg-background/80 backdrop-blur-md">
-      <div className="site-container flex h-16 items-center justify-between">
-        {/* Logo / Name */}
-        <a
-          href="/"
-          className="font-heading text-lg font-normal tracking-tight text-foreground hover:opacity-80 transition-opacity"
-        >
-          {name}
-        </a>
-
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
-          {nav.map((link) => {
-            const isActive = currentPath === link.href || currentPath.startsWith(link.href + "/");
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-                  isActive
-                    ? "text-foreground font-medium"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                }`}
-                aria-current={isActive ? "page" : undefined}
-              >
-                {link.label}
-              </a>
-            );
-          })}
-          <ThemeToggle />
-        </nav>
-
-        {/* Mobile nav */}
-        <div className="flex items-center gap-1 md:hidden">
-          <ThemeToggle />
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Open menu">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right">
-              <SheetHeader>
-                <SheetTitle className="font-heading font-normal">{name}</SheetTitle>
-              </SheetHeader>
-              <nav className="flex flex-col gap-1 mt-6" aria-label="Mobile navigation">
-                {nav.map((link) => {
-                  const isActive = currentPath === link.href || currentPath.startsWith(link.href + "/");
-                  return (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className={`px-3 py-2 text-base rounded-md transition-colors ${
-                        isActive
-                          ? "text-foreground font-medium bg-accent"
-                          : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                      }`}
-                    >
-                      {link.label}
-                    </a>
-                  );
-                })}
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
+    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+      <nav
+        className="flex items-center gap-1 bg-slate-900/70 backdrop-blur-md border border-slate-800 rounded-full px-2 py-1.5"
+        aria-label="Main navigation"
+      >
+        {nav.map((link) => {
+          const isActive =
+            currentPath === link.href ||
+            (link.href !== "/" && currentPath.startsWith(link.href + "/"));
+          const Icon = iconMap[link.icon as IconKey];
+          return (
+            <a
+              key={link.href}
+              href={link.href}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                isActive
+                  ? "text-cyan-400 bg-white/10"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
+              }`}
+              aria-current={isActive ? "page" : undefined}
+            >
+              {Icon && <Icon className="h-3.5 w-3.5 shrink-0" />}
+              <span>{link.label}</span>
+            </a>
+          );
+        })}
+      </nav>
     </header>
-  );
-}
-
-export function Header(props: HeaderProps) {
-  return (
-    <ThemeProvider>
-      <HeaderInner {...props} />
-    </ThemeProvider>
   );
 }

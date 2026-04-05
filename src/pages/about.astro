@@ -1,23 +1,64 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { AboutSection } from '../components/AboutSection';
+import { AboutTOC } from '../components/AboutTOC';
+import { AvatarColumn } from '../components/AvatarColumn';
 import { ExperienceTimeline } from '../components/ExperienceTimeline';
 import { SkillsGrid } from '../components/SkillsGrid';
-import { Section } from '../components/layout/Section';
 import { getCollection } from 'astro:content';
+import { siteConfig } from '../config/site';
 
 const workEntries = await getCollection('work');
 ---
 
 <BaseLayout title="About">
-  <AboutSection client:load />
-  <Section label="Experience">
-    <h2 class="font-heading text-3xl md:text-4xl font-normal tracking-[-0.03em] mb-10">
-      Work experience
-    </h2>
-    <ExperienceTimeline entries={workEntries} client:visible />
-  </Section>
-  <Section label="Skills">
-    <SkillsGrid client:visible />
-  </Section>
+  <div class="site-container pt-24 pb-20">
+    <div class="flex gap-6 relative">
+
+      <!-- TOC sidebar (xl+) -->
+      <AboutTOC client:visible />
+
+      <!-- Inner: avatar col + main content -->
+      <div class="flex gap-8 flex-1 min-w-0">
+
+        <!-- Avatar column (md+) -->
+        <AvatarColumn client:load />
+
+        <!-- Main content -->
+        <div class="flex-1 min-w-0 space-y-20">
+
+          <!-- Hero intro -->
+          <section id="intro" class="pt-2 scroll-reveal">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-3">
+              {siteConfig.name}
+            </h1>
+            <p class="text-xl text-slate-400 mb-6">
+              {siteConfig.role}
+            </p>
+            <p class="text-slate-400 leading-relaxed max-w-xl mb-8">
+              {siteConfig.bio}
+            </p>
+            <a
+              href={`mailto:${siteConfig.social.email}`}
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700/60 bg-white/5 backdrop-blur-md text-sm text-slate-300 hover:border-cyan-500/40 hover:text-cyan-400 transition-all duration-200"
+            >
+              Schedule a call →
+            </a>
+          </section>
+
+          <!-- Work Experience -->
+          <section id="experience" class="scroll-reveal">
+            <h2 class="text-2xl font-bold tracking-tight mb-8">Work experience</h2>
+            <ExperienceTimeline entries={workEntries} client:visible />
+          </section>
+
+          <!-- Skills -->
+          <section id="skills" class="scroll-reveal">
+            <h2 class="text-2xl font-bold tracking-tight mb-8">Skills</h2>
+            <SkillsGrid client:visible />
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </BaseLayout>

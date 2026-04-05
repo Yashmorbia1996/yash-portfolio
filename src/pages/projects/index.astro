@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { ProjectCard } from '../../components/ProjectCard';
-import { Section } from '../../components/layout/Section';
 import { getCollection } from 'astro:content';
 
 const projects = await getCollection('projects');
@@ -9,14 +8,14 @@ const sorted = projects.sort((a, b) => b.data.date.getTime() - a.data.date.getTi
 ---
 
 <BaseLayout title="Projects" description="A selection of projects I've worked on.">
-  <Section label="Work">
-    <h1 class="font-heading text-4xl md:text-5xl font-normal tracking-[-0.03em] mb-4 pt-16 md:pt-20">
+  <div class="site-container pt-28 pb-20">
+    <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-4">
       Projects
     </h1>
-    <p class="text-muted-foreground mb-12 max-w-lg">
+    <p class="text-muted-foreground text-lg max-w-lg mb-16">
       A selection of projects I've worked on — from design systems to data tools.
     </p>
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div class="space-y-10">
       {sorted.map((project) => (
         <ProjectCard
           title={project.data.title}
@@ -25,9 +24,12 @@ const sorted = projects.sort((a, b) => b.data.date.getTime() - a.data.date.getTi
           slug={project.id}
           cover={project.data.cover}
           liveUrl={project.data.liveUrl}
+          repoUrl={project.data.repoUrl}
+          date={project.data.date}
+          duration={project.data.duration}
           client:visible
         />
       ))}
     </div>
-  </Section>
+  </div>
 </BaseLayout>

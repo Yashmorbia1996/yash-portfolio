@@ -2,17 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Hero } from '../components/Hero';
 import { FeaturedProjects } from '../components/FeaturedProjects';
-import { LatestPosts } from '../components/LatestPosts';
 import { AboutSection } from '../components/AboutSection';
 import { getCollection } from 'astro:content';
 
 const projects = await getCollection('projects');
-const posts = await getCollection('blog');
 ---
 
 <BaseLayout>
   <Hero client:load />
   <FeaturedProjects projects={projects} client:visible />
-  <LatestPosts posts={posts} client:visible />
   <AboutSection client:visible />
 </BaseLayout>

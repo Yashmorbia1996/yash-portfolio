@@ -34,3 +34,4 @@ pnpm-debug.log*
 # Tool directories
 .omc/
 .claude/
+*.log

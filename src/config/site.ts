@@ -4,6 +4,7 @@ export const siteConfig = {
   role: "Your Role / Title",
   bio: "A brief one-or-two sentence bio that describes who you are and what you do. Keep it personal and authentic.",
   avatar: "/images/avatar.svg",
+  location: "San Francisco, CA",
 
   // Site metadata
   url: "https://your-portfolio.example.com",
@@ -20,9 +21,9 @@ export const siteConfig = {
 
   // Navigation links
   nav: [
-    { label: "Projects", href: "/projects" },
-    { label: "Blog", href: "/blog" },
-    { label: "About", href: "/about" },
+    { label: "Home", href: "/", icon: "Home" },
+    { label: "Projects", href: "/projects", icon: "Briefcase" },
+    { label: "About", href: "/about", icon: "User" },
   ],
 
   // Skills to display on the About page

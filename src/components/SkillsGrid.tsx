@@ -1,19 +1,21 @@
 import { siteConfig } from "@/config/site";
-import { Badge } from "@/components/ui/badge";
 
 export function SkillsGrid() {
   const { skills } = siteConfig;
 
   return (
     <div>
-      <h3 className="font-semibold text-sm uppercase tracking-[0.08em] text-muted-foreground mb-4">
+      <h3 className="font-semibold text-xs uppercase tracking-widest text-slate-500 mb-5">
         Skills &amp; Tools
       </h3>
       <div className="flex flex-wrap gap-2">
         {skills.map((skill) => (
-          <Badge key={skill} variant="secondary" className="text-sm px-3 py-1">
+          <span
+            key={skill}
+            className="rounded-full text-sm px-3 py-1 border border-slate-700/60 text-slate-300 bg-transparent"
+          >
             {skill}
-          </Badge>
+          </span>
         ))}
       </div>
     </div>
