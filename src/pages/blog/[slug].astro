@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Badge } from '../../components/ui/badge';
+import { Button } from '../../components/ui/button';
+import { getCollection, render } from 'astro:content';
+import { ArrowLeft } from 'lucide-react';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formattedDate = post.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={post.data.title} description={post.data.summary}>
+  <div class="site-container pt-28 pb-20">
+    <div class="max-w-2xl mx-auto">
+      <!-- Back link -->
+      <Button variant="ghost" size="sm" asChild client:load>
+        <a href="/blog" class="mb-8 inline-flex items-center gap-1 text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="h-4 w-4" />
+          All posts
+        </a>
+      </Button>
+
+      <!-- Header -->
+      <div class="mb-8 mt-4">
+        <time class="text-sm text-muted-foreground block mb-4">{formattedDate}</time>
+        <h1 class="font-heading text-4xl md:text-5xl font-normal tracking-[-0.03em] mb-3">
+          {post.data.title}
+        </h1>
+        <p class="text-muted-foreground text-lg leading-relaxed mb-4">
+          {post.data.summary}
+        </p>
+        <div class="flex flex-wrap gap-1.5">
+          {post.data.tags.map((tag) => (
+            <Badge variant="outline" client:load>{tag}</Badge>
+          ))}
+        </div>
+      </div>
+
+      <!-- Cover image -->
+      {post.data.cover && (
+        <img
+          src={post.data.cover}
+          alt={post.data.title}
+          class="w-full rounded-xl mb-10 shadow-card aspect-video object-cover"
+        />
+      )}
+
+      <!-- MDX content -->
+      <div class="prose prose-neutral dark:prose-invert max-w-none prose-content">
+        <Content />
+      </div>
+    </div>
+  </div>
+</BaseLayout>

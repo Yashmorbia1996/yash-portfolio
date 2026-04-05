@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { AboutSection } from '../components/AboutSection';
+import { ExperienceTimeline } from '../components/ExperienceTimeline';
+import { SkillsGrid } from '../components/SkillsGrid';
+import { Section } from '../components/layout/Section';
+import { getCollection } from 'astro:content';
+
+const workEntries = await getCollection('work');
+---
+
+<BaseLayout title="About">
+  <AboutSection client:load />
+  <Section label="Experience">
+    <h2 class="font-heading text-3xl md:text-4xl font-normal tracking-[-0.03em] mb-10">
+      Work experience
+    </h2>
+    <ExperienceTimeline entries={workEntries} client:visible />
+  </Section>
+  <Section label="Skills">
+    <SkillsGrid client:visible />
+  </Section>
+</BaseLayout>

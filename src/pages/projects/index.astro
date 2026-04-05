@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ProjectCard } from '../../components/ProjectCard';
+import { Section } from '../../components/layout/Section';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+const sorted = projects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Projects" description="A selection of projects I've worked on.">
+  <Section label="Work">
+    <h1 class="font-heading text-4xl md:text-5xl font-normal tracking-[-0.03em] mb-4 pt-16 md:pt-20">
+      Projects
+    </h1>
+    <p class="text-muted-foreground mb-12 max-w-lg">
+      A selection of projects I've worked on — from design systems to data tools.
+    </p>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {sorted.map((project) => (
+        <ProjectCard
+          title={project.data.title}
+          summary={project.data.summary}
+          tags={project.data.tags}
+          slug={project.id}
+          cover={project.data.cover}
+          liveUrl={project.data.liveUrl}
+          client:visible
+        />
+      ))}
+    </div>
+  </Section>
+</BaseLayout>

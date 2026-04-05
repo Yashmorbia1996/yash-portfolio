@@ -1,0 +1,10 @@
+{
+  "active": true,
+  "started_at": "2026-04-05T15:19:45.604Z",
+  "original_prompt": "/autopilot execute the plan",
+  "session_id": "0cb4fa22-d82a-46a4-9753-388cbe5d259c",
+  "project_path": "/Users/mankadronit/Developer/portfolio-starter-template",
+  "reinforcement_count": 0,
+  "awaiting_confirmation": true,
+  "last_checked_at": "2026-04-05T15:19:45.605Z"
+}

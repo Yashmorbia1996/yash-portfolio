@@ -1,0 +1,27 @@
+---
+title: "Analytics Dashboard"
+summary: "Built a real-time analytics dashboard processing 50M+ events/day, giving product teams self-serve access to key metrics without relying on the data team."
+date: 2024-01-15
+featured: false
+cover: "/images/projects/project-2.svg"
+tags: ["Data Visualization", "React", "SQL", "PostgreSQL"]
+liveUrl: "https://example.com/dashboard"
+---
+
+## Overview
+
+Product managers were waiting 3–5 days for one-off data requests. This dashboard gave them direct, self-serve access to the metrics that mattered most.
+
+## Problem
+
+The data team was overwhelmed with ad-hoc requests. Most requests were variations of the same 10 queries, but required custom SQL and BI tool access that PMs didn't have.
+
+## Approach
+
+Identified the 20 most-requested report types by auditing 6 months of Jira tickets. Built parameterized queries in PostgreSQL with materialized views for performance, then created a React frontend with filter controls and exportable charts.
+
+## Outcome
+
+- Reduced data team ad-hoc requests by 60%
+- Dashboard handles 50M+ events/day with sub-second query times
+- Adopted by 3 additional departments within 2 months of launch

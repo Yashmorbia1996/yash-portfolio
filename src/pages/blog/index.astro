@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { BlogPostCard } from '../../components/BlogPostCard';
+import { Section } from '../../components/layout/Section';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sorted = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Blog" description="Thoughts on software, design, and building things.">
+  <Section label="Writing">
+    <h1 class="font-heading text-4xl md:text-5xl font-normal tracking-[-0.03em] mb-4 pt-16 md:pt-20">
+      Blog
+    </h1>
+    <p class="text-muted-foreground mb-12 max-w-lg">
+      Thoughts on software, design, and the things I'm learning.
+    </p>
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {sorted.map((post) => (
+        <BlogPostCard
+          title={post.data.title}
+          summary={post.data.summary}
+          date={post.data.date}
+          tags={post.data.tags}
+          slug={post.id}
+          featured={post.data.featured}
+          client:visible
+        />
+      ))}
+    </div>
+  </Section>
+</BaseLayout>
