@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @import "lenis/dist/lenis.css";
+
+/* Bind dark: variant to .dark class (not prefers-color-scheme) */
+@variant dark (&:is(.dark *));
 @plugin "@tailwindcss/typography";
 
 /* Self-hosted fonts */

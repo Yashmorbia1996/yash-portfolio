@@ -11,7 +11,7 @@ export function NextSection() {
         <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-normal tracking-[-0.03em] text-foreground mb-4">
           What I want next
         </h2>
-        <p className="text-base text-muted-foreground leading-relaxed mb-10 max-w-lg mx-auto">
+        <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed mb-10 max-w-lg mx-auto">
           Seeking a Principal or Staff Mechanical Engineer role at a company building regulated hardware — medical devices, industrial automation, or precision instrumentation. I thrive where the tolerance stack matters and the regulatory bar is high.
         </p>
 

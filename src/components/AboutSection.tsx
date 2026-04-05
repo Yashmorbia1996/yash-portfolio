@@ -20,8 +20,8 @@ export function AboutSection() {
           <h2 className="font-heading text-3xl md:text-4xl font-normal tracking-[-0.03em] mb-3">
             {name}
           </h2>
-          <p className="text-sm font-medium text-muted-foreground mb-4">{role}</p>
-          <p className="text-base text-muted-foreground leading-relaxed">{bio}</p>
+          <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-4">{role}</p>
+          <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed">{bio}</p>
         </div>
       </div>
     </Section>

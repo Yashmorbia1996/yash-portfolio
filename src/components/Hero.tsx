@@ -26,7 +26,7 @@ export function Hero() {
             Building Production-Ready Systems That Scale.
           </h1>
 
-          <p className="hero-animate hero-animate-3 text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
+          <p className="hero-animate hero-animate-3 text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-8 max-w-xl">
             Senior Mechanical Engineer specializing in FDA-cleared electromechanical systems, precision packaging, and thermal management.
           </p>
 
@@ -79,9 +79,9 @@ export function Hero() {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="backdrop-blur-sm bg-card/60 border border-border rounded-xl px-5 py-4"
+              className="backdrop-blur-sm bg-card/40 border border-border/50 rounded-xl px-4 py-4"
             >
-              <p className="text-xl md:text-2xl font-semibold text-primary-accent leading-tight">
+              <p className="text-xl md:text-2xl font-bold text-primary-accent leading-tight">
                 {stat.value}
               </p>
               <p className="text-xs text-muted-foreground mt-1.5 leading-snug">
