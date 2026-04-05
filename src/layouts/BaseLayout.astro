@@ -1,6 +1,5 @@
 ---
 import '../styles/globals.css';
-import { ThemeProvider } from '../components/ThemeProvider';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 import { siteConfig } from '../config/site';
@@ -65,9 +64,7 @@ const currentPath = Astro.url.pathname;
     >
       Skip to content
     </a>
-    <ThemeProvider client:load>
-      <Header currentPath={currentPath} client:load />
-    </ThemeProvider>
+    <Header currentPath={currentPath} client:load />
     <main id="main-content" class="min-h-screen scroll-mt-20">
       <slot />
     </main>
