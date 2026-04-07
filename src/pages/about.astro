@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { AboutTOC } from '../components/AboutTOC';
 import { AvatarColumn } from '../components/AvatarColumn';
-import { ExperienceTimeline } from '../components/ExperienceTimeline';
+import { WorkExperienceTimeline } from '../components/WorkExperienceTimeline';
 import { SkillsGrid } from '../components/SkillsGrid';
 import { AboutMetrics } from '../components/AboutMetrics';
 import { getCollection } from 'astro:content';
@@ -54,7 +54,7 @@ const workEntries = await getCollection('work');
 
           <section id="experience" class="scroll-reveal space-y-8">
             <h2 class="text-2xl font-bold tracking-tight">Work experience</h2>
-            <ExperienceTimeline entries={workEntries} client:visible />
+            <WorkExperienceTimeline entries={workEntries} client:load />
           </section>
 
           <section id="skills" class="scroll-reveal space-y-8">

@@ -179,6 +179,34 @@ h1, h2, h3 {
   border-radius: 0.75rem;
 }
 
+/* Timeline card diamond — points toward center rail (card on the right) */
+.experience-card-pointer {
+  position: absolute;
+  left: 0;
+  top: 2.5rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  background: var(--color-card);
+  border-left: 1px solid color-mix(in srgb, var(--color-primary-accent) 28%, var(--color-border));
+  border-bottom: 1px solid color-mix(in srgb, var(--color-primary-accent) 28%, var(--color-border));
+  transform: translate(-50%, -50%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* Card sits on the left; diamond points right toward the rail */
+.experience-card-pointer-end {
+  position: absolute;
+  right: 0;
+  top: 2.5rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  background: var(--color-card);
+  border-right: 1px solid color-mix(in srgb, var(--color-primary-accent) 28%, var(--color-border));
+  border-top: 1px solid color-mix(in srgb, var(--color-primary-accent) 28%, var(--color-border));
+  transform: translate(50%, -50%) rotate(45deg);
+  pointer-events: none;
+}
+
 @layer utilities {
   /* Depth via subtle ring + border instead of heavy drop shadows */
   .shadow-card { box-shadow: 0 0 0 1px var(--color-border); }
