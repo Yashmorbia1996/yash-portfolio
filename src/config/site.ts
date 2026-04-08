@@ -1,21 +1,22 @@
 export const siteConfig = {
   name: "Yash Morbia",
   /** Short label for hero eyebrow / tight UI */
-  roleShort: "Lead Mechanical Engineer",
-  role: "Lead Mechanical Engineer — Product Development & Manufacturing",
-  bio: "Senior Mechanical Engineer specializing in FDA-cleared electromechanical systems, precision packaging, and thermal management.",
+  roleShort: "Senior Mechanical Engineer",
+  role: "Senior Mechanical Engineer | Product Development, Manufacturing & Scale",
+  bio: "Senior mechanical engineer building hardware that has to ship, scale, and survive the field.",
   avatar: "/images/avatar.svg",
   location: "Greater Boston",
+  phone: "(480) 434-0034",
 
   url: "https://your-portfolio.example.com",
-  description: "Yash Morbia — Lead Mechanical Engineer focused on NPI, regulated medical devices, and scalable manufacturing.",
+  description: "Yash Morbia — senior mechanical engineer focused on regulated hardware, NPI, manufacturing scale-up, and product reliability.",
   ogImage: "/images/og.jpg",
 
   social: {
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
-    twitter: "https://twitter.com/yourusername",
-    email: "you@example.com",
+    github: "",
+    linkedin: "",
+    twitter: "",
+    email: "Yash10morbia@gmail.com",
   },
 
   nav: [

@@ -1,94 +1,115 @@
-import { Github, Linkedin, Twitter, Mail, ArrowRight } from "lucide-react";
+import { Mail, ArrowRight, Phone, LinkedinIcon } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
 
 const stats = [
-  { value: "$4M → $15M", label: "Revenue Supported" },
-  { value: "500 → 1500", label: "Units / Week" },
-  { value: "23% → 3%", label: "Return Rate" },
-  { value: "8 Audits, 0 Major Findings", label: "Regulatory Record" },
+  { value: "$4M -> $15M", label: "Revenue supported" },
+  { value: "500 -> 1,500", label: "Units per week" },
+  { value: "23% -> 3%", label: "Field return rate" },
+  { value: "8 audits", label: "0 major findings" },
 ];
 
 export function Hero() {
-  const { social, roleShort } = siteConfig;
+  const { social, roleShort, name, location, phone } = siteConfig;
 
   return (
     <section className="pt-32 pb-20 md:pt-40 md:pb-28">
       <div className="site-container">
-        {/* Hero text */}
-        <div className="max-w-2xl">
-          <p className="hero-animate hero-animate-1 text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-4 flex items-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary-accent" />
-            {roleShort}
-          </p>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)] lg:items-end">
+          <div className="max-w-3xl">
+            <p className="hero-animate hero-animate-1 mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary-accent" />
+              {roleShort}
+              <span className="text-muted-foreground/60">·</span>
+              {location}
+            </p>
 
-          <h1 className="hero-animate hero-animate-2 font-heading text-4xl md:text-5xl lg:text-6xl font-normal leading-tight tracking-[-0.03em] text-foreground mb-6">
-             Building Production-Ready Systems That Scale.
-          </h1>
+            <p className="hero-animate hero-animate-2 mb-3 font-mono text-xs uppercase tracking-[0.16em] text-primary-accent">
+              {name}
+            </p>
 
-          <p className="hero-animate hero-animate-3 text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-8 max-w-xl">
-            Senior Mechanical Engineer specializing in FDA-cleared electromechanical systems, precision packaging, and thermal management.
-          </p>
+            <h1 className="hero-animate hero-animate-3 font-heading text-4xl font-normal leading-tight tracking-[-0.04em] text-foreground md:text-5xl lg:text-6xl">
+              Mechanical engineer for hardware that has to work in the field.
+            </h1>
 
-          <div className="hero-animate hero-animate-4 flex flex-wrap items-center gap-3">
-            <Button asChild>
-              <a href="/projects">
-                View Case Studies
-                <ArrowRight className="ml-1 h-4 w-4" />
-              </a>
-            </Button>
-            <Button variant="outline" asChild>
-              <a href="/about">About me</a>
-            </Button>
-          </div>
-
-          <div className="hero-animate hero-animate-4 flex items-center gap-1 mt-8">
-            {social.github && (
-              <Button variant="ghost" size="icon" asChild>
-                <a href={social.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                  <Github className="h-5 w-5" />
-                </a>
-              </Button>
-            )}
-            {social.linkedin && (
-              <Button variant="ghost" size="icon" asChild>
-                <a href={social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                  <Linkedin className="h-5 w-5" />
-                </a>
-              </Button>
-            )}
-            {social.twitter && (
-              <Button variant="ghost" size="icon" asChild>
-                <a href={social.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                  <Twitter className="h-5 w-5" />
-                </a>
-              </Button>
-            )}
-            {social.email && (
-              <Button variant="ghost" size="icon" asChild>
-                <a href={`mailto:${social.email}`} aria-label="Email">
-                  <Mail className="h-5 w-5" />
-                </a>
-              </Button>
-            )}
-          </div>
-        </div>
-
-        {/* Impact Metrics Bar */}
-        <div className="hero-animate hero-animate-4 mt-16 grid grid-cols-2 md:grid-cols-4 gap-3">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="backdrop-blur-sm bg-card/40 border border-border/50 rounded-xl px-4 py-4"
-            >
-              <p className="text-xl md:text-2xl font-bold text-primary-accent leading-tight">
-                {stat.value}
+            <div className="hero-animate hero-animate-4 mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-body-text">
+              <p>
+                I spent four years as the mechanical lead on an FDA-cleared Class IV laser device — owning the design, the fixtures, the production ramp, and the quality systems, often at the same time.
               </p>
-              <p className="text-xs text-muted-foreground mt-1.5 leading-snug">
-                {stat.label}
+              <p>
+                The product shipped, scaled to 1,500 units a week, and came back at a 3% return rate. That&apos;s the standard I hold myself to.
               </p>
             </div>
-          ))}
+
+            <div className="hero-animate hero-animate-4 mt-8 flex flex-wrap items-center gap-3">
+              <Button asChild size="lg">
+                <a href="/projects">
+                  View Case Studies
+                  <ArrowRight className="ml-1 h-4 w-4" />
+                </a>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <a href={`mailto:${social.email}`}>
+                  Get in Touch
+                  <Mail className="h-4 w-4" />
+                </a>
+              </Button>
+              <Button variant="ghost" size="lg" asChild>
+                <a href="/about">Go Deeper</a>
+              </Button>
+            </div>
+
+            <div className="hero-animate hero-animate-4 mt-8 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+              {social.email && (
+                <a
+                  href={`mailto:${social.email}`}
+                  className="inline-flex items-center gap-2 transition-colors duration-200 hover:text-foreground"
+                >
+                  <Mail className="h-4 w-4" />
+                  {social.email}
+                </a>
+              )}
+              <span className="inline-flex items-center gap-2">
+                <Phone className="h-4 w-4" />
+                {phone}
+              </span>
+              {social.linkedin && (
+                <a
+                  href={social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 transition-colors duration-200 hover:text-foreground"
+                >
+                  <LinkedinIcon className="h-4 w-4" />
+                  LinkedIn
+                </a>
+              )}
+            </div>
+          </div>
+
+          <div className="hero-animate hero-animate-4 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-2xl border border-primary-accent/25 bg-card/60 p-5 shadow-sm sm:col-span-2">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary-accent">
+                Why Teams Call Me
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-body-text">
+                I&apos;m a mechanical engineer first. But at a small company building a regulated device, the work doesn&apos;t stop at the design — someone has to make sure it can be built, tested, sourced, and audited. I&apos;ve consistently been that person, without losing the thread on the engineering itself.
+              </p>
+            </div>
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-2xl border border-border bg-card/50 p-5 shadow-sm transition-all duration-300 hover:border-primary-accent/30 hover:shadow-md"
+              >
+                <p className="text-xl font-semibold leading-tight text-foreground md:text-2xl">
+                  {stat.value}
+                </p>
+                <p className="mt-2 text-xs uppercase tracking-[0.12em] text-muted-foreground">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -8,8 +8,8 @@ export function AboutSection() {
 
   return (
     <Section label="About">
-      <div className="flex flex-col gap-8 md:flex-row md:items-start">
-        <div className="flex shrink-0 flex-col gap-2">
+      <div className="grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-start">
+        <div className="flex shrink-0 flex-col gap-3">
           <img
             src={avatar}
             alt={name}
@@ -19,21 +19,21 @@ export function AboutSection() {
           />
           <p className="text-xs text-muted-foreground">{location}</p>
         </div>
-        <div className="min-w-0 max-w-3xl flex-1 space-y-2">
-          <div className="space-y-1.5">
+        <div className="min-w-0 max-w-4xl space-y-4">
+          <div className="space-y-2">
             <p className="text-sm font-medium text-foreground">{name}</p>
             <p className="text-sm leading-relaxed text-body-text">{aboutNameNote}</p>
           </div>
-          <p className="text-sm text-muted-foreground pt-1">{role}</p>
-          <h2 className="font-heading mb-2 text-2xl font-normal tracking-[-0.03em] text-primary-accent md:text-3xl">
+          <p className="text-sm text-muted-foreground">{role}</p>
+          <h2 className="font-heading text-2xl font-normal tracking-[-0.03em] text-primary-accent md:text-3xl">
             {aboutTitle}
           </h2>
-          <div className="space-y-3 text-sm leading-relaxed text-body-text">
+          <div className="max-w-3xl space-y-3 text-sm leading-relaxed text-body-text">
             {aboutBioParagraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
-          <div className="pt-4">
+          <div className="pt-2">
             <AboutMetrics />
           </div>
         </div>

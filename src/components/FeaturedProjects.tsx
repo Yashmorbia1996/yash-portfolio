@@ -25,14 +25,19 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
   if (featured.length === 0) return null;
 
   return (
-    <Section label="Featured Work">
-      <div className="flex items-end justify-between mb-10">
-        <h2 className="font-heading text-3xl md:text-4xl font-normal tracking-[-0.03em]">
-          Selected projects
-        </h2>
+    <Section label="Case Studies">
+      <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="max-w-3xl space-y-3">
+          <h2 className="font-heading text-3xl md:text-4xl font-normal tracking-[-0.03em]">
+            Flagship work
+          </h2>
+          <p className="text-sm leading-relaxed text-body-text">
+            Three projects from the same program — each one a different type of problem, the same standard for what done looks like.
+          </p>
+        </div>
         <Button variant="ghost" size="sm" asChild className="hidden sm:flex">
           <a href="/projects">
-            All projects <ArrowRight className="ml-1 h-4 w-4" />
+            All case studies <ArrowRight className="ml-1 h-4 w-4" />
           </a>
         </Button>
       </div>
@@ -52,7 +57,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
       <div className="mt-8 sm:hidden">
         <Button variant="outline" asChild>
           <a href="/projects">
-            All projects <ArrowRight className="ml-1 h-4 w-4" />
+            All case studies <ArrowRight className="ml-1 h-4 w-4" />
           </a>
         </Button>
       </div>
