@@ -15,9 +15,9 @@ export function Header({ currentPath = "/" }: HeaderProps) {
 
   return (
     <ThemeProvider>
-      <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+      <header className="fixed left-1/2 top-5 z-50 -translate-x-1/2">
         <nav
-          className="flex items-center gap-1 bg-card/80 backdrop-blur-md border border-border rounded-full px-2 py-1.5"
+          className="flex items-center gap-1 rounded-full border border-border bg-nav-background px-2 py-1.5 shadow-[var(--shadow-soft)] backdrop-blur-xl"
           aria-label="Main navigation"
         >
           {nav.map((link) => {
@@ -31,8 +31,8 @@ export function Header({ currentPath = "/" }: HeaderProps) {
                 href={link.href}
                 className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   isActive
-                    ? "text-primary-accent bg-primary-accent/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    ? "bg-button-secondary text-primary-accent"
+                    : "text-text-muted hover:bg-card-hover hover:text-text-primary"
                 }`}
                 aria-current={isActive ? "page" : undefined}
               >
@@ -41,7 +41,7 @@ export function Header({ currentPath = "/" }: HeaderProps) {
               </a>
             );
           })}
-          <div className="ml-1 pl-1 border-l border-border">
+          <div className="ml-1 border-l border-border pl-1">
             <ThemeToggle />
           </div>
         </nav>

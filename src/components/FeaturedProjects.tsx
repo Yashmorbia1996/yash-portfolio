@@ -30,13 +30,13 @@ const caseStudies = [
 export function FeaturedProjects() {
 
   return (
-    <Section>
+    <Section id="case-studies">
       <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-4xl space-y-4">
-          <p className="text-5xl font-semibold tracking-[-0.04em] text-blue-600 md:text-6xl">
+          <p className="theme-section-title text-5xl font-semibold md:text-6xl">
             Case Studies
           </p>
-          <p className="text-base leading-relaxed text-gray-700">
+          <p className="text-base leading-relaxed text-text-secondary">
             Three flagship projects framed the way engineering teams actually talk about impact.
           </p>
         </div>

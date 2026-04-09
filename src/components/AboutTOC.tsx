@@ -32,18 +32,18 @@ export function AboutTOC() {
   return (
     <aside className="hidden xl:block w-48 shrink-0">
       <div className="sticky top-28">
-        <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-5">
+        <p className="mb-5 text-xs font-semibold uppercase tracking-widest text-text-muted">
           On this page
         </p>
-        <nav className="flex flex-col border-l border-slate-800">
+        <nav className="flex flex-col border-l border-border">
           {sections.map(({ id, label }) => (
             <a
               key={id}
               href={`#${id}`}
               className={`text-sm py-1.5 pl-4 transition-colors border-l-2 -ml-px ${
                 activeId === id
-                  ? "text-cyan-400 font-medium border-cyan-400"
-                  : "text-slate-500 hover:text-slate-300 border-transparent"
+                  ? "font-medium text-primary-accent border-primary-accent"
+                  : "border-transparent text-text-muted hover:text-text-primary"
               }`}
             >
               {label}

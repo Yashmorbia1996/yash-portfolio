@@ -10,10 +10,10 @@ export function HomeWorkExperienceSection({ entries }: HomeWorkExperienceSection
     <Section id="home-work-experience" className="bg-transparent">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 max-w-4xl space-y-4">
-          <p className="text-5xl font-semibold tracking-[-0.04em] text-blue-600 md:text-6xl">
+          <p className="theme-section-title text-5xl font-semibold md:text-6xl">
             Work Experience
           </p>
-          <p className="text-base leading-relaxed text-gray-700">
+          <p className="text-base leading-relaxed text-text-secondary">
             A closer look at the roles where design, production, and regulated hardware execution came together.
           </p>
         </div>

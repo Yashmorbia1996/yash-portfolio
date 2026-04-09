@@ -81,7 +81,7 @@ function Node({ data, variant }: { data: WorkTimelineEntry["data"]; variant: "de
     <div className={["relative z-10 flex justify-center", variant === "home" ? "pt-3" : "pt-2"].join(" ")}>
       <div
         className={[
-          "timeline-node-shell flex items-center justify-center rounded-full bg-background/95",
+          "timeline-node-shell flex items-center justify-center rounded-full bg-background",
           data.current ? "timeline-node-shell--current" : "",
           variant === "home" ? "h-16 w-16" : "h-14 w-14",
         ].join(" ")}
@@ -125,7 +125,7 @@ function MetaBlock({
           {periodLabel(data)}
         </p>
         {data.location ? (
-          <p className={variant === "home" ? "text-sm text-muted-foreground" : "text-xs text-muted-foreground"}>
+          <p className={variant === "home" ? "text-sm text-text-muted" : "text-xs text-text-muted"}>
             {data.location}
           </p>
         ) : null}
@@ -165,7 +165,7 @@ function TimelineCard({
   return (
     <article
       className={[
-        "relative overflow-visible border border-border/80 bg-card shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-shadow duration-300 hover:shadow-[0_14px_30px_rgba(15,23,42,0.08)]",
+        "theme-panel theme-panel-hover relative overflow-visible",
         variant === "home" ? "rounded-[1.5rem] p-5 md:p-5" : "rounded-2xl p-4",
       ].join(" ")}
     >
@@ -178,8 +178,8 @@ function TimelineCard({
         <h3
           className={
             variant === "home"
-              ? "max-w-[26ch] text-xl font-semibold leading-tight text-gray-900 md:text-[1.6rem]"
-              : "max-w-[24ch] text-base font-semibold leading-tight text-gray-900 md:text-lg"
+              ? "max-w-[26ch] text-xl font-semibold leading-tight text-text-primary md:text-[1.6rem]"
+              : "max-w-[24ch] text-base font-semibold leading-tight text-text-primary md:text-lg"
           }
         >
           {data.role}
@@ -205,8 +205,8 @@ function TimelineCard({
       <p
         className={
           variant === "home"
-            ? "mt-4 max-w-[60ch] text-[0.98rem] leading-relaxed text-body-text"
-            : "mt-4 max-w-[58ch] text-sm leading-relaxed text-body-text"
+            ? "mt-4 max-w-[60ch] text-[0.98rem] leading-relaxed text-text-secondary"
+            : "mt-4 max-w-[58ch] text-sm leading-relaxed text-text-secondary"
         }
       >
         {data.description}
@@ -221,7 +221,7 @@ function TimelineCard({
               }
             >
               {data.achievements.map((line, i) => (
-                <li key={i} className={variant === "home" ? "flex gap-3 text-base text-body-text" : "flex gap-2 text-sm text-body-text"}>
+                <li key={i} className={variant === "home" ? "flex gap-3 text-base text-text-secondary" : "flex gap-2 text-sm text-text-secondary"}>
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-current" aria-hidden />
                   <span>{line}</span>
                 </li>
@@ -334,7 +334,7 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
               <div key={entry.id} className="relative">
                 <div
                   className={[
-                    "timeline-node-shell absolute -left-6 top-5 z-10 -translate-x-1/2 rounded-full bg-background/95 p-1.5",
+                    "timeline-node-shell absolute -left-6 top-5 z-10 -translate-x-1/2 rounded-full bg-background p-1.5",
                     data.current ? "timeline-node-shell--current" : "",
                   ].join(" ")}
                 >
@@ -352,7 +352,7 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
                     <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
                       {periodLabel(data)}
                     </p>
-                    {data.location ? <p className="text-xs text-muted-foreground">{data.location}</p> : null}
+                    {data.location ? <p className="text-xs text-text-muted">{data.location}</p> : null}
                   </div>
                 </div>
               </div>

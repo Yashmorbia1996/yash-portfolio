@@ -14,34 +14,83 @@
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
 
+:root {
+  --background: #f5f7fb;
+  --background-secondary: #eef3f8;
+  --surface: #ffffff;
+  --surface-elevated: #f8fafc;
+  --card-background: rgba(255, 255, 255, 0.92);
+  --card-hover: #f3f7fd;
+  --border: #dbe3ee;
+  --border-strong: #c7d3e3;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent: #2563eb;
+  --accent-foreground: #ffffff;
+  --nav-background: rgba(255, 255, 255, 0.84);
+  --button-primary: #2563eb;
+  --button-secondary: #edf3ff;
+  --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-elevated: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.dark {
+  --background: #0b1118;
+  --background-secondary: #0f1621;
+  --surface: #121a24;
+  --surface-elevated: #17212e;
+  --card-background: rgba(18, 26, 36, 0.92);
+  --card-hover: #1b2635;
+  --border: #243244;
+  --border-strong: #33465d;
+  --text-primary: #f3f7fb;
+  --text-secondary: #c9d4e2;
+  --text-muted: #8ea0b6;
+  --accent: #5f7df5;
+  --accent-foreground: #f8fbff;
+  --nav-background: rgba(15, 22, 33, 0.84);
+  --button-primary: #5f7df5;
+  --button-secondary: #182334;
+  --shadow-soft: 0 1px 2px rgba(2, 8, 20, 0.38);
+  --shadow-elevated: 0 16px 44px rgba(2, 8, 20, 0.42);
+}
+
 @theme {
-  /* ── Linear Ash (Light) — default / :root ── */
-  --color-background: #f9fafb;
-  /* WCAG AA body text ≥4.5:1 on typical surfaces */
-  --color-foreground: #111827;
-  --color-body-text: #111827;
-  --color-card: #FFFFFF;
-  --color-card-foreground: #111827;
-  --color-popover: #FFFFFF;
-  --color-popover-foreground: #111827;
-  --color-primary-accent: #2563eb;
-  --color-primary: #2563eb;
-  --color-primary-foreground: #FFFFFF;
-  --color-secondary: #f3f4f6;
-  --color-secondary-foreground: #111827;
-  --color-muted: #f3f4f6;
-  /* Secondary UI copy: darker gray for ≥4.5:1 on light backgrounds */
-  --color-muted-foreground: #6b7280;
-  --color-accent: #f3f4f6;
-  --color-accent-foreground: #111827;
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-foreground: var(--text-primary);
+  --color-body-text: var(--text-secondary);
+  --color-card: var(--card-background);
+  --color-card-background: var(--card-background);
+  --color-card-hover: var(--card-hover);
+  --color-card-foreground: var(--text-primary);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--text-primary);
+  --color-primary-accent: var(--accent);
+  --color-primary: var(--button-primary);
+  --color-primary-foreground: var(--accent-foreground);
+  --color-secondary: var(--button-secondary);
+  --color-secondary-foreground: var(--text-primary);
+  --color-muted: var(--surface-elevated);
+  --color-muted-foreground: var(--text-muted);
+  --color-accent: var(--button-secondary);
+  --color-accent-foreground: var(--text-primary);
   --color-destructive: hsl(0 62.8% 50%);
   --color-destructive-foreground: #FFFFFF;
-  --color-border: #e5e7eb;
-  --color-input: #e5e7eb;
-  --color-ring: #2563eb;
-  --color-brand: #2563eb;
-  --color-surface: #FFFFFF;
-  --color-surface-elevated: #ECEDF0;
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--border);
+  --color-ring: var(--accent);
+  --color-brand: var(--accent);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-nav-background: var(--nav-background);
+  --color-button-primary: var(--button-primary);
+  --color-button-secondary: var(--button-secondary);
 
   /* Fonts */
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
@@ -70,35 +119,6 @@
   --radius: 0.75rem;
 }
 
-/* ── Linear Midnight (Dark) — .dark overrides ── */
-.dark {
-  --color-background: #08090A;
-  --color-foreground: #edf2f7;
-  --color-body-text: #edf2f7;
-  --color-card: #121315;
-  --color-card-foreground: #edf2f7;
-  --color-popover: #121315;
-  --color-popover-foreground: #edf2f7;
-  --color-primary-accent: #5E6AD2;
-  --color-primary: #5E6AD2;
-  --color-primary-foreground: #FFFFFF;
-  --color-secondary: #1C1D1F;
-  --color-secondary-foreground: #edf2f7;
-  --color-muted: #1C1D1F;
-  /* Off-white / light gray for secondary copy on dark bg — ≥4.5:1 */
-  --color-muted-foreground: #cbd5e1;
-  --color-accent: #1C1D1F;
-  --color-accent-foreground: #edf2f7;
-  --color-destructive: hsl(0 62.8% 50%);
-  --color-destructive-foreground: #edf2f7;
-  --color-border: #222326;
-  --color-input: #222326;
-  --color-ring: #5E6AD2;
-  --color-brand: #5E6AD2;
-  --color-surface: #121315;
-  --color-surface-elevated: #1C1D1F;
-}
-
 /* Single container for navbar, hero, sections, footer */
 .site-container {
   width: 100%;
@@ -118,12 +138,13 @@
 
 body {
   background-color: var(--color-background);
-  color: var(--color-foreground);
+  color: var(--color-text-primary);
   font-family: var(--font-sans);
+  background-image: linear-gradient(180deg, color-mix(in srgb, var(--color-background-secondary) 72%, transparent) 0%, transparent 22%);
 }
 
 h1, h2, h3 {
-  color: var(--color-foreground);
+  color: var(--color-text-primary);
 }
 
 /* ── prose styles for MDX content ── */
@@ -175,7 +196,7 @@ h1, h2, h3 {
 
 /* Timeline node shell keeps the axis crisp against the page background */
 .timeline-node-shell {
-  box-shadow: 0 0 0 10px rgba(249, 250, 251, 0.96);
+  box-shadow: 0 0 0 10px color-mix(in srgb, var(--color-background) 96%, transparent);
 }
 
 .timeline-node-shell--current {
@@ -251,6 +272,27 @@ h1, h2, h3 {
   .bg-surface { background-color: var(--color-surface); }
   .bg-surface-elevated { background-color: var(--color-surface-elevated); }
   .border-brand { border-color: var(--color-brand); }
+  .theme-panel {
+    background-color: var(--color-card-background);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(18px);
+  }
+  .theme-panel-hover {
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .theme-panel-hover:hover {
+    background-color: var(--color-card-hover);
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-elevated);
+  }
+  .theme-section-title {
+    color: var(--color-primary-accent);
+    letter-spacing: var(--letter-spacing-heading);
+  }
+  .theme-eyebrow {
+    color: var(--color-primary-accent);
+  }
   .blueprint-board {
     background-image:
       linear-gradient(to right, rgba(37, 99, 235, 0.06) 1px, transparent 1px),

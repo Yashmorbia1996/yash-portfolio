@@ -4,7 +4,7 @@ export const siteConfig = {
   roleShort: "Senior Mechanical Engineer",
   role: "Senior Mechanical Engineer | Product Development, Manufacturing & Scale",
   bio: "Senior mechanical engineer building hardware that has to ship, scale, and survive the field.",
-  avatar: "/images/avatar.svg",
+  avatar: "/images/Yash-morbia-headshot.jpeg",
   location: "Greater Boston",
   phone: "(480) 434-0034",
 
@@ -22,7 +22,6 @@ export const siteConfig = {
   nav: [
     { label: "Home", href: "/", icon: "Home" },
     { label: "Projects", href: "/projects", icon: "Briefcase" },
-    { label: "About", href: "/about", icon: "User" },
   ],
 
   skills: [

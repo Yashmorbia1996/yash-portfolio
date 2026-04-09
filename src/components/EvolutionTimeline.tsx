@@ -81,7 +81,7 @@ export function EvolutionTimeline({
       <h2 className="font-heading text-2xl md:text-3xl font-normal tracking-[-0.02em] text-foreground mb-2">
         Design Evolution
       </h2>
-      <p className="text-sm text-slate-600 dark:text-slate-300 mb-10">
+      <p className="mb-10 text-sm text-text-secondary">
         From initial concept to production-optimized system.
       </p>
 
@@ -118,7 +118,7 @@ export function EvolutionTimeline({
                   <p className="text-sm font-medium text-foreground/75 mb-3 italic leading-relaxed">
                     "{step.decision}"
                   </p>
-                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <p className="text-sm leading-relaxed text-text-secondary">
                     {step.description}
                   </p>
                 </div>

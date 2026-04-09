@@ -8,19 +8,19 @@ export function NextSection() {
   return (
     <Section id="contact">
       <div className="max-w-2xl mx-auto text-center">
-        <h2 className="mb-4 text-5xl font-semibold tracking-[-0.04em] text-blue-600 md:text-6xl">
+        <h2 className="theme-section-title mb-4 text-5xl font-semibold md:text-6xl">
           What I want next
         </h2>
-        <p className="text-base text-body-text leading-relaxed mb-10 max-w-2xl mx-auto">
+        <p className="mb-10 max-w-2xl mx-auto text-base leading-relaxed text-text-secondary">
           I&apos;m looking for a Senior Mechanical Engineer or Product Development role where the hardware is complex enough that design decisions carry real consequences in manufacturing and the field.
         </p>
-        <p className="text-base text-body-text leading-relaxed mb-10 max-w-2xl mx-auto">
+        <p className="mb-10 max-w-2xl mx-auto text-base leading-relaxed text-text-secondary">
           I work best on teams that care about getting the details right, including tolerance stack, thermal margins, and build repeatability, and where engineering judgment is trusted early in the process, not just at the review stage.
         </p>
 
         <a
           href={social.email ? `mailto:${social.email}` : "#"}
-          className="inline-flex items-center gap-2 bg-primary-accent text-white rounded-xl px-8 py-4 text-base font-semibold hover:opacity-90 transition-opacity duration-200 mb-8"
+          className="mb-8 inline-flex items-center gap-2 rounded-xl bg-button-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-[var(--shadow-soft)] transition-opacity duration-200 hover:opacity-95"
         >
           Let's Build Something Great
         </a>
@@ -29,14 +29,14 @@ export function NextSection() {
           {social.email && (
             <a
               href={`mailto:${social.email}`}
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+              className="inline-flex items-center gap-2 text-sm text-text-muted transition-colors duration-200 hover:text-text-primary"
             >
               <Mail className="h-4 w-4" />
               {social.email}
             </a>
           )}
           {phone && (
-            <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="inline-flex items-center gap-2 text-sm text-text-muted">
               <Phone className="h-4 w-4" />
               {phone}
             </span>
@@ -46,7 +46,7 @@ export function NextSection() {
               href={social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+              className="inline-flex items-center gap-2 text-sm text-text-muted transition-colors duration-200 hover:text-text-primary"
             >
               <LinkedinIcon className="h-4 w-4" />
               LinkedIn
