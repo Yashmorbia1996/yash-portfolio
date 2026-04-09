@@ -173,32 +173,73 @@ h1, h2, h3 {
   border-radius: 0.75rem;
 }
 
-/* Timeline card diamond — points toward center rail (card on the right) */
+/* Timeline node shell keeps the axis crisp against the page background */
+.timeline-node-shell {
+  box-shadow: 0 0 0 10px rgba(249, 250, 251, 0.96);
+}
+
+.timeline-node-shell--current {
+  position: relative;
+}
+
+.timeline-node-shell--current::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 9999px;
+  border: 1.5px solid color-mix(in srgb, var(--color-primary-accent) 72%, white 28%);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primary-accent) 18%, transparent);
+  opacity: 0.72;
+  animation: timeline-node-breathe 4.8s ease-in-out infinite;
+}
+
+/* Timeline connector — clean horizontal rule with a small terminal cap */
 .experience-card-pointer {
   position: absolute;
   left: 0;
-  top: 2.5rem;
-  width: 0.625rem;
-  height: 0.625rem;
-  background: var(--color-card);
-  border-left: 1px solid color-mix(in srgb, var(--color-primary-accent) 28%, var(--color-border));
-  border-bottom: 1px solid color-mix(in srgb, var(--color-primary-accent) 28%, var(--color-border));
-  transform: translate(-50%, -50%) rotate(45deg);
+  top: 2.55rem;
+  width: 1rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-primary-accent) 26%, var(--color-border));
+  transform: translateX(calc(-100% - 0.4rem));
   pointer-events: none;
 }
 
-/* Card sits on the left; diamond points right toward the rail */
+.experience-card-pointer::after {
+  content: "";
+  position: absolute;
+  left: -0.25rem;
+  top: 50%;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-primary-accent) 34%, var(--color-border));
+  transform: translateY(-50%);
+}
+
 .experience-card-pointer-end {
   position: absolute;
   right: 0;
-  top: 2.5rem;
-  width: 0.625rem;
-  height: 0.625rem;
-  background: var(--color-card);
-  border-right: 1px solid color-mix(in srgb, var(--color-primary-accent) 28%, var(--color-border));
-  border-top: 1px solid color-mix(in srgb, var(--color-primary-accent) 28%, var(--color-border));
-  transform: translate(50%, -50%) rotate(45deg);
+  top: 2.55rem;
+  width: 1rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-primary-accent) 26%, var(--color-border));
+  transform: translateX(calc(100% + 0.4rem));
   pointer-events: none;
+}
+
+.experience-card-pointer-end::after {
+  content: "";
+  position: absolute;
+  right: -0.25rem;
+  top: 50%;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-primary-accent) 34%, var(--color-border));
+  transform: translateY(-50%);
 }
 
 @layer utilities {
@@ -238,6 +279,17 @@ a, button, [role="button"], input, select, textarea {
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes timeline-node-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.58;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.9;
+  }
 }
 
 .hero-animate {

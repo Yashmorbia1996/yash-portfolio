@@ -9,7 +9,7 @@ export const siteConfig = {
   phone: "(480) 434-0034",
 
   url: "https://your-portfolio.example.com",
-  description: "Yash Morbia — senior mechanical engineer focused on regulated hardware, NPI, manufacturing scale-up, and product reliability.",
+  description: "Yash Morbia, senior mechanical engineer focused on regulated hardware, NPI, manufacturing scale-up, and product reliability.",
   ogImage: "/images/og.jpg",
 
   social: {

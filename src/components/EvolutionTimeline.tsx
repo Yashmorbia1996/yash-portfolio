@@ -28,7 +28,7 @@ const defaultSteps: TimelineStep[] = [
     phase: "First Design",
     decision: "Prototype with COTS components to validate thermal and structural assumptions",
     description:
-      "Alpha build used commercial off-the-shelf hardware to validate thermal dissipation models and cable routing. FEA on the enclosure shell revealed a stress concentration at the hinge — redesigned with a 1.5 mm fillet and updated material to PC/ABS blend.",
+      "Alpha build used commercial off-the-shelf hardware to validate thermal dissipation models and cable routing. FEA on the enclosure shell revealed a stress concentration at the hinge, so it was redesigned with a 1.5 mm fillet and updated material to PC/ABS blend.",
     imageAlt: "Alpha prototype and FEA stress analysis render",
   },
   {

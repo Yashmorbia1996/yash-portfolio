@@ -9,11 +9,11 @@ tags: ["SolidWorks CSWP", "GD&T", "Tolerance Stack-up", "Optical Alignment", "IS
 
 ## Overview
 
-This project covered the **full arc** of an optical **LIV (Light–Current–Voltage)** test capability for a **VCSEL-based illuminator** in the **850 nm** range. LIV work—relating optical output to drive current and device voltage—is how you prove emitters are efficient, stable, and consistent before they feed **higher-level system test** or **outbound quality** gates.
+This project covered the **full arc** of an optical **LIV (Light/Current/Voltage)** test capability for a **VCSEL-based illuminator** in the **850 nm** range. LIV work, which relates optical output to drive current and device voltage, is how you prove emitters are efficient, stable, and consistent before they feed **higher-level system test** or **outbound quality** gates.
 
-The effort was explicitly **production-minded**, not a one-off lab demo. The team needed **high-volume screening**: repeatable optical coupling, controlled thermal conditions across sweeps, and a fixture that survived **repeatable load/unload**, **electrical connection**, and **audit-ready documentation** inside a **medical-style QMS** (ISO **13485**–aligned expectations on design inputs, reviews, and released drawings).
+The effort was explicitly **production-minded**, not a one-off lab demo. The team needed **high-volume screening**: repeatable optical coupling, controlled thermal conditions across sweeps, and a fixture that survived **repeatable load/unload**, **electrical connection**, and **audit-ready documentation** inside a **medical-style QMS** with ISO **13485** aligned expectations on design inputs, reviews, and released drawings.
 
-Execution followed the portfolio narrative: a **working bench concept**, a **first structured optical rig** that stressed alignment and environment, then an **optimized batch-test fixture** modeled in **SolidWorks** and released as **Configuration 3 — LIV Tester (production build)** with a **39-item BOM** and completed **motion**, **interference**, and **exploded-view** verification.
+Execution followed the portfolio narrative: a **working bench concept**, a **first structured optical rig** that stressed alignment and environment, then an **optimized batch-test fixture** modeled in **SolidWorks** and released as **Configuration 3: LIV Tester (production build)** with a **39-item BOM** and completed **motion**, **interference**, and **exploded-view** verification.
 
 ## Problem
 
@@ -23,11 +23,11 @@ Early work looked like a **manual probe-station** flow: workable for bring-up, p
 
 ### Optical coupling vs. “true” device behavior
 
-LIV only answers the right question when the **measurement path** is stable. Small shifts in how the part sits or how the **optical train** aligns create **apparent** power swings—often misread as emitter drift. Early bench setups leaned on **loose mechanical referencing**; the program needed **datum-defined** seating and a credible path to **tight repeatability** versus ad hoc tuning.
+LIV only answers the right question when the **measurement path** is stable. Small shifts in how the part sits or how the **optical train** aligns create **apparent** power swings, and those are often misread as emitter drift. Early bench setups leaned on **loose mechanical referencing**. The program needed **datum-defined** seating and a credible path to **tight repeatability** versus ad hoc tuning.
 
 ### Thermal and mechanical environment
 
-Current sweeps take **time**. Without **controlled stage and DUT temperature**, **self-heating** and **ambient drift** distort curves and blur pass/fail. The first structured rig explicitly surfaced **thermal** transients and **vibration / handling** sensitivity—issues that had to be designed down before results could be treated as **production truth**.
+Current sweeps take **time**. Without **controlled stage and DUT temperature**, **self-heating** and **ambient drift** distort curves and blur pass/fail. The first structured rig explicitly surfaced **thermal** transients and **vibration / handling** sensitivity. Those issues had to be designed down before results could be treated as **production truth**.
 
 ### Release readiness
 
@@ -37,36 +37,36 @@ A lab-only assembly is not a **released test asset**. Manufacturing and quality 
 
 The team followed a staged **design evolution** (portfolio Example 02), with **measurement architecture and datums fixed before heavy CAD** so tolerance strategy stayed coherent end-to-end.
 
-### Phase 1 — Working concept (bench, off-the-shelf hardware)
+### Phase 1: Working concept (bench, off-the-shelf hardware)
 
-**Goal:** Validate the **LIV optical measurement principle** at the bench using **off-the-shelf** optics, stages, and instrumentation—enough to prove feasibility and extract **non-negotiable alignment requirements** before detailed mechanical design.
+**Goal:** Validate the **LIV optical measurement principle** at the bench using **off-the-shelf** optics, stages, and instrumentation. The aim was to prove feasibility and extract **non-negotiable alignment requirements** before detailed mechanical design.
 
 **Decision:** Formalize **measurement architecture** (optical path concept, detector approach, electrical stimulus/measurement boundaries) and identify **critical alignment datums** **before** locking CAD. That order avoids expensive tolerance cascades after tooling spend.
 
-### Phase 2 — First design: structured optical test rig
+### Phase 2: First design, structured optical test rig
 
 **Goal:** Turn the concept into a **structured optical test rig**: **precision mount base**, **adjustable stages**, and defined interfaces so units could be exercised under engineering test conditions with repeatable intent.
 
 **Learning:** Repeatability trials exposed **thermal** effects and **vibration / handling** sensitivity that would have contaminated production metrics if ignored.
 
-**Decision:** Adopt **kinematic-style mounting** with **repeatable datums** to remove **operator-induced alignment variability** from the dominant error budget—trading infinite adjustability for **stable, teachable** setup.
+**Decision:** Adopt **kinematic-style mounting** with **repeatable datums** to remove **operator-induced alignment variability** from the dominant error budget, trading infinite adjustability for a **stable, teachable** setup.
 
-### Phase 3 — Optimized batch test design (SolidWorks production fixture)
+### Phase 3: Optimized batch test design (SolidWorks production fixture)
 
 **Goal:** A **production-oriented** fixture tuned for **faster load, unload, electrical hookup, and time per test cycle**, with mechanical **constraint** that supports **batch** throughput without sacrificing measurement integrity.
 
 **Engineering content:**
 
-- **Kinematic nest** — **Three-point kinematic** coupling (ball-and-groove / equivalent constraint pattern) for **repeatable part seating** on the order of **single-digit micrometers** under controlled use—far beyond what informal bench fixturing can hold.
-- **Thermal control** — **Closed-loop** thermal regulation on the device stage (e.g. **Peltier** chuck with **PID**) to hold **tight bounds** across sweeps and limit **drift** tied to soak and self-heating.
-- **Optical stack** — **Telecentric** (or otherwise stability-oriented) optics where the spec demands, plus **integrating sphere** mounting **co-developed with optical engineering** so **NA**, **clear aperture**, and **alignment sensitivity** match the test plan.
-- **Structural assurance** — **SolidWorks Simulation (FEA)** on the baseplate / load path so **deflection** under **probe contact** and handling loads stays **within** the optical alignment budget.
+- **Kinematic nest:** **Three-point kinematic** coupling (ball-and-groove / equivalent constraint pattern) for **repeatable part seating** on the order of **single-digit micrometers** under controlled use. That is far beyond what informal bench fixturing can hold.
+- **Thermal control:** **Closed-loop** thermal regulation on the device stage (e.g. **Peltier** chuck with **PID**) to hold **tight bounds** across sweeps and limit **drift** tied to soak and self-heating.
+- **Optical stack:** **Telecentric** (or otherwise stability-oriented) optics where the spec demands, plus **integrating sphere** mounting **co-developed with optical engineering** so **NA**, **clear aperture**, and **alignment sensitivity** match the test plan.
+- **Structural assurance:** **SolidWorks Simulation (FEA)** on the baseplate / load path so **deflection** under **probe contact** and handling loads stays **within** the optical alignment budget.
 
-**Decision:** Target a **3× throughput increase** for **batch** LIV testing versus the pre-optimization workflow—driven by faster cycling, fewer alignment iterations, and more **error-proof** handling.
+**Decision:** Target a **3× throughput increase** for **batch** LIV testing versus the pre-optimization workflow, driven by faster cycling, fewer alignment iterations, and more **error-proof** handling.
 
-### Production release — Configuration 3 (LIV Tester, final)
+### Production release: Configuration 3 (LIV Tester, final)
 
-The released deliverable was **Configuration 3 — LIV Tester (production build)**:
+The released deliverable was **Configuration 3: LIV Tester (production build)**:
 
 - **Full SolidWorks CAD** with a **39-item BOM** across **optical**, **mechanical**, and **electrical** subassemblies.
 - **Production-released GD&T** drawing set for build and inspection.
@@ -74,8 +74,8 @@ The released deliverable was **Configuration 3 — LIV Tester (production build)
 
 ## Outcome
 
-- **Throughput:** **3×** improvement in **batch** LIV test throughput versus the prior workflow—driven by fixture architecture and reduced per-cycle overhead (load / connect / test / unload).
+- **Throughput:** **3×** improvement in **batch** LIV test throughput versus the prior workflow, driven by fixture architecture and reduced per-cycle overhead (load / connect / test / unload).
 - **Repeatability:** Shift from **operator-dependent** bench alignment to **datum-driven kinematic** seating, stabilizing **optical coupling** so LIV comparisons reflect the **device**, not the setup.
 - **Environment:** Addressed **thermal** and **vibration** sensitivities uncovered in the first structured rig; sweeps run under **controlled stage conditions** aligned to production limits.
-- **Release package:** **Config 3** LIV tester, **39-line BOM**, **GD&T** documentation, and completed **motion / interference / exploded** checks—ready for **manufacturing** and **quality** handoff.
-- **Quality system fit:** Execution under **ISO 13485**–style design controls, with **SolidWorks (CSWP)**–level modeling discipline, **tolerance stack-up** on critical chains, and traceable decisions from concept through release.
+- **Release package:** **Config 3** LIV tester, **39-line BOM**, **GD&T** documentation, and completed **motion / interference / exploded** checks, ready for **manufacturing** and **quality** handoff.
+- **Quality system fit:** Execution under **ISO 13485** style design controls, with **SolidWorks (CSWP)** level modeling discipline, **tolerance stack-up** on critical chains, and traceable decisions from concept through release.

@@ -13,7 +13,7 @@ A deployed Class II analyzer was generating thermal fault alarms at 3.2 per 100 
 
 ## Problem
 
-The original design used a TO-220 MOSFET with a single-layer thermal pad and no heatsink. At 40°C ambient — common in clinical settings — junction temperature exceeded the 125°C limit under sustained load. Field service bulletins and firmware throttling were band-aids; a hardware fix was required.
+The original design used a TO-220 MOSFET with a single-layer thermal pad and no heatsink. At 40°C ambient, which is common in clinical settings, junction temperature exceeded the 125°C limit under sustained load. Field service bulletins and firmware throttling were band-aids, so a hardware fix was required.
 
 ## Approach
 
@@ -31,5 +31,5 @@ DFM review confirmed the slug was machinable at cost parity with the original BO
 
 - Peak junction temperature: 89°C → 55°C (34°C reduction)
 - Field thermal fault rate: 3.2 → 0.28 per 100 units/month (−91%)
-- No firmware throttling required — full performance spec restored
+- No firmware throttling required, and full performance spec restored
 - Solution adopted as the thermal design standard for the next-generation platform
