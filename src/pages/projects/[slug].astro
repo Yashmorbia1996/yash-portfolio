@@ -39,7 +39,7 @@ const formattedDate = project.data.date.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title={project.data.title} description={project.data.summary}>
-  <div class:list={[isThermalProject ? 'site-container-thermal pt-24 pb-20' : 'site-container pt-24 pb-20']}>
+  <div class="site-container pt-24 pb-20">
     <a
       href="/projects"
       class="mb-10 inline-flex items-center gap-2 text-sm text-text-muted transition-colors duration-200 hover:text-text-primary"
@@ -120,7 +120,7 @@ const formattedDate = project.data.date.toLocaleDateString('en-US', {
       </div>
     )}
 
-    <div class:list={[isThermalProject ? '' : 'max-w-5xl']}>
+    <div class="max-w-5xl">
       <div class="prose prose-neutral dark:prose-invert max-w-none prose-content">
         <Content />
       </div>

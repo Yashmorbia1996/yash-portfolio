@@ -143,43 +143,6 @@
   }
 }
 
-/* Wider, responsive container for the thermal project page */
-.site-container-thermal {
-  width: 100%;
-  max-width: 92vw;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-@media (width >= 768px) {
-  .site-container-thermal {
-    padding-left: 4rem;
-    padding-right: 4rem;
-    max-width: 88vw;
-  }
-}
-
-@media (width >= 1280px) {
-  .site-container-thermal {
-    max-width: 82vw;
-  }
-}
-
-@media (width >= 1536px) {
-  .site-container-thermal {
-    max-width: 78vw;
-    padding-right: calc(4rem + var(--dock-safe-2xl));
-  }
-}
-
-@media (width >= 1920px) {
-  .site-container-thermal {
-    max-width: 72vw;
-  }
-}
-
 body {
   background-color: var(--color-background);
   color: var(--color-text-primary);
