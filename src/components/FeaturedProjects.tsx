@@ -7,9 +7,10 @@ const caseStudies = [
   {
     slug: "thermal-redesign-journey",
     title: "Thermal Redesign Journey",
-    problem: "23% field return rate from overheating.",
-    action: "Optimized grill geometry via SolidWorks Flow Simulation and deployed an all-metal heatsink.",
-    result: "16°C chip temp reduction; returns dropped to 3%.",
+    problem: "23% returns from field overheating; needed a real thermal-path fix.",
+    action:
+      "Grill/airflow iteration in Flow Simulation plus validation, then semiconductor and heatsink stack upgrade.",
+    result: "16°C chip reduction; returns 23% → below 3%; both phases to production.",
   },
   {
     slug: "liv-optical-test-rig",

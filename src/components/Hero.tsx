@@ -1,5 +1,5 @@
 import { type MouseEvent, useEffect, useState } from "react";
-import { ArrowRight, ChevronRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Award, ChevronRight, Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 
@@ -244,6 +244,12 @@ export function Hero() {
                   <a href="/projects">
                     View Case Studies
                     <ArrowRight className="ml-1 h-4 w-4" />
+                  </a>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <a href="/certificates">
+                    Certificates
+                    <Award className="ml-1 h-4 w-4" />
                   </a>
                 </Button>
                 <Button variant="outline" size="lg" asChild>

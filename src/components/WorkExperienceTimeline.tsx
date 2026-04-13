@@ -218,14 +218,20 @@ function TimelineCard({
       {data.coverImage ? (
         <div
           className={[
-            "mt-4 overflow-hidden border border-border bg-muted/30",
-            variant === "home" ? "rounded-[1.25rem]" : "rounded-xl",
+            "overflow-hidden bg-muted/30",
+            variant === "home"
+              ? "mt-4 -mx-5 rounded-[1.25rem] border border-border/80"
+              : "mt-4 rounded-xl border border-border",
           ].join(" ")}
         >
           <img
             src={data.coverImage}
             alt=""
-            className={variant === "home" ? "h-44 w-full object-cover object-center md:h-52" : "h-40 w-full object-cover object-center md:h-48"}
+            className={
+              variant === "home"
+                ? "block w-full h-auto object-contain object-center"
+                : "h-40 w-full object-cover object-center md:h-48"
+            }
             loading="lazy"
           />
         </div>

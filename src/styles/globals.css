@@ -293,6 +293,16 @@ h1, h2, h3 {
     border-color: var(--color-border-strong);
     box-shadow: var(--shadow-elevated);
   }
+  /* Matches My Journey "Next Step" featured milestone: warm border + soft lift */
+  .journey-next-glow {
+    border-width: 1px;
+    border-style: solid;
+    border-color: color-mix(in srgb, #b59666 45%, var(--color-border));
+    background-color: color-mix(in srgb, #b59666 6%, var(--color-card-background));
+    box-shadow:
+      0 10px 26px color-mix(in srgb, #b59666 14%, transparent),
+      0 1px 2px color-mix(in srgb, var(--color-foreground) 6%, transparent);
+  }
   .theme-section-title {
     color: var(--color-text-primary);
     letter-spacing: var(--letter-spacing-heading);

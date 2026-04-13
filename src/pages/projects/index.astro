@@ -1,16 +1,39 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { ProjectCard } from '../../components/ProjectCard';
+
+const thermalRedesignCoverSlides = [
+  '/images/final-airflow-sim.png',
+  '/images/Option3_airflow.png',
+  '/images/Phase%202_Design%20change%202_2.png',
+  '/images/Phase%201_image1.png',
+] as const;
+
 const workProjects = [
   {
     title: 'Thermal Redesign Journey',
     slug: 'thermal-redesign-journey',
     context: 'Work project · Product reliability and thermal redesign',
-    problem: 'A deployed medical-style product was facing overheating-related field failures and needed a hardware fix, not another temporary workaround.',
-    action: 'Reworked the thermal path through analysis, design iteration, and manufacturable hardware changes that could be implemented cleanly.',
-    result: 'Reduced thermal risk materially and turned a field-reliability problem into a production-ready design improvement.',
-    tags: ['Thermal Analysis', 'RCA', 'DFM', 'Supplier Evaluation'],
-    cover: '/images/projects/project-3.svg',
+    problem:
+      'A deployed product was overheating in the field and customer returns climbed to 23%. The program needed a real thermal-path fix, not a workaround.',
+    action:
+      'Two-phase redesign: opened airflow with grill iterations in SolidWorks Flow Simulation and physical validation, then upgraded the internal stack (semiconductor package and all-metal heatsink) to remove the junction-to-case bottleneck.',
+    result:
+      'About 16°C chip temperature reduction overall; return rate improved from 23% to below 3%. Both phases were validated and shipped to production.',
+    tags: [
+      'Thermal Analysis',
+      'SolidWorks Flow Simulation',
+      'RCA',
+      '5 Whys',
+      'FMEA',
+      '8D',
+      'Design Iteration',
+      'DFM',
+      'Physical Validation',
+      'Supplier Evaluation',
+      'GD&T',
+    ],
+    cover: '/images/final-airflow-sim.png',
   },
   {
     title: 'LIV Optical Test Rig',
@@ -116,6 +139,7 @@ const academicPersonalProjects = [
         {workProjects.map((project) => (
           <div key={project.slug} class="col-span-12 md:col-span-6 xl:col-span-4">
             <ProjectCard
+              client:load
               title={project.title}
               slug={project.slug}
               context={project.context}
@@ -124,6 +148,7 @@ const academicPersonalProjects = [
               result={project.result}
               tags={[...project.tags]}
               cover={project.cover}
+              coverSlides={project.slug === 'thermal-redesign-journey' ? [...thermalRedesignCoverSlides] : undefined}
               eyebrow="Work Project"
               ctaLabel="Read more"
               showSkills
@@ -147,6 +172,7 @@ const academicPersonalProjects = [
         {cadSimulationProjects.map((project) => (
           <div key={project.slug} class="col-span-12 md:col-span-6 xl:col-span-4">
             <ProjectCard
+              client:load
               title={project.title}
               slug={project.slug}
               context={project.context}
@@ -178,6 +204,7 @@ const academicPersonalProjects = [
         {academicPersonalProjects.map((project) => (
           <div key={project.slug} class="col-span-12 md:col-span-6 xl:col-span-4">
             <ProjectCard
+              client:load
               title={project.title}
               slug={project.slug}
               context={project.context}

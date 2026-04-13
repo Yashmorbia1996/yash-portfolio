@@ -1,8 +1,14 @@
+"use client";
+
+import { ProjectCardCoverSlideshow } from "./ProjectCardCoverSlideshow";
+
 interface ProjectCardProps {
   title: string;
   slug: string;
   href?: string;
   cover?: string;
+  /** When 2+ URLs, cover cycles every 5s with a crossfade (see ProjectCardCoverSlideshow). */
+  coverSlides?: string[];
   context?: string;
   summary?: string;
   tags?: string[];
@@ -19,6 +25,7 @@ export function ProjectCard({
   slug,
   href,
   cover,
+  coverSlides,
   context,
   summary,
   tags,
@@ -29,16 +36,26 @@ export function ProjectCard({
   ctaLabel,
   showSkills = false,
 }: ProjectCardProps) {
+  const summaryExcerpt =
+    summary?.split(/\n\n+/)[0]?.trim() ?? summary;
   const linkHref = href ?? `/projects/${slug}`;
   const hasCaseStudyPreview = Boolean(problem && action && result);
   const cardEyebrow = eyebrow ?? (hasCaseStudyPreview ? "Case Study" : "Project");
   const cardCta = ctaLabel ?? (hasCaseStudyPreview ? "Read case study" : "Read more");
 
+  const slideList = coverSlides?.filter(Boolean) ?? [];
+  const showSlideshow = slideList.length > 1;
+  const singleCoverSrc = slideList.length === 1 ? slideList[0] : cover;
+
   return (
     <article className="theme-panel theme-panel-hover group flex h-full flex-col overflow-hidden rounded-xl">
       <a href={linkHref} className="block">
         <div className="aspect-video rounded-t-xl border-b border-border bg-surface-elevated">
-          {cover ? <img src={cover} alt={title} className="h-full w-full object-cover" /> : null}
+          {showSlideshow ? (
+            <ProjectCardCoverSlideshow images={slideList} title={title} />
+          ) : singleCoverSrc ? (
+            <img src={singleCoverSrc} alt={title} className="h-full w-full object-cover" />
+          ) : null}
         </div>
       </a>
 
@@ -76,7 +93,9 @@ export function ProjectCard({
           </div>
         ) : (
           <div className="mt-6 flex-1">
-            {summary ? <p className="text-sm leading-relaxed text-text-secondary">{summary}</p> : null}
+            {summaryExcerpt ? (
+              <p className="text-sm leading-relaxed text-text-secondary">{summaryExcerpt}</p>
+            ) : null}
             {showSkills && tags?.length ? (
               <div className="mt-4 flex flex-wrap gap-2">
                 <p className="w-full font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">
