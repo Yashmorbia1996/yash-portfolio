@@ -43,7 +43,7 @@ export function FeaturedProjects() {
         </div>
         <Button variant="ghost" size="sm" asChild className="hidden sm:flex">
           <a href="/projects">
-            View all projects <ArrowRight className="ml-1 h-4 w-4" />
+            Engineering Projects<ArrowRight className="ml-1 h-4 w-4" />
           </a>
         </Button>
       </div>

@@ -1,5 +1,5 @@
 import { type MouseEvent, useEffect, useState } from "react";
-import { ArrowRight, Award, ChevronRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Award, ChevronRight, Handshake, Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 
@@ -12,7 +12,9 @@ const homepageSections = [
 
 const heroProofPoints = [
   "Scaled weekly output from 500 to 1,500 units through fixture strategy, process refinement, and manufacturing execution.",
-  "Improved yield stability and reduced field returns through GD&T-informed design decisions, structured root-cause analysis, and repeatable build control.",
+  "Improved yield stability and reduced field returns through thermal management, structured root-cause analysis, and repeatable build control.",
+  "Developed 20+ production and test fixtures to control critical tolerances and reduce operator variability.",
+  "Improved first-pass yield from 85% to 95% through GD&T-informed design decisions, repeatable build control and process refinement.",
   "Led cross-functional execution across engineering, suppliers, production, and ISO 13485-aligned quality systems.",
 ] as const;
 
@@ -47,12 +49,6 @@ const impactMetrics = [
     label: "Production Tooling",
     detail: "Released to support repeatable assembly and production test.",
   },
-] as const;
-
-const featuredProjectLinks = [
-  { label: "Thermal Redesign Journey", href: "/projects/thermal-redesign-journey" },
-  { label: "LIV Optical Test Rig", href: "/projects/liv-optical-test-rig" },
-  { label: "Press Test Fixture", href: "/projects/press-test-fixture" },
 ] as const;
 
 export function Hero() {
@@ -242,41 +238,22 @@ export function Hero() {
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Button asChild size="lg">
                   <a href="/projects">
-                    View Case Studies
+                    Engineering projects
                     <ArrowRight className="ml-1 h-4 w-4" />
                   </a>
                 </Button>
-                <Button variant="outline" size="lg" asChild>
+                <Button asChild size="lg">
                   <a href="/certificates">
                     Certificates
                     <Award className="ml-1 h-4 w-4" />
                   </a>
                 </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <a href={`mailto:${social.email}`}>
-                    Get in Touch
-                    <Mail className="h-4 w-4" />
+                <Button asChild size="lg">
+                  <a href="/cross-functional-ownership">
+                    Cross-functional ownership
+                    <Handshake className="ml-1 h-4 w-4" />
                   </a>
                 </Button>
-              </div>
-
-              <div className="mt-6 flex flex-wrap items-start gap-x-3 gap-y-2 text-sm leading-relaxed text-text-secondary">
-                <span className="font-medium text-text-primary">Featured projects:</span>
-                {featuredProjectLinks.map((project, index) => (
-                  <span key={project.href} className="inline-flex items-center">
-                    <a
-                      href={project.href}
-                      className="transition-colors duration-200 hover:text-primary-accent"
-                    >
-                      {project.label}
-                    </a>
-                    {index < featuredProjectLinks.length - 1 ? (
-                      <span className="px-3 text-text-muted" aria-hidden>
-                        /
-                      </span>
-                    ) : null}
-                  </span>
-                ))}
               </div>
 
               <div className="hero-animate hero-animate-4 mt-10">

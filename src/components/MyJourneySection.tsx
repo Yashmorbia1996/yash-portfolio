@@ -278,7 +278,7 @@ export function MyJourneySection() {
           {social.email ? (
             <div className="mt-6 flex justify-center">
               <Button asChild>
-                <a href={`mailto:${social.email}`}>Start a Conversation</a>
+                <a href={`mailto:${social.email}`}>Get in touch</a>
               </Button>
             </div>
           ) : null}
