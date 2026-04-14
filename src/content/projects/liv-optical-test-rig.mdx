@@ -1,81 +1,354 @@
 ---
 title: "LIV Optical Test Rig"
-summary: "An LIV test rig measures laser output, current, voltage, and optical power to verify device performance before shipment. The existing setup was manual and slow. Developed the fixture from a bench proof-of-concept through three design generations to a released production configuration: a 39-part assembly with kinematic mounting for alignment repeatability, a full GD&T drawing package, and a 3× improvement in batch-test throughput."
+summary: |
+  LIV screening for NIRA laser engines: bench POC, then three production-released fixtures (bare TO-9, packaged engine, LIV + InGaAs beam imaging). Kinematic seating, GD&T, ~3× batch throughput vs. legacy. Controlled datums so coupling error cannot masquerade as device failure.
 date: 2023-10-01
 featured: true
-cover: "/images/projects/project-2.svg"
-tags: ["SolidWorks CSWP", "GD&T", "Tolerance Stack-up", "Optical Alignment", "ISO 13485"]
+cover: "/images/liv-layman-bench-poc.png"
+tags:
+  [
+    "SolidWorks",
+    "GD&T",
+    "Tolerance Stack-up",
+    "Optical Alignment",
+    "ISO 13485",
+    "Opto-Mechanical Integration",
+    "Constraint-Driven Design",
+    "LIV Metrology",
+  ]
 ---
 
-## Overview
+{/*
+  IMAGES: liv-layman-bench-poc.png (bench POC). Optional: liv-fixture-1-to9.png | liv-fixture-2-packaged.png | liv-fixture-3-ingaas.png
+*/}
 
-This project covered the **full arc** of an optical **LIV (Light/Current/Voltage)** test capability for a **VCSEL-based illuminator** in the **850 nm** range. LIV work, which relates optical output to drive current and device voltage, is how you prove emitters are efficient, stable, and consistent before they feed **higher-level system test** or **outbound quality** gates.
+{/* HERO */}
 
-The effort was explicitly **production-minded**, not a one-off lab demo. The team needed **high-volume screening**: repeatable optical coupling, controlled thermal conditions across sweeps, and a fixture that survived **repeatable load/unload**, **electrical connection**, and **audit-ready documentation** inside a **medical-style QMS** with ISO **13485** aligned expectations on design inputs, reviews, and released drawings.
+<div class="not-prose mt-6 mb-16">
+  <div class="rounded-2xl border border-dashed border-border/90 bg-surface-elevated/30 px-5 py-10 text-center md:px-8 md:py-14">
+    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Design evolution</p>
+    <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+      CAD models &amp; design evolution
+    </h2>
+    <p class="mx-auto mt-3 max-w-2xl text-sm italic leading-relaxed text-text-secondary md:text-base">
+      Bench proof-of-concept → three production-released stations: TO-9 LIV → packaged-engine LIV → LIV + InGaAs beam diagnostics
+    </p>
+  </div>
 
-Execution followed the portfolio narrative: a **working bench concept**, a **first structured optical rig** that stressed alignment and environment, then an **optimized batch-test fixture** modeled in **SolidWorks** and released as **Configuration 3: LIV Tester (production build)** with a **39-item BOM** and completed **motion**, **interference**, and **exploded-view** verification.
+  <div class="mt-10 space-y-10">
+    <section>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Key outcomes</p>
+      <div class="mt-3 rounded-2xl border border-border/80 bg-surface-elevated/50 p-1.5 shadow-sm sm:p-2">
+        <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 sm:gap-2.5">
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">3×</p>
+            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Batch LIV throughput vs. legacy manual workflow</p>
+          </div>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">3</p>
+            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Fixture lines released to production (TO-9, packaged engine, LIV + InGaAs)</p>
+          </div>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">39</p>
+            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Part BOM — Configuration 3 (LIV + imaging station)</p>
+          </div>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
+            <p class="text-lg font-semibold leading-snug tracking-tight text-text-primary sm:text-xl">Bench → prod</p>
+            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Started on a layman POC rig; scaled to released hard tooling</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-## Problem
+    <section>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Skills applied</p>
+      <div class="journey-next-glow mt-3 rounded-[1.25rem] px-3 py-3 sm:px-[1.125rem] sm:py-3">
+        <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-3 sm:gap-x-4 sm:gap-y-3.5">
+          {[
+            'SolidWorks',
+            'Opto-Mechanical Integration',
+            'GD&T & Tolerance Stack-up',
+            'Optical Alignment & Repeatability',
+            'Constraint-Driven Design',
+          ].map((skill) => (
+            <span
+              key={skill}
+              class="inline-flex shrink-0 whitespace-nowrap rounded-lg bg-background/90 px-3 py-1.5 text-[15px] font-bold leading-tight text-text-primary ring-1 ring-inset ring-border/40 sm:text-[17px]"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
 
-### Throughput and operator variation
+{/* BENCH PROOF-OF-CONCEPT — before the three released fixtures */}
 
-Early work looked like a **manual probe-station** flow: workable for bring-up, painful for scale. **Per-unit time** was high, **operator-to-operator** differences showed up in the data, and **batch** runs were hard to execute without losing traceability or repeatability.
+<div id="bench-poc" class="not-prose mb-16 scroll-mt-28">
+  <div class="mb-6">
+    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Where it started</p>
+    <h2 class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">
+      Bench “layman” rig — building LIV capability first
+    </h2>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary md:text-[17px]">
+      Before any of the three production fixtures existed, we used a simple <strong class="text-text-primary">proof-of-concept bench</strong>: COTS detector head, laser engine on a wooden base, screw-terminal wiring, and a small drive PCB — enough to run <strong class="text-text-primary">LIV sweeps</strong>, debug coupling, and learn what had to be controlled. That layman setup was <strong class="text-text-primary">not</strong> the end state; it was how we developed <strong class="text-text-primary">our own LIV testing know-how</strong> and de-risked the measurement strategy.
+    </p>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary md:text-[17px]">
+      From that foundation, the same ideas were engineered into <strong class="text-text-primary">three different fixture types</strong>, each <strong class="text-text-primary">released to production</strong> for its specific DUT and test intent — not one-off lab tools.
+    </p>
+  </div>
 
-### Optical coupling vs. “true” device behavior
+  <div class="overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
+    <img
+      src="/images/liv-layman-bench-poc.png"
+      alt="Early bench LIV proof-of-concept: detector, laser engine on plywood base, terminal block, and drive PCB"
+      decoding="async"
+      loading="lazy"
+      class="mx-auto block h-auto w-full max-w-[56rem] rounded-xl object-contain"
+    />
+    <p class="mt-3 text-center text-xs text-text-muted">
+      Early POC: manual alignment marks, COTS optics, and simple fixturing — used to develop in-house LIV capability before production hard tooling.
+    </p>
+  </div>
+</div>
 
-LIV only answers the right question when the **measurement path** is stable. Small shifts in how the part sits or how the **optical train** aligns create **apparent** power swings, and those are often misread as emitter drift. Early bench setups leaned on **loose mechanical referencing**. The program needed **datum-defined** seating and a credible path to **tight repeatability** versus ad hoc tuning.
+{/* PROGRAM CONTEXT */}
 
-### Thermal and mechanical environment
+<div id="program-context" class="not-prose mb-16 scroll-mt-28">
+  <div class="rounded-2xl border border-border bg-surface-elevated/50 px-5 py-6 md:px-8 md:py-8">
+    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Program context</p>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary md:text-[17px]">
+      The <strong class="text-text-primary">laser engine</strong> is a safety- and performance-critical subassembly in NIRA’s electromechanical, FDA-cleared handheld device. Engines are <strong class="text-text-primary">batch-tested in the clean room</strong> and only released to the main production floor after optical-electrical screening — so metrology here is a <strong class="text-text-primary">gating step</strong>, not a side experiment.
+    </p>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary md:text-[17px]">
+      The three fixtures below are the <strong class="text-text-primary">production</strong> realization of that program: each addresses a different assembly level (bare can, full module, LIV + spatial beam QA). <strong class="text-text-primary">All were released</strong> for use in manufacturing and quality — the bench rig above is the developmental lineage, not a fourth unreleased variant.
+    </p>
+  </div>
+</div>
 
-Current sweeps take **time**. Without **controlled stage and DUT temperature**, **self-heating** and **ambient drift** distort curves and blur pass/fail. The first structured rig explicitly surfaced **thermal** transients and **vibration / handling** sensitivity. Those issues had to be designed down before results could be treated as **production truth**.
+{/* THE PROBLEM */}
 
-### Release readiness
+<div id="the-problem" class="not-prose mb-16 scroll-mt-28">
+  <div class="mb-6">
+    <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">
+      The problem
+    </h2>
+    <h3 class="mt-4 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+      Coupling and alignment error masquerading as device failure
+    </h3>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
+      <strong class="text-text-primary">LIV</strong> relates optical output to drive current and terminal voltage. The measurement is only meaningful if the <strong class="text-text-primary">optical coupling</strong> between the engine and the collection path is stable, centered, and repeatable across load/unload. Sub-micron-level <strong class="text-text-primary">tilt, decenter, or piston</strong> in the fixture can change coupled power into the sphere or detector — producing <strong class="text-text-primary">apparent</strong> LIV shifts that look like emitter drift or marginal parts.
+    </p>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
+      In a regulated screening context, that failure mode is especially damaging: a <strong class="text-text-primary">false negative</strong> can let a misaligned run look “in spec,” while inconsistency can drive <strong class="text-text-primary">false scrap</strong> or unnecessary rework. The legacy flow was <strong class="text-text-primary">manual, slow, and operator-sensitive</strong>, which is incompatible with high-volume batch release from the clean room.
+    </p>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
+      The program needed <strong class="text-text-primary">datum-defined seating</strong>, <strong class="text-text-primary">kinematic or equivalent constraint</strong> where appropriate, <strong class="text-text-primary">tolerance analysis</strong> on the optical mechanical stack, and <strong class="text-text-primary">released drawings</strong> under ISO 13485–style design controls so inspection and production could execute the same configuration every time.
+    </p>
+  </div>
+</div>
 
-A lab-only assembly is not a **released test asset**. Manufacturing and quality needed a **named configuration**, **GD&T** that inspectors could use, a **BOM** that split **optical**, **mechanical**, and **electrical** ownership, and evidence the design **fits**, **articulates** as intended, and can be **built the same way** repeatedly.
+{/* FIXTURE #1 */}
 
-## Approach
+<div id="fixture-1" class="not-prose mb-16 scroll-mt-28">
+  <div class="mb-2 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-primary-accent/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
+      Fixture #1
+    </span>
+    <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">
+      Phase 1
+    </h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
 
-The team followed a staged **design evolution** (portfolio Example 02), with **measurement architecture and datums fixed before heavy CAD** so tolerance strategy stayed coherent end-to-end.
+  <div class="mb-6 mt-4">
+    <h3 class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+      Bare TO-9 emitter — optical power LIV
+    </h3>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
+      The first station isolates the <strong class="text-text-primary">semiconductor package level</strong>: LIV on the <strong class="text-text-primary">bare TO-9</strong> can, using COTS optics and stages on NIRA-built hardware. The objective was to validate <strong class="text-text-primary">measurement architecture</strong> (stimulus/measure boundaries, collection NA, electrical guards) and to lock <strong class="text-text-primary">primary datums</strong> before investing in full packaging-level tooling.
+    </p>
+    <p class="mt-3 max-w-3xl text-sm font-medium text-text-primary md:text-base">
+      Released to production for bare-can screening (engineering lineage from the bench POC above).
+    </p>
+  </div>
 
-### Phase 1: Working concept (bench, off-the-shelf hardware)
+  <div class="overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
+    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Image — Fixture #1 (production)</p>
+    <div class="mt-4 flex min-h-[12rem] items-center justify-center rounded-xl border border-dashed border-border/80 bg-muted/20 text-sm text-text-muted">
+      Add: liv-fixture-1-to9.png
+    </div>
+  </div>
 
-**Goal:** Validate the **LIV optical measurement principle** at the bench using **off-the-shelf** optics, stages, and instrumentation. The aim was to prove feasibility and extract **non-negotiable alignment requirements** before detailed mechanical design.
+  <div class="mt-6 grid gap-6 md:grid-cols-2">
+    <div class="rounded-2xl border border-border bg-background px-5 py-5 md:px-6 md:py-6">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Approach</p>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary md:text-[15px]">
+        <li>Bench LIV path with COTS lenses, stages, and power meters on NIRA engines</li>
+        <li>Manual datum references to bound tilt/decenter sensitivity on the TO-9 body</li>
+        <li>Early repeatability studies: load/unload and operator handling</li>
+      </ul>
+    </div>
+    <div class="rounded-2xl border border-border bg-background px-5 py-5 md:px-6 md:py-6">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Engineering focus</p>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary md:text-[15px]">
+        <li>Separate <strong class="text-text-primary">device</strong> variation from <strong class="text-text-primary">setup</strong> variation in the LIV curve</li>
+        <li>Identify tolerance drivers before parametric CAD and tooling</li>
+        <li>De-risk assembly and test strategy prior to hard tooling spend</li>
+      </ul>
+    </div>
+  </div>
 
-**Decision:** Formalize **measurement architecture** (optical path concept, detector approach, electrical stimulus/measurement boundaries) and identify **critical alignment datums** **before** locking CAD. That order avoids expensive tolerance cascades after tooling spend.
+  <div class="mt-6 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface-elevated/50">
+    <div class="border-l-4 border-primary-accent px-5 py-5 md:px-6 md:py-6">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Design decision</p>
+      <p class="mt-3 text-base leading-relaxed text-text-secondary md:text-[17px]">
+        Measurement architecture and datum strategy were formalized prior to full mechanical release to prevent tolerance cascade and uncontrolled coupling error in later fixtures.
+      </p>
+    </div>
+  </div>
+</div>
 
-### Phase 2: First design, structured optical test rig
+{/* FIXTURE #2 */}
 
-**Goal:** Turn the concept into a **structured optical test rig**: **precision mount base**, **adjustable stages**, and defined interfaces so units could be exercised under engineering test conditions with repeatable intent.
+<div id="fixture-2" class="not-prose mb-16 scroll-mt-28">
+  <div class="mb-2 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-primary-accent/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
+      Fixture #2
+    </span>
+    <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">
+      Phase 2
+    </h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
 
-**Learning:** Repeatability trials exposed **thermal** effects and **vibration / handling** sensitivity that would have contaminated production metrics if ignored.
+  <div class="mb-6 mt-4">
+    <h3 class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+      Packaged laser engine — production-representative LIV
+    </h3>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
+      The second generation tests the <strong class="text-text-primary">complete packaged laser engine</strong> — the same mechanical envelope, window, and interface loads that downstream assembly sees. That exposes <strong class="text-text-primary">stack-up</strong> and <strong class="text-text-primary">thermal/mechanical</strong> effects the bare can study cannot represent, while still focusing on integrated optical power into the metrology path.
+    </p>
+    <p class="mt-3 max-w-3xl text-sm font-medium text-text-primary md:text-base">
+      Released to production for packaged-engine LIV prior to line release.
+    </p>
+  </div>
 
-**Decision:** Adopt **kinematic-style mounting** with **repeatable datums** to remove **operator-induced alignment variability** from the dominant error budget, trading infinite adjustability for a **stable, teachable** setup.
+  <div class="overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
+    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Image — Fixture #2 (production)</p>
+    <div class="mt-4 flex min-h-[12rem] items-center justify-center rounded-xl border border-dashed border-border/80 bg-muted/20 text-sm text-text-muted">
+      liv-fixture-2-packaged.png
+    </div>
+  </div>
 
-### Phase 3: Optimized batch test design (SolidWorks production fixture)
+  <div class="mt-6 grid gap-6 md:grid-cols-2">
+    <div class="rounded-2xl border border-border bg-background px-5 py-5 md:px-6 md:py-6">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Approach</p>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary md:text-[15px]">
+        <li>Parametric SolidWorks assembly with defined GD&amp;T and inspection references</li>
+        <li>Integrated optical alignment verification against the packaged datum scheme</li>
+        <li>Tolerance stack-up on axes that dominate coupling (tilt, decenter, Z)</li>
+        <li>Structured repeatability campaigns under realistic load/unload and cabling</li>
+      </ul>
+    </div>
+    <div class="rounded-2xl border border-border bg-background px-5 py-5 md:px-6 md:py-6">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Engineering focus</p>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary md:text-[15px]">
+        <li>Alignment stability over repeated test cycles (not single-shot tuning)</li>
+        <li>Operator-limited variation through constraint and poka-yoke features</li>
+        <li>Correlation between mechanical constraint strategy and yield / retest rate</li>
+      </ul>
+    </div>
+  </div>
 
-**Goal:** A **production-oriented** fixture tuned for **faster load, unload, electrical hookup, and time per test cycle**, with mechanical **constraint** that supports **batch** throughput without sacrificing measurement integrity.
+  <div class="mt-6 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface-elevated/50">
+    <div class="border-l-4 border-primary-accent px-5 py-5 md:px-6 md:py-6">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Design decision</p>
+      <p class="mt-3 text-base leading-relaxed text-text-secondary md:text-[17px]">
+        Architecture was refined to minimize alignment sensitivity and isolate dominant variance sources before scaling batch size and releasing tooling broadly.
+      </p>
+    </div>
+  </div>
+</div>
 
-**Engineering content:**
+{/* FIXTURE #3 */}
 
-- **Kinematic nest:** **Three-point kinematic** coupling (ball-and-groove / equivalent constraint pattern) for **repeatable part seating** on the order of **single-digit micrometers** under controlled use. That is far beyond what informal bench fixturing can hold.
-- **Thermal control:** **Closed-loop** thermal regulation on the device stage (e.g. **Peltier** chuck with **PID**) to hold **tight bounds** across sweeps and limit **drift** tied to soak and self-heating.
-- **Optical stack:** **Telecentric** (or otherwise stability-oriented) optics where the spec demands, plus **integrating sphere** mounting **co-developed with optical engineering** so **NA**, **clear aperture**, and **alignment sensitivity** match the test plan.
-- **Structural assurance:** **SolidWorks Simulation (FEA)** on the baseplate / load path so **deflection** under **probe contact** and handling loads stays **within** the optical alignment budget.
+<div id="fixture-3" class="not-prose mb-16 scroll-mt-28">
+  <div class="mb-2 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-primary-accent/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
+      Fixture #3
+    </span>
+    <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">
+      Phase 3
+    </h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
 
-**Decision:** Target a **3× throughput increase** for **batch** LIV testing versus the pre-optimization workflow, driven by faster cycling, fewer alignment iterations, and more **error-proof** handling.
+  <div class="mb-6 mt-4">
+    <h3 class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+      LIV + InGaAs beam imaging — spatial diagnostics
+    </h3>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
+      The third generation adds a <strong class="text-text-primary">fixed InGaAs camera</strong> mounted to the same mechanical reference frame as the LIV collection path. The camera is <strong class="text-text-primary">aligned and bore-sighted</strong> to the engine test fixture so spatial images reveal <strong class="text-text-primary">beam size, shape, hotspots,</strong> and asymmetry that scalar power alone cannot resolve — critical for catching aperture clipping, facet issues, or coupling anomalies before engines ship to the line.
+    </p>
+    <p class="mt-3 max-w-3xl text-sm font-medium text-text-primary md:text-base">
+      Released to production as the LIV + beam-imaging station (Configuration 3 — full BOM and verification package below).
+    </p>
+  </div>
 
-### Production release: Configuration 3 (LIV Tester, final)
+  <div class="overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
+    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Image — Fixture #3 (production)</p>
+    <div class="mt-4 flex min-h-[12rem] items-center justify-center rounded-xl border border-dashed border-border/80 bg-muted/20 text-sm text-text-muted">
+      liv-fixture-3-ingaas.png
+    </div>
+  </div>
 
-The released deliverable was **Configuration 3: LIV Tester (production build)**:
+  <div class="mt-6 grid gap-6 md:grid-cols-2">
+    <div class="rounded-2xl border border-border bg-background px-5 py-5 md:px-6 md:py-6">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Approach</p>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary md:text-[15px]">
+        <li>Rigid camera bracketing with shared datums to the LIV optical axis</li>
+        <li>Calibration and alignment procedure tying image plane to beam path</li>
+        <li>Reduced degrees of freedom: fewer adjustments, more mechanical constraint</li>
+        <li>Ergonomic load path for high-cycle batch screening from the clean room</li>
+      </ul>
+    </div>
+    <div class="rounded-2xl border border-border bg-background px-5 py-5 md:px-6 md:py-6">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Engineering impact</p>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary md:text-[15px]">
+        <li>~3× throughput improvement for batch LIV versus legacy manual flow</li>
+        <li>Scalar LIV plus spatial beam QA in one released station</li>
+        <li>Lower dependence on operator skill for alignment-critical steps</li>
+        <li>Audit-ready documentation: GD&amp;T, BOM, motion/interference/exploded verification</li>
+      </ul>
+    </div>
+  </div>
 
-- **Full SolidWorks CAD** with a **39-item BOM** across **optical**, **mechanical**, and **electrical** subassemblies.
-- **Production-released GD&T** drawing set for build and inspection.
-- **Verification:** **motion study**, **interference check**, and **exploded view** completed on the final configuration.
+  <div class="mt-6 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface-elevated/50">
+    <div class="border-l-4 border-primary-accent px-5 py-5 md:px-6 md:py-6">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Design decision</p>
+      <p class="mt-3 text-base leading-relaxed text-text-secondary md:text-[17px]">
+        Final architecture prioritized constraint-driven design and error-proofing over infinite adjustability so scalable, repeatable performance held in production — not just on the development bench.
+      </p>
+    </div>
+  </div>
 
-## Outcome
+  <div class="mt-10 rounded-2xl border border-border bg-surface-elevated/60 p-6 md:p-8">
+    <p class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">Production release</p>
+    <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+      <strong class="text-text-primary">Fixtures #1 and #2</strong> shipped as production tooling for their respective DUTs (bare TO-9 and packaged engine LIV) with released drawings and controlled build configuration. <strong class="text-text-primary">Configuration 3</strong> (Fixture #3 — LIV + InGaAs) is the most fully documented build in this write-up: full SolidWorks CAD, production GD&amp;T set, <strong class="text-text-primary">39-part BOM</strong> across optical, mechanical, and electrical items, with motion study, interference check, and exploded views completed for manufacturing and quality handoff.
+    </p>
+  </div>
+</div>
 
-- **Throughput:** **3×** improvement in **batch** LIV test throughput versus the prior workflow, driven by fixture architecture and reduced per-cycle overhead (load / connect / test / unload).
-- **Repeatability:** Shift from **operator-dependent** bench alignment to **datum-driven kinematic** seating, stabilizing **optical coupling** so LIV comparisons reflect the **device**, not the setup.
-- **Environment:** Addressed **thermal** and **vibration** sensitivities uncovered in the first structured rig; sweeps run under **controlled stage conditions** aligned to production limits.
-- **Release package:** **Config 3** LIV tester, **39-line BOM**, **GD&T** documentation, and completed **motion / interference / exploded** checks, ready for **manufacturing** and **quality** handoff.
-- **Quality system fit:** Execution under **ISO 13485** style design controls, with **SolidWorks (CSWP)** level modeling discipline, **tolerance stack-up** on critical chains, and traceable decisions from concept through release.
+{/* DISCLOSURE */}
+
+<div id="disclosure" class="not-prose mb-6 scroll-mt-28">
+  <div class="rounded-2xl border border-border bg-surface-elevated/40 px-5 py-4">
+    <p class="text-sm leading-relaxed text-text-muted">
+      Disclosure: Project details are limited to non-proprietary information. Images shown are public, recreated, or selected to avoid confidential content.
+    </p>
+  </div>
+</div>

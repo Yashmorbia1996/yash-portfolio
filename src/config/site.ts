@@ -14,7 +14,7 @@ export const siteConfig = {
 
   social: {
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/yashmorbia/",
     twitter: "",
     email: "Yash10morbia@gmail.com",
   },

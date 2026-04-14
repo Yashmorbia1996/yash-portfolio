@@ -9,6 +9,8 @@ const thermalRedesignCoverSlides = [
   '/images/Phase%201_image1.png',
 ] as const;
 
+const livOpticalCoverSlides = ['/images/liv-layman-bench-poc.png'] as const;
+
 const workProjects = [
   {
     title: 'Thermal Redesign Journey',
@@ -43,7 +45,7 @@ const workProjects = [
     action: 'Built the fixture from concept through released production configuration with kinematic mounting, GD&T, and production-minded test architecture.',
     result: 'Delivered a released optical test asset with stronger repeatability and a 3x throughput improvement for batch testing.',
     tags: ['GD&T', 'Tolerance Stack-up', 'Optical Alignment', 'ISO 13485'],
-    cover: '/images/projects/project-2.svg',
+    cover: '/images/liv-layman-bench-poc.png',
   },
   {
     title: 'Press Test Fixture',
@@ -148,7 +150,13 @@ const academicPersonalProjects = [
               result={project.result}
               tags={[...project.tags]}
               cover={project.cover}
-              coverSlides={project.slug === 'thermal-redesign-journey' ? [...thermalRedesignCoverSlides] : undefined}
+              coverSlides={
+                project.slug === 'thermal-redesign-journey'
+                  ? [...thermalRedesignCoverSlides]
+                  : project.slug === 'liv-optical-test-rig'
+                    ? [...livOpticalCoverSlides]
+                    : undefined
+              }
               eyebrow="Work Project"
               ctaLabel="Read more"
               showSkills

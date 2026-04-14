@@ -30,7 +30,9 @@ export async function getStaticPaths() {
 
 const { project, relatedProjects } = Astro.props;
 const { Content } = await render(project);
-const isThermalProject = project.id === 'thermal-redesign-journey';
+/** Same layout as Thermal Redesign: hero in MDX, no default cover/tags/date band */
+const isJourneyCaseStudy =
+  project.id === 'thermal-redesign-journey' || project.id === 'liv-optical-test-rig';
 
 const formattedDate = project.data.date.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -56,14 +58,14 @@ const metaDescription = summaryParagraphs[0] ?? project.data.summary;
     <p class="theme-eyebrow mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
       Project Detail
     </p>
-    {!isThermalProject && (
+    {!isJourneyCaseStudy && (
       <time class="mb-3 block text-xs text-text-muted">{formattedDate}</time>
     )}
 
     <h1
       class:list={[
         'mb-6 text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl',
-        isThermalProject ? 'max-w-5xl' : 'max-w-4xl',
+        isJourneyCaseStudy ? 'max-w-5xl' : 'max-w-4xl',
       ]}
     >
       {project.data.title}
@@ -71,7 +73,7 @@ const metaDescription = summaryParagraphs[0] ?? project.data.summary;
     <div
       class:list={[
         'space-y-4 text-base leading-relaxed text-text-secondary md:text-lg',
-        isThermalProject ? 'mb-8 max-w-5xl' : 'max-w-3xl',
+        isJourneyCaseStudy ? 'mb-8 max-w-5xl' : 'max-w-3xl',
       ]}
     >
       {summaryParagraphs.map((para) => (
@@ -79,7 +81,7 @@ const metaDescription = summaryParagraphs[0] ?? project.data.summary;
       ))}
     </div>
 
-    {!isThermalProject && (
+    {!isJourneyCaseStudy && (
       <div class="mb-8 mt-6 flex flex-wrap gap-2">
         {project.data.tags.map((tag) => (
           <span class="rounded-full border border-border px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-text-muted">{tag}</span>
@@ -120,7 +122,7 @@ const metaDescription = summaryParagraphs[0] ?? project.data.summary;
       </div>
     )}
 
-    {!isThermalProject && (
+    {!isJourneyCaseStudy && (
       <div class="relative mt-10 mb-12">
         <div class="aspect-video overflow-hidden rounded-3xl border border-border bg-surface-elevated">
           {project.data.cover ? (
@@ -168,7 +170,9 @@ const metaDescription = summaryParagraphs[0] ?? project.data.summary;
                       '/images/Phase%202_Design%20change%202_2.png',
                       '/images/Phase%201_image1.png',
                     ]
-                  : undefined
+                  : p.id === 'liv-optical-test-rig'
+                    ? ['/images/liv-layman-bench-poc.png']
+                    : undefined
               }
               ctaLabel="Read more"
             />

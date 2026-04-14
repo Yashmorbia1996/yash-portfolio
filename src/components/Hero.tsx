@@ -1,5 +1,5 @@
 import { type MouseEvent, useEffect, useState } from "react";
-import { ArrowRight, Award, ChevronRight, Handshake, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Award, ChevronRight, Handshake, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 
@@ -152,6 +152,17 @@ export function Hero() {
                       <Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary-accent" />
                       <span>{phone}</span>
                     </p>
+                  )}
+                  {social.linkedin && (
+                    <a
+                      href={social.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-start gap-2 transition-colors duration-200 hover:text-text-primary"
+                    >
+                      <Linkedin className="mt-0.5 h-4 w-4 shrink-0 text-primary-accent" />
+                      <span>LinkedIn</span>
+                    </a>
                   )}
                 </div>
 

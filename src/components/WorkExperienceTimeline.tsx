@@ -13,6 +13,8 @@ export interface WorkTimelineEntry {
     order: number;
     location?: string;
     coverImage?: string;
+    /** full-bleed vs centered logo treatment */
+    coverImageLayout?: "full" | "centered";
     brandInitial?: string;
     brandColor?: string;
     logoUrl?: string;
@@ -194,7 +196,7 @@ function TimelineCard({
   return (
     <article
       className={[
-        "theme-panel theme-panel-hover relative overflow-visible",
+        "theme-panel theme-panel-hover relative min-w-0 overflow-visible",
         variant === "home" ? "rounded-[1.5rem] p-5 md:p-5" : "rounded-2xl p-4",
       ].join(" ")}
     >
@@ -218,19 +220,33 @@ function TimelineCard({
       {data.coverImage ? (
         <div
           className={[
-            "overflow-hidden bg-muted/30",
-            variant === "home"
-              ? "mt-4 -mx-5 rounded-[1.25rem] border border-border/80"
-              : "mt-4 rounded-xl border border-border",
+            data.coverImageLayout === "centered" ? "min-w-0 max-w-full overflow-hidden bg-muted/30" : "overflow-hidden bg-muted/30",
+            data.coverImageLayout === "centered"
+              ? [
+                  "mt-4 flex items-center justify-center",
+                  variant === "home"
+                    ? "px-4 py-8 -mx-5 rounded-[1.25rem] border border-border/80 md:px-6 md:py-10"
+                    : "rounded-xl border border-border px-4 py-6 md:px-6 md:py-8",
+                ].join(" ")
+              : variant === "home"
+                ? "mt-4 -mx-5 rounded-[1.25rem] border border-border/80"
+                : "mt-4 rounded-xl border border-border",
           ].join(" ")}
         >
           <img
             src={data.coverImage}
             alt=""
             className={
-              variant === "home"
-                ? "block w-full h-auto object-contain object-center"
-                : "h-40 w-full object-cover object-center md:h-48"
+              data.coverImageLayout === "centered"
+                ? [
+                    "block h-auto min-h-0 w-auto min-w-0 object-contain object-center mx-auto",
+                    variant === "home"
+                      ? "max-h-40 max-w-[min(100%,26rem)] sm:max-h-44"
+                      : "max-h-32 max-w-[min(100%,18rem)] sm:max-h-36",
+                  ].join(" ")
+                : variant === "home"
+                  ? "block w-full h-auto object-contain object-center"
+                  : "h-40 w-full object-cover object-center md:h-48"
             }
             loading="lazy"
           />
@@ -313,7 +329,7 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
               <div
                 key={entry.id}
                 className={[
-                  "grid grid-cols-1 md:items-start",
+                  "grid min-w-0 grid-cols-1 md:items-start",
                   variant === "home"
                     ? "md:grid-cols-[minmax(0,1fr)_5rem_minmax(0,1fr)]"
                     : "md:grid-cols-[minmax(0,1fr)_4.5rem_minmax(0,1fr)]",
@@ -327,8 +343,8 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
                       variant={variant}
                       showTopExtension={i === 0}
                     />
-                    <div className={variant === "home" ? "flex justify-start pl-5 md:pl-6" : "flex justify-start pl-4 md:pl-6"}>
-                      <div className="w-full max-w-[36rem]">
+                    <div className={variant === "home" ? "flex min-w-0 justify-start pl-5 md:pl-6" : "flex min-w-0 justify-start pl-4 md:pl-6"}>
+                      <div className="w-full min-w-0 max-w-[36rem]">
                         <TimelineCard
                           data={data}
                           expanded={isOpen}
@@ -341,8 +357,8 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
                   </>
                 ) : (
                   <>
-                    <div className={variant === "home" ? "flex justify-end pr-5 md:pr-6" : "flex justify-end pr-4 md:pr-6"}>
-                      <div className="w-full max-w-[36rem]">
+                    <div className={variant === "home" ? "flex min-w-0 justify-end pr-5 md:pr-6" : "flex min-w-0 justify-end pr-4 md:pr-6"}>
+                      <div className="w-full min-w-0 max-w-[36rem]">
                         <TimelineCard
                           data={data}
                           expanded={isOpen}
@@ -374,7 +390,7 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
             const { data } = entry;
             const isOpen = !!expanded[entry.id];
             return (
-              <div key={entry.id} className="relative">
+              <div key={entry.id} className="relative min-w-0">
                 <div
                   className={[
                     "timeline-node-shell absolute -left-6 top-5 z-10 -translate-x-1/2 rounded-full bg-background p-1.5",

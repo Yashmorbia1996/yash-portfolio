@@ -1,26 +1,303 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+
+/** Match Hero / home: readable body + clear card titles */
+const cardShell =
+  'theme-panel rounded-2xl border border-border bg-card p-6 md:p-7 shadow-[0_1px_0_0_rgba(0,0,0,0.04)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.05)]';
+const cardTitle = 'text-lg font-semibold tracking-[-0.03em] text-text-primary md:text-xl';
+const cardBody = 'mt-3 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]';
+
+/** Compact metric cards (aligned with Hero impact metric sizing) */
+const metricCard =
+  'theme-panel rounded-[1.25rem] border border-border/80 bg-card px-4 py-5 text-center shadow-[0_1px_0_0_rgba(0,0,0,0.03)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.04)] md:px-6 md:py-6';
+
+const metricValuePrimary =
+  'font-mono text-[1.35rem] font-normal leading-tight tracking-[-0.03em] text-text-primary md:text-[1.6rem]';
+const metricValueSecondary =
+  'mt-1 font-mono text-[1.05rem] font-normal leading-tight tracking-[-0.02em] text-text-primary md:text-[1.2rem]';
+
+type MetricTile = { value: string; label: string; line2?: string };
+
+const impactProduction: MetricTile[] = [
+  { value: '500 → 1500', label: 'units / week' },
+  { value: '6 to 10', label: 'operators hired' },
+  { value: '95%', label: 'line efficiency' },
+  { value: '<3 weeks', label: 'ramp to productivity' },
+];
+
+const impactSupply: MetricTile[] = [
+  { value: '15+', label: 'suppliers managed' },
+  { value: '17%', label: 'cost reduction' },
+  { value: 'US + Asia', label: 'supplier footprint' },
+  { value: 'Second-source', label: 'risk mitigation' },
+];
+
+const impactQuality: MetricTile[] = [
+  { value: '15+', label: 'CAPAs managed' },
+  {
+    value: '8 audits completed',
+    line2: '0 major findings',
+    label: 'regulatory audits',
+  },
+  {
+    value: 'dFMEA',
+    line2: 'pFMEA',
+    label: 'risk management analysis',
+  },
+  { value: 'Full DHF', label: 'lifecycle support' },
+];
 ---
 
 <BaseLayout
-  title="Cross-functional ownership"
-  description="Cross-functional responsibilities and how engineering, manufacturing, quality, and partners work together."
+  title="Cross-Functional Ownership"
+  description="Production leadership, supply chain execution, and quality and regulatory support at NIRA: scaling output, stabilizing execution, and supporting compliant growth for an FDA-cleared medical device program."
 >
-  <div class="site-container pt-28 pb-20">
-    <div class="max-w-4xl">
-      <h1 class="mb-4 text-5xl font-semibold tracking-[-0.04em] text-foreground md:text-6xl">
-        Cross-functional ownership
-      </h1>
-      <p class="max-w-3xl text-base leading-relaxed text-text-secondary md:text-lg">
-        Use this page to highlight how you lead across engineering, production, suppliers, and quality—from early design through stable manufacturing.
+  <div class="site-container pt-28 pb-24">
+    <header class="max-w-3xl">
+      <p class="theme-eyebrow mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">
+        NIRA · Operations
       </p>
+      <h1
+        class="mb-6 text-3xl font-semibold tracking-[-0.04em] text-text-primary sm:text-4xl md:whitespace-nowrap md:text-5xl lg:text-6xl"
+      >
+        Cross-Functional Ownership
+      </h1>
+      <div class="space-y-4 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
+        <p>
+          At NIRA, my role extends beyond mechanical engineering into production leadership, supply chain execution, and quality and regulatory support. This page highlights the operational ownership I've taken to help scale product output, stabilize execution, and support compliant growth.
+        </p>
+        <p>
+          Mechanical engineering and project work are covered on{' '}
+          <a
+            href="/projects"
+            class="font-medium text-primary-accent underline-offset-4 transition-opacity hover:underline hover:opacity-90"
+            >Projects</a
+          >.{' '}
+          <a
+            href="#what-im-looking-for"
+            class="font-medium text-primary-accent underline-offset-4 transition-opacity hover:underline hover:opacity-90"
+            >What I&apos;m looking for</a
+          >
+          is summarized at the end of this page.
+        </p>
+      </div>
+    </header>
+
+    <div class="not-prose mt-16 space-y-20 lg:mt-20 lg:space-y-24">
+      <!-- 1) Production Leadership -->
+      <section class="scroll-mt-28" aria-labelledby="sec-production">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-start">
+          <div class="lg:col-span-5">
+            <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">01</p>
+            <h2 id="sec-production" class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+              Production Leadership
+            </h2>
+            <p class="mt-4 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
+              I owned the path from baseline process understanding to repeatable output: measured work, reduced cycle time, balanced the line, and wrote controlled work instructions. I hired and trained operators, ran day to day team leadership with cross-training, and tied forecasting to a practical inventory model the business could run without a full ERP.
+            </p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2 lg:col-span-7 lg:grid-cols-2">
+            <article class:list={[cardShell]}>
+              <h3 class={cardTitle}>Process and line performance</h3>
+              <p class={cardBody}>
+                Process development and time study, cycle time reduction, line balancing, and SOP development under ISO 13485 so training, audits, and the floor stayed aligned.
+              </p>
+            </article>
+            <article class:list={[cardShell]}>
+              <h3 class={cardTitle}>Team and capability</h3>
+              <p class={cardBody}>
+                Hiring and onboarding operators, team leadership, and cross-training to reduce single points of failure on critical steps.
+              </p>
+            </article>
+            <article class:list={[cardShell, 'sm:col-span-2 lg:col-span-2']}>
+              <h3 class={cardTitle}>Forecasting and materials discipline</h3>
+              <p class={cardBody}>
+                Forecasting and inventory planning with a Google Sheets-based inventory and reorder system tied to build plans and consumption so commitments matched what we could buy and build.
+              </p>
+            </article>
+          </div>
+        </div>
+        <div
+          class="not-prose mt-8 grid grid-cols-2 gap-3 border-t border-border pt-8 sm:grid-cols-2 lg:grid-cols-4"
+          aria-label="Production impact"
+        >
+          {
+            impactProduction.map((item) => (
+              <div class={metricCard}>
+                <p class:list={[metricValuePrimary, 'tabular-nums']}>{item.value}</p>
+                {item.line2 ? <p class:list={[metricValueSecondary]}>{item.line2}</p> : null}
+                <p class="mt-3 font-mono text-[11px] font-semibold uppercase leading-snug tracking-[0.14em] text-text-muted">
+                  {item.label}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- 2) Supply Chain Execution -->
+      <section class="scroll-mt-28 border-t border-border pt-20 lg:pt-24" aria-labelledby="sec-supply">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-start">
+          <div class="lg:col-span-5">
+            <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">02</p>
+            <h2 id="sec-supply" class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+              Supply Chain Execution
+            </h2>
+            <p class="mt-4 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
+              I ran sourcing and qualification across a US and Asia supplier base, built second-source options where risk was highest, and managed commercial execution from negotiation through POs, lead time planning, and international logistics. Scorecards kept performance visible as volumes grew.
+            </p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2 lg:col-span-7 lg:grid-cols-2">
+            <article class:list={[cardShell]}>
+              <h3 class={cardTitle}>Sourcing and risk</h3>
+              <p class={cardBody}>
+                Supplier sourcing and qualification, a US and Asia supplier base, and a second-source strategy where continuity and cost both mattered.
+              </p>
+            </article>
+            <article class:list={[cardShell]}>
+              <h3 class={cardTitle}>Commercial and schedule</h3>
+              <p class={cardBody}>
+                Cost negotiation, PO management, and lead time planning so engineering milestones and production pulls stayed in sync.
+              </p>
+            </article>
+            <article class:list={[cardShell, 'sm:col-span-2 lg:col-span-2']}>
+              <h3 class={cardTitle}>Logistics and performance</h3>
+              <p class={cardBody}>
+                International logistics coordination and supplier scorecards to track delivery and quality signals as the network scaled.
+              </p>
+            </article>
+          </div>
+        </div>
+        <div
+          class="not-prose mt-8 grid grid-cols-2 gap-3 border-t border-border pt-8 sm:grid-cols-2 lg:grid-cols-4"
+          aria-label="Supply chain impact"
+        >
+          {
+            impactSupply.map((item) => (
+              <div class={metricCard}>
+                <p class:list={[metricValuePrimary, 'tabular-nums']}>{item.value}</p>
+                {item.line2 ? <p class:list={[metricValueSecondary]}>{item.line2}</p> : null}
+                <p class="mt-3 font-mono text-[11px] font-semibold uppercase leading-snug tracking-[0.14em] text-text-muted">
+                  {item.label}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- 3) Quality & Regulatory Support -->
+      <section class="scroll-mt-28 border-t border-border pt-20 lg:pt-24" aria-labelledby="sec-quality">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-start">
+          <div class="lg:col-span-5">
+            <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">03</p>
+            <h2 id="sec-quality" class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+              Quality &amp; Regulatory Support
+            </h2>
+            <p class="mt-4 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
+              I supported the design history file, change control, and submission-oriented work alongside document control. CAPAs, root cause analysis, and FMEA discipline tied engineering intent to controlled production. Internal audits and MDSAP support stayed focused on evidence, traceability, and closure.
+            </p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2 lg:col-span-7 lg:grid-cols-2">
+            <article class:list={[cardShell]}>
+              <h3 class={cardTitle}>Design history and change</h3>
+              <p class={cardBody}>
+                DHF support, design changes and change notices, letters to file, and document control across the release lifecycle.
+              </p>
+            </article>
+            <article class:list={[cardShell]}>
+              <h3 class={cardTitle}>CAPA and risk</h3>
+              <p class={cardBody}>
+                CAPA management and root cause analysis to connect issues to controlled preventive action.
+              </p>
+            </article>
+            <article class:list={[cardShell, 'sm:col-span-2 lg:col-span-2']}>
+              <h3 class={cardTitle}>Audits and regulatory alignment</h3>
+              <p class={cardBody}>
+                Internal audits and MDSAP support with emphasis on records, objective evidence, and sustainable corrective action.
+              </p>
+            </article>
+          </div>
+        </div>
+        <div
+          class="not-prose mt-8 grid grid-cols-1 gap-3 border-t border-border pt-8 sm:grid-cols-2 lg:grid-cols-4"
+          aria-label="Quality and regulatory impact"
+        >
+          {
+            impactQuality.map((item) => (
+              <div class={metricCard}>
+                <p class:list={[metricValuePrimary, 'tabular-nums']}>{item.value}</p>
+                {item.line2 ? <p class:list={[metricValueSecondary]}>{item.line2}</p> : null}
+                <p class="mt-3 font-mono text-[11px] font-semibold uppercase leading-snug tracking-[0.14em] text-text-muted">
+                  {item.label}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- 4) What I'm Looking For -->
+      <section
+        id="what-im-looking-for"
+        class="not-prose scroll-mt-28 border-t border-border pt-20 lg:pt-24"
+        aria-labelledby="sec-looking"
+      >
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-start">
+          <div class="lg:col-span-5">
+            <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">04</p>
+            <h2 id="sec-looking" class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+              What I&apos;m Looking For
+            </h2>
+            <p class="mt-4 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
+              I&apos;m looking for a senior mechanical engineering or product development role where the hardware is complex, the systems are real, and engineering decisions carry visible consequences in manufacturing and the field.
+            </p>
+            <p class="mt-4 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
+              The strongest fit is a team that values rigor, cross-functional execution, and the details that make products repeatable at scale, from tolerance stack and thermal margins to build discipline and production readiness.
+            </p>
+          </div>
+          <div class="lg:col-span-7">
+            <article class:list={[cardShell]}>
+              <h3 class={cardTitle}>Next step</h3>
+              <p class={cardBody}>
+                If this profile fits a role you are hiring for, I would welcome a conversation.
+              </p>
+              <div class="mt-6 flex justify-center">
+                <a
+                  href={`mailto:${siteConfig.social.email}`}
+                  class="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-button-primary px-8 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:opacity-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-4 w-4 shrink-0"
+                    aria-hidden="true"
+                  >
+                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                  </svg>
+                  Get in touch
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
     </div>
 
-    <section class="mt-14" aria-label="Cross-functional responsibilities">
-      <div
-        class="theme-panel rounded-[1.25rem] border border-dashed border-border/80 p-10 text-center text-sm leading-relaxed text-text-muted md:p-14"
-      >
-        <p>Add your responsibilities, examples, and visuals here.</p>
+    <section class="not-prose mt-20 max-w-3xl lg:mt-24" aria-label="Disclosure">
+      <div class="rounded-2xl border border-border bg-surface-elevated/40 px-5 py-5 md:px-6">
+        <p class="text-base leading-[1.7] text-text-muted md:text-[1.05rem]">
+          Summarized for a portfolio audience. Some program detail is omitted for confidentiality.
+        </p>
       </div>
     </section>
   </div>

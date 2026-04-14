@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Minus, Plus } from "lucide-react";
+import { Mail, Minus, Plus } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Section } from "@/components/layout/Section";
 import { Button } from "@/components/ui/button";
@@ -264,24 +264,38 @@ export function MyJourneySection() {
         />
       </div>
 
-      <div className="theme-panel mt-12 mx-auto max-w-4xl rounded-[1.5rem] p-6 md:p-7">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="theme-eyebrow font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
-            What I&apos;m Looking For
+      <div className="mt-12 grid gap-10 border-t border-border pt-20 lg:grid-cols-12 lg:gap-12 lg:pt-24">
+        <div className="lg:col-span-5">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">
+            Looking ahead
           </p>
-          <p className="mt-3 text-base leading-relaxed text-text-secondary">
+          <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+            What I&apos;m Looking For
+          </h3>
+          <p className="mt-4 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
             I&apos;m looking for a senior mechanical engineering or product development role where the hardware is complex, the systems are real, and engineering decisions carry visible consequences in manufacturing and the field.
           </p>
-          <p className="mt-4 text-base leading-relaxed text-text-secondary">
+          <p className="mt-4 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
             The strongest fit is a team that values rigor, cross-functional execution, and the details that make products repeatable at scale, from tolerance stack and thermal margins to build discipline and production readiness.
           </p>
-          {social.email ? (
-            <div className="mt-6 flex justify-center">
-              <Button asChild>
-                <a href={`mailto:${social.email}`}>Get in touch</a>
-              </Button>
-            </div>
-          ) : null}
+        </div>
+        <div className="lg:col-span-7">
+          <article className="theme-panel rounded-2xl border border-border bg-card p-6 shadow-[0_1px_0_0_rgba(0,0,0,0.04)] md:p-7 dark:shadow-[0_1px_0_0_rgba(255,255,255,0.05)]">
+            <h4 className="text-lg font-semibold tracking-[-0.03em] text-text-primary md:text-xl">Next step</h4>
+            <p className="mt-3 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
+              If this profile fits a role you are hiring for, I would welcome a conversation.
+            </p>
+            {social.email ? (
+              <div className="mt-6 flex justify-center">
+                <Button asChild size="lg">
+                  <a href={`mailto:${social.email}`}>
+                    <Mail className="h-4 w-4" aria-hidden />
+                    Get in touch
+                  </a>
+                </Button>
+              </div>
+            ) : null}
+          </article>
         </div>
       </div>
     </Section>
