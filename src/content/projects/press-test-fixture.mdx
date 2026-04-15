@@ -1,33 +1,354 @@
 ---
 title: "Press Test Fixture"
-summary: "The original press fixture relied on manual alignment, which introduced operator-to-operator variability and was a known contributor to yield loss. Redesigned the fixture across three generations: bench concept, pneumatic pilot, and a final constraint-driven production build, eliminating adjustable degrees of freedom and building alignment into the geometry itself. The fixture contributed directly to scaling output from 500 to 1,500 units per week while holding yield at 95%."
+summary: |
+  Three generations of a press test fixture for a critical electromechanical assembly: bench concept to validate measurement architecture and datums, pneumatic pilot for repeatability and yield correlation, then production optimization with poka-yoke keying and fewer degrees of freedom. Constraint-driven design evolution supporting scale to higher weekly output while holding first-pass yield.
 date: 2024-03-01
 featured: true
-cover: "/images/projects/project-1.svg"
-tags: ["SolidWorks", "GD&T", "DFM", "Poka-Yoke", "Fixturing"]
+cover: "/images/Working%20concept_CAD2.png"
+tags:
+  [
+    "SolidWorks",
+    "Opto-Mechanical Integration",
+    "GD&T & Tolerance Stack-up",
+    "Optical Alignment & Repeatability",
+    "Constraint-Driven Design",
+  ]
 ---
 
-## Overview
+{/* HERO: visual, then key outcomes + skills (Thermal Redesign pattern) */}
 
-A critical sub-assembly in an electromechanical device required press-fitting a stainless steel pin into an injection-molded housing. Manual inspection was subjective and catching only 60% of mis-presses before final assembly.
+<div class="not-prose mt-6 mb-16">
+  <div class="overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
+    <div class="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+      <div class="overflow-hidden rounded-xl bg-[#f8fafc]">
+        <p class="px-3 pt-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Working concept — bench</p>
+        <div class="flex min-h-[200px] items-center justify-center p-3 pt-2 md:min-h-[260px] md:p-4 md:pt-3">
+          <img
+            src="/images/Working%20concept_actual.png"
+            alt="Bench shop press with custom fixture: base plate, gusseted upright, and raised platform under the ram"
+            decoding="async"
+            loading="eager"
+            class="mx-auto h-auto max-h-[min(56vh,420px)] w-full object-contain"
+          />
+        </div>
+      </div>
+      <div class="flex min-h-[200px] flex-col overflow-hidden rounded-xl border-2 border-dashed border-border/80 bg-surface-elevated/40 md:min-h-[260px]">
+        <p class="px-3 pt-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Final production setup</p>
+        <div class="flex flex-1 flex-col items-center justify-center gap-2 px-4 py-8 text-center">
+          <p class="text-sm text-text-muted">Add floor photo of the released production station here.</p>
+          <p class="font-mono text-[10px] uppercase tracking-[0.12em] text-text-muted">Placeholder</p>
+        </div>
+      </div>
+    </div>
+    <p class="text-center text-xs text-text-muted">
+      Early working concept on the bench; production floor imagery will sit alongside once added.
+    </p>
+  </div>
 
-## Problem
+  <div class="mt-10 space-y-10">
+    <section>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Key outcomes</p>
+      <div class="mt-3 rounded-2xl border border-border/80 bg-surface-elevated/50 p-1.5 shadow-sm sm:p-2">
+        <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 sm:gap-2.5">
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">3×</p>
+            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Throughput vs. early concept tooling</p>
+          </div>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">0</p>
+            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Operator-induced alignment errors (final architecture)</p>
+          </div>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">95%</p>
+            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">First-pass yield through production ramp</p>
+          </div>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
+            <p class="text-2xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.25rem] sm:leading-none">500 → 1.5k</p>
+            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Weekly output supported on the line</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-The existing process used a manual go/no-go check after press-fit. Defect escapes reached 4.2% at end-of-line and 1.1% at customer site, which created a regulatory and reliability risk for a Class II device.
+    <section>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Skills applied</p>
+      <div class="journey-next-glow mt-3 rounded-[1.25rem] px-3 py-3 sm:px-[1.125rem] sm:py-3">
+        <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-3 sm:gap-x-4 sm:gap-y-3.5">
+          {[
+            'SolidWorks',
+            'Opto-Mechanical Integration',
+            'GD&T & Tolerance Stack-up',
+            'Optical Alignment & Repeatability',
+            'Constraint-Driven Design',
+          ].map((skill) => (
+            <span
+              key={skill}
+              class="inline-flex shrink-0 whitespace-nowrap rounded-lg bg-background/90 px-3 py-1.5 text-[15px] font-bold leading-tight text-text-primary ring-1 ring-inset ring-border/40 sm:text-[17px]"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
 
-## Approach
+{/* STEP 1 */}
 
-Designed a poka-yoke press fixture with:
-- Precision-ground tooling plate with ±0.001" feature location
-- Load cell integrated into the press head for force-displacement curve capture
-- Real-time pass/fail display tied to a parametric force window (SPC-derived)
-- GD&T tolerance stack analysis to confirm fixture clearances and pin engagement length
+<div id="step-1-working-concept" class="not-prose mb-16 scroll-mt-28">
+  <div class="mb-2 flex items-center gap-3">
+    <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">Step 1</h2>
+    <span class="h-px flex-1 bg-border" aria-hidden />
+  </div>
 
-DFM review with the contract manufacturer confirmed the fixture was buildable within a 4-week lead time at under $6K tooling cost.
+  <div class="mb-6 mt-4">
+    <h3 class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">Working concept</h3>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
+      Establish measurement architecture and validate mechanical assembly feasibility prior to formal CAD development.
+    </p>
+  </div>
 
-## Outcome
+  <p class="mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">CAD vs. real</p>
+  <div class="overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+      <div class="overflow-hidden rounded-xl bg-[#f8fafc]">
+        <p class="px-3 pt-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">CAD</p>
+        <div class="flex min-h-[180px] items-center justify-center p-3 pt-2 md:min-h-[240px] md:p-4 md:pt-3">
+          <img
+            src="/images/Working%20concept_CAD2.png"
+            alt="SolidWorks CAD: working concept press fixture with vertical guide, sliding carriage, and lower nest"
+            decoding="async"
+            loading="lazy"
+            class="mx-auto h-auto max-h-[min(52vh,400px)] w-full object-contain"
+          />
+        </div>
+      </div>
+      <div class="overflow-hidden rounded-xl bg-[#f8fafc]">
+        <p class="px-3 pt-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Real (bench)</p>
+        <div class="flex min-h-[180px] items-center justify-center p-3 pt-2 md:min-h-[240px] md:p-4 md:pt-3">
+          <img
+            src="/images/Working%20concept_actual.png"
+            alt="Same working concept built on the bench press under the ram"
+            decoding="async"
+            loading="lazy"
+            class="mx-auto h-auto max-h-[min(52vh,400px)] w-full object-contain"
+          />
+        </div>
+      </div>
+    </div>
+    <p class="mt-3 text-center text-xs text-text-muted">
+      Same generation: model in SolidWorks vs. hardware on the Eastwood bench press.
+    </p>
+  </div>
 
-- Defect escape rate: 4.2% → 0.3%
-- Inspection cycle time: −55% (from 22s to 10s per unit)
-- Zero field returns attributed to press-fit defects in 18 months post-launch
-- Fixture design adopted across two additional sub-assemblies
+  <div class="mt-10 grid gap-8 md:grid-cols-2 md:gap-10">
+    <div>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Approach</p>
+      <ul class="mt-3 space-y-2 text-base leading-relaxed text-text-secondary">
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Bench-level hydraulic press configuration</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Rapid, makeshift alignment tooling</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Manual datum referencing to identify critical geometric constraints</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Early-stage alignment repeatability assessment</span>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Engineering focus</p>
+      <ul class="mt-3 space-y-2 text-base leading-relaxed text-text-secondary">
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Defined primary alignment datums</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Identified critical tolerance drivers</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>De-risked assembly strategy before production tooling investment</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-8 rounded-2xl border border-border border-l-4 border-l-red-500 bg-surface-elevated/60 p-6 md:p-8">
+    <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Design decision</p>
+    <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+      Measurement architecture and datum strategy were formalized prior to CAD development to prevent tolerance cascade in later iterations.
+    </p>
+  </div>
+</div>
+
+{/* STEP 2 */}
+
+<div id="step-2-pneumatic-pilot" class="not-prose mb-16 scroll-mt-28">
+  <div class="mb-2 flex items-center gap-3">
+    <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">Step 2</h2>
+    <span class="h-px flex-1 bg-border" aria-hidden />
+  </div>
+
+  <div class="mb-6 mt-4">
+    <h3 class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">First design — pneumatic control</h3>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
+      Transition to controlled small-batch production while validating repeatability, alignment stability, and yield performance.
+    </p>
+  </div>
+
+  <div class="overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
+    <div class="flex items-center justify-center overflow-hidden rounded-xl bg-[#f8fafc] p-3 md:p-5">
+      <img
+        src="/images/Concept%202_Pneumatic%20systems_press.png"
+        alt="SolidWorks CAD: pneumatic press fixture with cylinder, spring-loaded nest, and valve manifold on base plate"
+        decoding="async"
+        loading="lazy"
+        class="mx-auto h-auto w-full max-w-[min(100%,52rem)] object-contain"
+      />
+    </div>
+    <p class="mt-3 text-center text-xs text-text-muted">
+      CAD — pneumatic pilot assembly. No bench photo for this generation; validation was tracked through repeatability and yield data.
+    </p>
+  </div>
+
+  <div class="mt-6 grid gap-8 md:grid-cols-2 md:gap-10">
+    <div>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Approach</p>
+      <ul class="mt-3 space-y-2 text-base leading-relaxed text-text-secondary">
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Parametric SolidWorks assembly with defined GD&amp;T structure</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Integrated optical alignment verification</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Stack-up analysis on critical axes</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Structured repeatability validation testing</span>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Engineering focus</p>
+      <ul class="mt-3 space-y-2 text-base leading-relaxed text-text-secondary">
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Alignment stability under repeated press cycles</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Operator repeatability</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Yield correlation with mechanical constraint strategy</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-8 rounded-2xl border border-border border-l-4 border-l-primary-accent bg-surface-elevated/60 p-6 md:p-8">
+    <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Design decision</p>
+    <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+      Architecture was refined to minimize alignment sensitivity and isolate high-variance contributors prior to scaling.
+    </p>
+  </div>
+</div>
+
+{/* STEP 3 */}
+
+<div id="step-3-production" class="not-prose mb-16 scroll-mt-28">
+  <div class="mb-2 flex items-center gap-3">
+    <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">Step 3</h2>
+    <span class="h-px flex-1 bg-border" aria-hidden />
+  </div>
+
+  <div class="mb-6 mt-4">
+    <h3 class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">Optimized for production</h3>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
+      Redesign fixture architecture for throughput, error-proofing, fewer moving parts, and operator robustness following pilot validation.
+    </p>
+  </div>
+
+  <div class="overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
+    <div class="flex items-center justify-center overflow-hidden rounded-xl bg-[#f8fafc] p-3 md:p-5">
+      <img
+        src="/images/Concept%203_pneumatic%20with%20optimized%20parts.png"
+        alt="SolidWorks CAD: production-optimized pneumatic fixture with streamlined tooling and reduced moving parts"
+        decoding="async"
+        loading="lazy"
+        class="mx-auto h-auto w-full max-w-[min(100%,52rem)] object-contain"
+      />
+    </div>
+    <p class="mt-3 text-center text-xs text-text-muted">
+      CAD — production configuration. Floor photo of the released setup can be added here when available.
+    </p>
+  </div>
+
+  <div class="mt-6 grid gap-8 md:grid-cols-2 md:gap-10">
+    <div>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Approach</p>
+      <ul class="mt-3 space-y-2 text-base leading-relaxed text-text-secondary">
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Dedicated datum constraint architecture</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Fool-proof mechanical keying to eliminate operator-induced misalignment</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Ergonomic redesign for repeat cycle efficiency</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Reduced adjustment degrees of freedom and moving parts</span>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Engineering impact</p>
+      <ul class="mt-3 space-y-2 text-base leading-relaxed text-text-secondary">
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>3× throughput increase</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>0 operator-induced alignment errors</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Yield stability at scale</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
+          <span>Reduced training dependency</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-8 rounded-2xl border border-border border-l-4 border-l-emerald-500 bg-surface-elevated/60 p-6 md:p-8">
+    <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Design decision</p>
+    <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+      Final architecture prioritized constraint-driven design and poka-yoke principles over adjustability to ensure scalable, repeatable performance.
+    </p>
+  </div>
+</div>

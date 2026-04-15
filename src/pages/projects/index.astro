@@ -11,6 +11,13 @@ const thermalRedesignCoverSlides = [
 
 const livOpticalCoverSlides = ['/images/liv-layman-bench-poc.png'] as const;
 
+const pressTestFixtureCoverSlides = [
+  '/images/Working%20concept_CAD2.png',
+  '/images/Working%20concept_actual.png',
+  '/images/Concept%202_Pneumatic%20systems_press.png',
+  '/images/Concept%203_pneumatic%20with%20optimized%20parts.png',
+] as const;
+
 const workProjects = [
   {
     title: 'Thermal Redesign Journey',
@@ -50,12 +57,26 @@ const workProjects = [
   {
     title: 'Press Test Fixture',
     slug: 'press-test-fixture',
-    context: 'Work project · Yield improvement through fixturing',
-    problem: 'Manual alignment in a press-fit operation introduced operator variation and contributed directly to yield loss.',
-    action: 'Redesigned the fixture across multiple generations to build alignment into the geometry and remove avoidable setup freedom.',
-    result: 'Improved repeatability, supported higher throughput, and helped sustain production yield at scale.',
-    tags: ['Fixturing', 'GD&T', 'Poka-Yoke', 'Yield'],
-    cover: '/images/projects/project-1.svg',
+    context: 'Work project · Press-fit quality, fixturing, and manufacturing scale-up',
+    problem:
+      'A critical electromechanical press-fit sub-assembly depended on manual alignment and subjective checks. Operator-to-operator variation was a direct contributor to yield loss and end-of-line escapes as volumes grew.',
+    action:
+      'Evolved the fixture in three generations: bench concept to lock measurement architecture and datums, pneumatic pilot with SolidWorks GD&T and optical alignment verification, then a production configuration with poka-yoke keying, fewer degrees of freedom, and constraint-driven tooling.',
+    result:
+      'Supported scale toward 1,500 units/week while holding first-pass yield around 95%; final architecture targeted zero operator-induced alignment errors and roughly 3× throughput versus early concept tooling.',
+    tags: [
+      'SolidWorks',
+      'GD&T',
+      'Tolerance Stack-up',
+      'Optical Alignment',
+      'Poka-Yoke',
+      'Fixturing',
+      'DFM',
+      'Constraint-Driven Design',
+      'ISO 13485',
+      'Manufacturing',
+    ],
+    cover: '/images/Working%20concept_CAD2.png',
   },
   {
     title: 'Connector NPI & Smart Textiles',
@@ -155,7 +176,9 @@ const academicPersonalProjects = [
                   ? [...thermalRedesignCoverSlides]
                   : project.slug === 'liv-optical-test-rig'
                     ? [...livOpticalCoverSlides]
-                    : undefined
+                    : project.slug === 'press-test-fixture'
+                      ? [...pressTestFixtureCoverSlides]
+                      : undefined
               }
               eyebrow="Work Project"
               ctaLabel="Read more"

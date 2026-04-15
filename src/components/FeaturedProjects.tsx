@@ -3,6 +3,13 @@ import { Button } from "@/components/ui/button";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Section } from "@/components/layout/Section";
 
+const pressTestFixtureCoverSlides = [
+  "/images/Working%20concept_CAD2.png",
+  "/images/Working%20concept_actual.png",
+  "/images/Concept%202_Pneumatic%20systems_press.png",
+  "/images/Concept%203_pneumatic%20with%20optimized%20parts.png",
+] as const;
+
 const caseStudies = [
   {
     slug: "thermal-redesign-journey",
@@ -43,7 +50,7 @@ export function FeaturedProjects() {
         </div>
         <Button variant="ghost" size="sm" asChild className="hidden sm:flex">
           <a href="/projects">
-            Engineering Projects<ArrowRight className="ml-1 h-4 w-4" />
+            View all projects <ArrowRight className="ml-1 h-4 w-4" />
           </a>
         </Button>
       </div>
@@ -60,6 +67,14 @@ export function FeaturedProjects() {
               result={project.result}
               slug={project.slug}
               href={`/projects/${project.slug}`}
+              cover={
+                project.slug === "press-test-fixture"
+                  ? "/images/Working%20concept_CAD2.png"
+                  : undefined
+              }
+              coverSlides={
+                project.slug === "press-test-fixture" ? [...pressTestFixtureCoverSlides] : undefined
+              }
             />
           </div>
         ))}

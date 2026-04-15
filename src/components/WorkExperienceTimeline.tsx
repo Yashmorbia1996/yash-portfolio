@@ -223,7 +223,7 @@ function TimelineCard({
             data.coverImageLayout === "centered" ? "min-w-0 max-w-full overflow-hidden bg-muted/30" : "overflow-hidden bg-muted/30",
             data.coverImageLayout === "centered"
               ? [
-                  "mt-4 flex items-center justify-center",
+                  "mt-4 grid w-full place-items-center",
                   variant === "home"
                     ? "px-4 py-8 -mx-5 rounded-[1.25rem] border border-border/80 md:px-6 md:py-10"
                     : "rounded-xl border border-border px-4 py-6 md:px-6 md:py-8",
