@@ -22,6 +22,7 @@ export const siteConfig = {
   nav: [
     { label: "Home", href: "/", icon: "Home" },
     { label: "Projects", href: "/projects", icon: "Briefcase" },
+    { label: "Certifications", href: "/certificates", icon: "Award" },
   ],
 
   skills: [

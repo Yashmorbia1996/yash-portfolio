@@ -109,7 +109,7 @@ export function Hero() {
   };
 
   return (
-    <section id="introduction" className="pt-36 pb-24 md:pt-44 md:pb-32">
+    <section id="introduction" className="pt-20 pb-24 md:pt-28 md:pb-32">
       <div className="site-container">
         <div className="grid gap-10 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-14">
           <aside className="hero-animate hero-animate-2">

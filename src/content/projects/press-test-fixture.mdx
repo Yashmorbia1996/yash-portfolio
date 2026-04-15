@@ -285,18 +285,31 @@ tags:
     </p>
   </div>
 
+  <p class="mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">CAD vs. production</p>
   <div class="overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
-    <div class="flex items-center justify-center overflow-hidden rounded-xl bg-[#f8fafc] p-3 md:p-5">
-      <img
-        src="/images/Concept%203_pneumatic%20with%20optimized%20parts.png"
-        alt="SolidWorks CAD: production-optimized pneumatic fixture with streamlined tooling and reduced moving parts"
-        decoding="async"
-        loading="lazy"
-        class="mx-auto h-auto w-full max-w-[min(100%,52rem)] object-contain"
-      />
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+      <div class="overflow-hidden rounded-xl bg-[#f8fafc]">
+        <p class="px-3 pt-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">CAD</p>
+        <div class="flex min-h-[180px] items-center justify-center p-3 pt-2 md:min-h-[240px] md:p-4 md:pt-3">
+          <img
+            src="/images/Concept%203_pneumatic%20with%20optimized%20parts.png"
+            alt="SolidWorks CAD: production-optimized pneumatic fixture with streamlined tooling and reduced moving parts"
+            decoding="async"
+            loading="lazy"
+            class="mx-auto h-auto max-h-[min(52vh,400px)] w-full object-contain"
+          />
+        </div>
+      </div>
+      <div class="flex min-h-[180px] flex-col overflow-hidden rounded-xl border-2 border-dashed border-border/80 bg-surface-elevated/40 md:min-h-[240px]">
+        <p class="px-3 pt-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Production (floor)</p>
+        <div class="flex flex-1 flex-col items-center justify-center gap-2 px-4 py-6 text-center md:py-8">
+          <p class="text-sm text-text-muted">Add floor photo of the released production station here.</p>
+          <p class="font-mono text-[10px] uppercase tracking-[0.12em] text-text-muted">Placeholder</p>
+        </div>
+      </div>
     </div>
     <p class="mt-3 text-center text-xs text-text-muted">
-      CAD — production configuration. Floor photo of the released setup can be added here when available.
+      Final generation: released CAD vs. line-ready hardware on the floor.
     </p>
   </div>
 
