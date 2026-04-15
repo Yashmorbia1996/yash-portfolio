@@ -113,8 +113,8 @@
   --text-scale-5: 3.05175781rem;
   --text-scale-6: 3.81469727rem;
 
-  /* Site-wide content width */
-  --container-max: 80rem;
+  /* Site-wide content width — cap at 1440px on large viewports */
+  --container-max: 90rem;
 
   /* Border radius — generous rounding baseline */
   --radius: 0.75rem;
@@ -122,25 +122,27 @@
 
 /* Single container for navbar, hero, sections, footer */
 .site-container {
+  box-sizing: border-box;
   width: 100%;
-  max-width: var(--container-max);
+  max-width: min(100%, var(--container-max));
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  /* Fluid horizontal padding: tight on phones, ~4rem cap on large screens */
+  padding-left: clamp(1rem, 3.5vw, 4rem);
+  padding-right: clamp(1rem, 3.5vw, 4rem);
 }
 
-@media (width >= 768px) {
-  .site-container {
-    padding-left: 4rem;
-    padding-right: 4rem;
-  }
+/* Allow flex rows (e.g. header) to shrink without forcing horizontal overflow */
+header .site-container {
+  min-width: 0;
 }
 
-@media (width >= 1536px) {
-  .site-container {
-    padding-right: calc(4rem + var(--dock-safe-2xl));
-  }
+/* Media: scale inside layout without exceeding container (icons/SVGs use fixed classes; skip break) */
+main img,
+main video,
+.prose-content img {
+  max-width: 100%;
+  height: auto;
 }
 
 body {
@@ -177,6 +179,17 @@ h1, h2, h3 {
 .prose-content h2 {
   font-family: var(--font-heading);
   font-weight: 400;
+}
+
+/* Fluid type in MDX prose only — prevents overflow on narrow viewports */
+.prose-content h1 {
+  font-size: clamp(1.875rem, 1.35rem + 1.65vw, 2.5rem);
+  line-height: 1.15;
+}
+
+.prose-content h2 {
+  font-size: clamp(1.5rem, 1.2rem + 1.1vw, 2rem);
+  line-height: 1.2;
 }
 
 .prose-content a {
@@ -219,6 +232,7 @@ h1, h2, h3 {
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primary-accent) 18%, transparent);
   opacity: 0.72;
   animation: timeline-node-breathe 4.8s ease-in-out infinite;
+  pointer-events: none;
 }
 
 /* Timeline connector — clean horizontal rule with a small terminal cap */

@@ -111,7 +111,7 @@ function Node({
 
         <div
           className={[
-            "timeline-node-shell flex items-center justify-center rounded-full bg-background",
+            "timeline-node-shell flex shrink-0 items-center justify-center rounded-full bg-background",
             data.current ? "timeline-node-shell--current" : "",
             variant === "home" ? "h-16 w-16" : "h-14 w-14",
           ].join(" ")}
@@ -393,7 +393,8 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
               <div key={entry.id} className="relative min-w-0">
                 <div
                   className={[
-                    "timeline-node-shell absolute -left-6 top-5 z-10 -translate-x-1/2 rounded-full bg-background p-1.5",
+                    /* Fixed square + shrink-0: ::after ring uses inset; without explicit size the shell could stretch full width on small viewports */
+                    "timeline-node-shell absolute -left-6 top-5 z-10 flex h-11 w-11 shrink-0 -translate-x-1/2 items-center justify-center rounded-full bg-background p-1.5",
                     data.current ? "timeline-node-shell--current" : "",
                   ].join(" ")}
                 >
