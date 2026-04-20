@@ -257,7 +257,7 @@ function TimelineCard({
         className={
           variant === "home"
             ? "mt-4 max-w-[60ch] text-[0.98rem] leading-relaxed text-text-secondary"
-            : "mt-4 max-w-[58ch] text-sm leading-relaxed text-text-secondary"
+            : "mt-4 max-w-[58ch] text-[15px] leading-relaxed text-text-secondary"
         }
       >
         {data.description}
@@ -272,7 +272,7 @@ function TimelineCard({
               }
             >
               {data.achievements.map((line, i) => (
-                <li key={i} className={variant === "home" ? "flex gap-3 text-base text-text-secondary" : "flex gap-2 text-sm text-text-secondary"}>
+                <li key={i} className={variant === "home" ? "flex gap-3 text-base text-text-secondary" : "flex gap-2 text-base text-text-secondary"}>
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-current" aria-hidden />
                   <span>{line}</span>
                 </li>
@@ -285,7 +285,7 @@ function TimelineCard({
             className={
               variant === "home"
                 ? "mt-4 inline-flex text-sm font-semibold uppercase tracking-[0.12em] text-primary-accent transition-opacity duration-300 hover:opacity-80"
-                : "mt-3 inline-flex text-xs font-semibold uppercase tracking-[0.12em] text-primary-accent transition-opacity duration-300 hover:opacity-80"
+                : "mt-3 inline-flex text-sm font-semibold uppercase tracking-[0.12em] text-primary-accent transition-opacity duration-300 hover:opacity-80"
             }
           >
             {expanded ? "Show less" : "Read more"}

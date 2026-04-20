@@ -1,9 +1,9 @@
-import { Briefcase, Home, Award } from "lucide-react";
+import { Briefcase, Home, Award, Layers } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-const iconMap = { Briefcase, Home, Award } as const;
+const iconMap = { Briefcase, Home, Award, Layers } as const;
 type IconKey = keyof typeof iconMap;
 
 interface HeaderProps {
@@ -37,7 +37,7 @@ export function Header({ currentPath = "/" }: HeaderProps) {
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm font-medium transition-colors sm:px-3 ${
+                  className={`flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[15px] font-medium transition-colors sm:px-3 ${
                     isActive
                       ? "bg-button-secondary text-primary-accent"
                       : "text-text-muted hover:bg-card-hover hover:text-text-primary"

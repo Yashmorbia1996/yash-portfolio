@@ -14,10 +14,10 @@ const caseStudies = [
   {
     slug: "thermal-redesign-journey",
     title: "Thermal Redesign Journey",
-    problem: "23% returns from field overheating; needed a real thermal-path fix.",
+    problem: "Field returns from overheating climbed to a commercially unsustainable rate; needed a real thermal-path fix.",
     action:
       "Grill/airflow iteration in Flow Simulation plus validation, then semiconductor and heatsink stack upgrade.",
-    result: "16°C chip reduction; returns 23% → below 3%; both phases to production.",
+    result: "16°C chip reduction; field returns to under 3%; both phases to production.",
   },
   {
     slug: "liv-optical-test-rig",

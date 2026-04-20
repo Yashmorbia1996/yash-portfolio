@@ -1,13 +1,9 @@
 ---
 title: "Thermal Redesign Journey"
 summary: |
-  A deployed product was overheating in the field, driving customer returns to 23%. I led a two-phase mechanical redesign to fix the thermal path instead of applying workarounds.
+  A deployed product was generating field returns at a rate that threatened its commercial viability. I led a structured two-phase thermal redesign. I fixed the airflow path first, then the internal thermal stack, rather than reaching for a workaround.
 
-  Phase 1 focused on airflow: grill geometry was iterated in SolidWorks Flow Simulation, then validated physically.
-
-  Phase 2 addressed the internal stack (semiconductor package and heatsink path) to remove the junction-to-case bottleneck.
-
-  Together, the work cut chip temperature by 16°C and reduced return rate from 23% to below 3%. Both phases shipped to production.
+  Both phases shipped to production. Chip operating temperature dropped by 16°C and field returns came down to under 3%. The new thermal headroom also unlocked a 50% increase in operating power and a 33% reduction in treatment time, making the redesigned product both more reliable and more effective than its predecessor.
 date: 2023-05-01
 featured: true
 cover: "/images/Different_options_temp_comparision.svg"
@@ -25,40 +21,41 @@ tags:
     "Supplier Evaluation",
     "GD&T",
   ]
+glanceOutcome: "Both phases shipped to production. −16°C chip temp, field returns under 3%, +50% operating power vs previous generation."
 ---
 
-{/* HERO: visuals, then project summary (outcomes, skills, snapshot) */}
+{/* ── HERO ── */}
 
 <div class="not-prose mt-6 mb-16">
-  <div class="overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
+  <div class="relative overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-8">
     <img
       src="/images/Different_options_temp_comparision.svg"
-      alt="Temperature comparison chart: baseline vs redesigned grill options showing thermal improvement across both phases"
+      alt="Temperature comparison chart: chip temperature across four grill geometry iterations, each curve benchmarked against the original design"
       decoding="async"
-      class="mx-auto block h-auto w-full max-w-[80%] rounded-xl"
+      class="mx-auto block h-auto w-full max-w-[88%] rounded-xl"
     />
-    <p class="mt-3 mb-5 text-center text-xs text-text-muted">
-      Temperature comparison across grill design options: each curve represents a different geometry iteration against the baseline.
-    </p>
-
-    <img
-      src="/images/Final_airflow_sim.svg"
-      alt="Final airflow simulation: thermal curve, velocity vectors, and flow trajectories through redesigned grill"
-      decoding="async"
-      class="mx-auto block h-auto w-full max-w-[80%] rounded-xl"
-    />
-    <p class="mt-3 mb-5 text-center text-xs text-text-muted">
-      Airflow simulation: thermal curve and flow trajectories through redesigned geometry.
-    </p>
-
-    <img
-      src="/images/Cuthousings_summary.png"
-      alt="Cut housings: grill openings modified on physical parts to validate concept 3"
-      decoding="async"
-      class="mx-auto block h-auto w-full max-w-[80%] rounded-xl"
-    />
-    <p class="mt-3 text-center text-xs text-text-muted">
-      Cut housings used to validate grill option 3: openings cut into production housings for physical thermal testing.
+    {/* Overlay: replaces baked-in "Current model" label in the chart image */}
+    <div
+      style={{
+        position: 'absolute',
+        top: '12.5%',
+        left: '84.5%',
+        background: 'white',
+        color: '#333333',
+        fontSize: '13.5px',
+        fontFamily: 'Arial, sans-serif',
+        fontWeight: '400',
+        padding: '3px 22px 4px 2px',
+        whiteSpace: 'nowrap',
+        lineHeight: '1.3',
+        pointerEvents: 'none',
+        zIndex: '10',
+      }}
+    >
+      Original model
+    </div>
+    <p class="mt-4 text-center text-xs text-text-muted">
+      Chip temperature across four grill geometry iterations. Each curve benchmarked against the original design. Concept 3 delivered the largest reduction and was selected for physical validation.
     </p>
   </div>
 
@@ -66,18 +63,22 @@ tags:
     <section>
       <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Key outcomes</p>
       <div class="mt-3 rounded-2xl border border-border/80 bg-surface-elevated/50 p-1.5 shadow-sm sm:p-2">
-        <div class="grid gap-2 sm:grid-cols-3 sm:gap-2.5">
+        <div class="grid gap-2 grid-cols-2 sm:grid-cols-4 sm:gap-2.5">
           <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
             <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">-16°C</p>
             <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Chip temperature reduction</p>
           </div>
           <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
             <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">&lt;3%</p>
-            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Final return rate (from 23%)</p>
+            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Final field return rate</p>
           </div>
           <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
-            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">2</p>
-            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Phases shipped to production</p>
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">+50%</p>
+            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Operating power vs previous gen</p>
+          </div>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">-33%</p>
+            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Treatment time for the user</p>
           </div>
         </div>
       </div>
@@ -113,10 +114,20 @@ tags:
   </div>
 </div>
 
-{/* THE PROBLEM */}
+{/* ── DISCLOSURE ── */}
+
+<div id="disclosure" class="not-prose mb-16 scroll-mt-28">
+  <div class="rounded-2xl border border-border bg-surface-elevated/40 px-5 py-4">
+    <p class="text-sm leading-relaxed text-text-muted">
+      <strong class="text-text-secondary">Disclosure:</strong> Specific baseline metrics, proprietary simulation outputs, and product identifiers have been withheld or generalised in line with confidentiality obligations. The temperature comparison chart, airflow simulation images, and heatsink images are non-proprietary. All outcomes stated are directionally accurate.
+    </p>
+  </div>
+</div>
+
+{/* ── THE PROBLEM ── */}
 
 <div id="the-problem" class="not-prose mb-16 scroll-mt-28">
-  <div class="mb-6">
+  <div class="mb-8">
     <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">
       The problem
     </h2>
@@ -124,46 +135,94 @@ tags:
       A deployed product was overheating in the field
     </h3>
     <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-      The original grill geometry restricted airflow through the enclosure. Overheating triggered field failures, and the customer return rate climbed to <strong class="text-text-primary">23%</strong>. The product needed a thermal path fix, not a workaround.
+      Field returns had climbed past a commercially viable threshold. Root cause analysis pointed to a single structural issue: the enclosure grill geometry was restricting airflow, causing heat to accumulate at the chip faster than the thermal path could dissipate it.
+    </p>
+    <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+      The temptation was to adjust thermal limits in firmware. Instead, I used <strong class="text-text-primary">5 Whys</strong> and <strong class="text-text-primary">8D</strong> to scope the real problem, and committed to fixing the physical thermal path across two design phases.
     </p>
   </div>
 
-  <div class="overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
-    <div class="mb-4 grid grid-cols-2 gap-4">
-      <div class="flex items-center justify-center overflow-hidden rounded-xl bg-[#f8fafc] p-4">
-        <img
-          src="/images/The Problem_Side_view_grill.png"
-          alt="Product side view: original grill geometry"
-          decoding="async"
-          class="mx-auto block h-auto w-full max-h-[308px] max-w-[70%] object-contain md:max-h-[392px]"
-        />
-      </div>
-      <div class="flex items-center justify-center overflow-hidden rounded-xl bg-[#f8fafc] p-4">
-        <img
-          src="/images/The Problem_back_view_grill.png"
-          alt="Product back view: restrictive circular grill pattern"
-          decoding="async"
-          class="mx-auto block h-auto w-full max-h-[308px] max-w-[70%] object-contain md:max-h-[392px]"
-        />
-      </div>
-    </div>
-    <p class="mb-5 text-center text-xs text-text-muted">
-      Side and rear views of the original product: the circular grill pattern restricted airflow through the enclosure.
-    </p>
+  {/* Root cause chain */}
+  {(() => {
+    const steps = [
+      { n: 1, label: 'Restrictive grill geometry', sub: 'Original enclosure design', warn: false },
+      { n: 2, label: 'Reduced airflow',            sub: 'Through the enclosure',     warn: false },
+      { n: 3, label: 'Heat accumulation',           sub: 'Chip exceeds design limits', warn: false },
+      { n: 4, label: 'Thermal failure',             sub: 'Component shutdown',        warn: true  },
+      { n: 5, label: 'Field return',                sub: 'Customer-reported',         warn: true  },
+    ];
+    return (
+      <div class="rounded-2xl border border-border bg-surface-elevated/40 p-5 md:p-8">
+        <p class="mb-7 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Root cause chain</p>
 
-    <img
-      src="/images/The Problem_Airflow.png"
-      alt="SolidWorks Flow Simulation: velocity magnitude contours (left) and flow trajectories (right) showing restricted airflow"
-      decoding="async"
-      class="mx-auto block h-auto w-full max-w-[80%] rounded-xl"
-    />
-    <p class="mt-3 text-center text-xs text-text-muted">
-      SolidWorks Flow Simulation: original geometry. Velocity magnitude (left) and flow trajectories (right) showing restricted airflow path.
-    </p>
-  </div>
+        {/* ── Desktop: horizontal numbered timeline ── */}
+        <div class="relative hidden sm:block">
+          {/* Rail connecting all circles */}
+          <div class="absolute left-[10%] right-[10%] top-7 h-px bg-gradient-to-r from-primary-accent/40 via-border to-red-300/60" />
+          <div class="grid grid-cols-5 gap-2">
+            {steps.map((step) => (
+              <div key={step.n} class="flex flex-col items-center gap-3">
+                {/* Numbered circle — sits on top of the rail */}
+                <div class={[
+                  'relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 bg-background text-sm font-bold shadow-sm',
+                  step.warn
+                    ? 'border-red-300 text-red-500'
+                    : 'border-primary-accent/50 text-primary-accent',
+                ].join(' ')}>
+                  {step.n}
+                </div>
+                {/* Label block */}
+                <div class="text-center">
+                  <p class={[
+                    'text-[12.5px] font-semibold leading-snug',
+                    step.warn ? 'text-red-500' : 'text-text-primary',
+                  ].join(' ')}>
+                    {step.label}
+                  </p>
+                  <p class="mt-1 text-[11px] leading-snug text-text-muted">{step.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Mobile: vertical timeline ── */}
+        <div class="flex flex-col sm:hidden">
+          {steps.map((step, i) => (
+            <div key={step.n} class="flex gap-4">
+              {/* Circle + vertical connector */}
+              <div class="flex flex-col items-center">
+                <div class={[
+                  'flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 bg-background text-xs font-bold',
+                  step.warn
+                    ? 'border-red-300 text-red-500'
+                    : 'border-primary-accent/50 text-primary-accent',
+                ].join(' ')}>
+                  {step.n}
+                </div>
+                {i < steps.length - 1 && (
+                  <div class="my-1 w-px flex-1 bg-border/60" />
+                )}
+              </div>
+              {/* Label */}
+              <div class={['pt-1', i < steps.length - 1 ? 'pb-4' : ''].join(' ')}>
+                <p class={[
+                  'text-[13px] font-semibold leading-snug',
+                  step.warn ? 'text-red-500' : 'text-text-primary',
+                ].join(' ')}>
+                  {step.label}
+                </p>
+                <p class="mt-0.5 text-[11px] leading-snug text-text-muted">{step.sub}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  })()}
 </div>
 
-{/* PHASE 1 */}
+{/* ── PHASE 1 ── */}
 
 <div id="phase-1-airflow" class="not-prose mb-16 scroll-mt-28">
   <div class="mb-2 flex items-center gap-3">
@@ -173,103 +232,147 @@ tags:
     <span class="h-px flex-1 bg-border" />
   </div>
 
-  <div class="mb-6 mt-4">
+  <div class="mb-8 mt-4">
     <h3 class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
       Airflow path redesign
     </h3>
     <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-      I ran a SolidWorks Flow Simulation baseline on the original geometry, then iterated on grill designs to open up the airflow path. Multiple options were compared against the baseline to find the best balance of thermal performance, manufacturability, and product fit.
+      The grill geometry was the primary restriction. I ran a SolidWorks Flow Simulation baseline on the existing design, then developed three alternative grill geometries, varying slot dimensions, pattern density, and effective open area. All four options were evaluated on thermal performance, velocity contours, and manufacturability before selecting one for physical validation.
     </p>
   </div>
 
-  <div class="overflow-hidden rounded-2xl border border-border bg-white p-3 md:p-5">
-    <img
-      src="/images/Phase%201_image1.png"
-      alt="Grill design comparison: Current vs Concept 1, 2, and 3 showing front and back housing views"
-      decoding="async"
-      class="mx-auto block h-auto w-full max-w-[80%] min-h-[224px] rounded-xl object-contain md:min-h-[304px]"
-    />
-    <p class="mt-3 text-center text-xs text-text-muted">
-      Grill design iterations: current geometry vs three redesigned concepts, front and rear housing views.
-    </p>
+  {/* Concept comparison cards */}
+  <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    {[
+      {
+        label: 'Baseline',
+        tag: 'Reference',
+        selected: false,
+        desc: 'Original circular grill pattern. Sets the reference for airflow velocity and chip temperature. All concepts benchmarked against this.',
+      },
+      {
+        label: 'Concept 1',
+        tag: 'Iteration',
+        selected: false,
+        desc: 'Increased slot density. Moderate thermal improvement over baseline. Some DFM constraints flagged during review.',
+      },
+      {
+        label: 'Concept 2',
+        tag: 'Iteration',
+        selected: false,
+        desc: 'Wider slot geometry with higher open area. Better airflow, but introduced structural trade-offs in the housing wall thickness.',
+      },
+      {
+        label: 'Concept 3',
+        tag: 'Selected ✓',
+        selected: true,
+        desc: 'Optimised slot width, pitch, and orientation. Best thermal result across all iterations. Manufacturable. Selected for physical validation.',
+      },
+    ].map((c) => (
+      <div
+        key={c.label}
+        class={[
+          'flex flex-col rounded-xl border p-4',
+          c.selected
+            ? 'border-primary-accent/40 bg-background ring-1 ring-primary-accent/20'
+            : 'border-border bg-surface-elevated/30',
+        ].join(' ')}
+      >
+        <div class="mb-3 flex items-center justify-between gap-2">
+          <p class="text-sm font-semibold text-text-primary">{c.label}</p>
+          <span
+            class={[
+              'rounded-full px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.12em]',
+              c.selected
+                ? 'bg-primary-accent/10 text-primary-accent'
+                : 'bg-border/60 text-text-muted',
+            ].join(' ')}
+          >
+            {c.tag}
+          </span>
+        </div>
+        <p class="text-[13px] leading-relaxed text-text-secondary">{c.desc}</p>
+      </div>
+    ))}
   </div>
 
-  <div class="mt-5 overflow-hidden rounded-2xl border border-border bg-white p-3 md:p-5">
-    <div class="mb-4 grid grid-cols-2 gap-3 md:gap-4">
-      <div class="overflow-hidden rounded-xl bg-[#f8fafc]">
-        <p class="px-3 pt-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Current design</p>
-        <div class="flex min-h-[160px] items-center justify-center p-2 pt-1 md:min-h-[208px] md:p-3 md:pt-2">
-          <img
-            src="/images/Option1_airflow.png"
-            alt="Current design: CFD airflow simulation with velocity contours"
-            decoding="async"
-            class="h-auto max-h-[256px] w-full object-contain md:max-h-[320px]"
-          />
+  {/* CFD simulation grid */}
+  <div class="mt-5 overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
+    <p class="mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">
+      SolidWorks Flow Simulation: velocity contours
+    </p>
+    <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {[
+        { label: 'Baseline', tag: 'Reference', img: '/images/Option1_airflow.png', alt: 'Baseline CFD: velocity contours on original grill geometry, outlet 0.283 m/s', selected: false },
+        { label: 'Concept 1', tag: 'Iteration', img: '/images/Option2_airflow.png', alt: 'Concept 1 CFD: increased slot density, outlet 0.55 m/s', selected: false },
+        { label: 'Concept 2', tag: 'Iteration', img: '/images/Option3_airflow.png', alt: 'Concept 2 CFD: wider slot geometry, outlet 0.483 m/s', selected: false },
+        { label: 'Concept 3', tag: 'Selected ✓', img: '/images/Option4_airflow.png', alt: 'Concept 3 CFD: optimised slot width and pitch, outlet 0.514 m/s, best thermal result', selected: true },
+      ].map((c) => (
+        <div
+          key={c.label}
+          class={[
+            'overflow-hidden rounded-xl border',
+            c.selected ? 'border-primary-accent/40 ring-1 ring-primary-accent/20' : 'border-border/70',
+          ].join(' ')}
+        >
+          <div class={[
+            'flex items-center justify-between px-2.5 py-2',
+            c.selected ? 'bg-primary-accent/5' : 'bg-surface-elevated/60',
+          ].join(' ')}>
+            <p class="text-[12px] font-semibold text-text-primary">{c.label}</p>
+            <span class={[
+              'rounded-full px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.1em]',
+              c.selected ? 'bg-primary-accent/10 text-primary-accent' : 'bg-border/60 text-text-muted',
+            ].join(' ')}>
+              {c.tag}
+            </span>
+          </div>
+          <div class="relative aspect-[4/3] bg-[#f8fafc]">
+            <div class="absolute inset-0 flex items-center justify-center p-2">
+              <img
+                src={c.img}
+                alt={c.alt}
+                decoding="async"
+                loading="lazy"
+                class="max-h-full max-w-full object-contain object-center"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="overflow-hidden rounded-xl bg-[#f8fafc]">
-        <p class="px-3 pt-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Concept 1</p>
-        <div class="flex min-h-[160px] items-center justify-center p-2 pt-1 md:min-h-[208px] md:p-3 md:pt-2">
-          <img
-            src="/images/Option2_airflow.png"
-            alt="Concept 1: CFD airflow simulation with velocity contours"
-            decoding="async"
-            class="h-auto max-h-[256px] w-full object-contain md:max-h-[320px]"
-          />
-        </div>
-      </div>
-      <div class="overflow-hidden rounded-xl bg-[#f8fafc]">
-        <p class="px-3 pt-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Concept 2</p>
-        <div class="flex min-h-[160px] items-center justify-center p-2 pt-1 md:min-h-[208px] md:p-3 md:pt-2">
-          <img
-            src="/images/Option3_airflow.png"
-            alt="Concept 2: CFD airflow simulation with velocity contours"
-            decoding="async"
-            class="h-auto max-h-[256px] w-full object-contain md:max-h-[320px]"
-          />
-        </div>
-      </div>
-      <div class="overflow-hidden rounded-xl bg-[#f8fafc]">
-        <p class="px-3 pt-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Concept 3</p>
-        <div class="flex min-h-[160px] items-center justify-center p-2 pt-1 md:min-h-[208px] md:p-3 md:pt-2">
-          <img
-            src="/images/Option4_airflow.png"
-            alt="Concept 3: CFD airflow simulation with velocity contours"
-            decoding="async"
-            class="h-auto max-h-[256px] w-full object-contain md:max-h-[320px]"
-          />
-        </div>
-      </div>
+      ))}
     </div>
-    <p class="text-center text-xs text-text-muted">
-      SolidWorks Flow Simulation: velocity contour comparison across all four grill design options.
+    <p class="mt-4 text-center text-[11px] text-text-muted">
+      Velocity contour comparison across all four grill geometries. Higher outlet velocity = better airflow through the enclosure.
     </p>
   </div>
 
+  {/* Phase 1 result */}
   <div class="mt-8 rounded-2xl border border-border bg-surface-elevated/60 p-6 md:p-8">
     <p class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">Phase 1 result</p>
     <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
-      The grill redesign was physically validated. Chip temperature dropped measurably, and the return rate fell from <strong class="text-text-primary">23% to 8%</strong>. Good progress, but not enough. The internal thermal stack still had a bottleneck.
+      Concept 3 was physically validated. Chip temperature dropped by <strong class="text-text-primary">10°C</strong> and field returns fell by more than half. That was a meaningful result, but not enough. Simulation and physical data both pointed to a remaining bottleneck in the internal thermal stack. Phase 2 was scoped.
     </p>
     <div class="mt-6 grid gap-4 sm:grid-cols-3">
       <div class="rounded-xl border border-border bg-background px-5 py-4">
-        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Return rate after Phase 1</p>
-        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">23% → 8%</p>
+        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Field return rate</p>
+        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">&gt;50%</p>
+        <p class="mt-1 text-sm text-text-muted">reduction vs pre-redesign baseline</p>
       </div>
       <div class="rounded-xl border border-border bg-background px-5 py-4">
         <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Chip temperature</p>
-        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">-10°C</p>
+        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">−10°C</p>
+        <p class="mt-1 text-sm text-text-muted">Physical testing confirmed</p>
       </div>
       <div class="rounded-xl border border-border bg-background px-5 py-4">
         <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Status</p>
-        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">Validated</p>
-        <p class="mt-1 text-sm text-text-muted">Physical testing confirmed</p>
+        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">Shipped</p>
+        <p class="mt-1 text-sm text-text-muted">Validated & in production</p>
       </div>
     </div>
   </div>
 </div>
 
-{/* PHASE 2 */}
+{/* ── PHASE 2 ── */}
 
 <div id="phase-2-thermal" class="not-prose mb-16 scroll-mt-28">
   <div class="mb-2 flex items-center gap-3">
@@ -279,113 +382,141 @@ tags:
     <span class="h-px flex-1 bg-border" />
   </div>
 
-  <div class="mb-6 mt-4">
+  <div class="mb-8 mt-4">
     <h3 class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
       Internal thermal stack upgrade
     </h3>
     <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-      Phase 1 addressed airflow but the junction-to-case thermal path still limited performance. Phase 2 applied two design changes: a more efficient semiconductor path and a redesigned heatsink stack.
+      Improved airflow reduced the thermal load, but the junction-to-case path itself was still the limiting factor. Phase 2 applied two targeted design changes: a more efficient semiconductor source and a fully redesigned conduction path to the enclosure. Together, they didn't just stabilise the existing product. They created enough thermal headroom to run at <strong class="text-text-primary">significantly higher operating power</strong>, unlocking a step-change in product performance.
     </p>
   </div>
 
-  <div class="flex flex-col gap-6">
-    <div class="flex flex-col overflow-hidden rounded-2xl border border-border bg-background">
-      <div class="flex flex-1 flex-col px-5 py-6 md:px-6 md:py-7">
-        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Phase 2</p>
-        <h4 class="mt-2 text-lg font-semibold tracking-[-0.02em] text-text-primary">Design Change 1</h4>
+  <div class="flex flex-col gap-5">
+
+    {/* Design Change 1 — text only */}
+    <div class="overflow-hidden rounded-2xl border border-border bg-background">
+      <div class="flex flex-col px-5 py-6 md:px-7 md:py-7">
+        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Design Change 1</p>
+        <h4 class="mt-2 text-lg font-semibold tracking-[-0.02em] text-text-primary">Semiconductor package swap</h4>
         <p class="mt-4 text-sm leading-relaxed text-text-secondary md:text-[15px] md:leading-relaxed">
-          Identified more thermally efficient semiconductor chip in <strong class="text-text-primary">TO-9</strong> package through supplier evaluation. New chip offered lower junction-to-case thermal resistance (<strong class="text-text-primary">Rθjc</strong>), directly reducing heat generated at source under equivalent operating conditions.
+          Through structured supplier evaluation I identified a thermally efficient chip that ran cooler under the same operating conditions, addressing the bottleneck that improved airflow alone couldn't fix. The new component dissipated heat more effectively at source, and critically, its thermal stability also meant it could sustain <strong class="text-text-primary">50% higher output power</strong> while staying within its thermal envelope, something the previous chip could not support.
         </p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <div class="rounded-lg border border-border bg-surface-elevated/50 px-3.5 py-2.5">
+            <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted">Method</p>
+            <p class="mt-1 text-sm font-medium text-text-primary">Supplier evaluation + datasheet analysis</p>
+          </div>
+          <div class="rounded-lg border border-border bg-surface-elevated/50 px-3.5 py-2.5">
+            <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted">Key parameter</p>
+            <p class="mt-1 text-sm font-medium text-text-primary">Junction-to-case thermal resistance (Rθjc)</p>
+          </div>
+          <div class="rounded-lg border border-border bg-surface-elevated/50 px-3.5 py-2.5">
+            <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted">Risk managed via</p>
+            <p class="mt-1 text-sm font-medium text-text-primary">FMEA + physical validation</p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="flex flex-col overflow-hidden rounded-2xl border border-border bg-background">
-      <div class="border-b border-border px-5 py-5 md:px-6">
-        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Phase 2</p>
-        <h4 class="mt-2 text-lg font-semibold tracking-[-0.02em] text-text-primary">Design Change 2</h4>
-        <p class="mt-2 text-sm leading-relaxed text-text-secondary">
-          Replaced the plastic-plus-metal heatsink with an all-metal conduction path, removing the thermal bottleneck between the chip and the enclosure.
+    {/* Design Change 2 — with heatsink images */}
+    <div class="overflow-hidden rounded-2xl border border-border bg-background">
+      <div class="border-b border-border px-5 py-5 md:px-7 md:py-6">
+        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Design Change 2</p>
+        <h4 class="mt-2 text-lg font-semibold tracking-[-0.02em] text-text-primary">All-metal heatsink path</h4>
+        <p class="mt-2 text-sm leading-relaxed text-text-secondary md:text-[15px]">
+          Replaced a hybrid plastic-metal thermal interface with a fully metallic conduction path from chip to enclosure. Eliminating the non-conductive material in the stack removed the thermal resistance that was preventing the chip from shedding heat effectively, regardless of airflow improvement.
         </p>
       </div>
-      <div class="flex flex-1 flex-col bg-white p-2 md:p-4">
-        {/*
-          Same aspect + flex center + object-contain: equal tile size, full diagram visible (no crop).
-        */}
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-4">
-          <div class="relative aspect-[4/3] w-full min-w-0 overflow-hidden rounded-lg border border-border/60 bg-[#eef2f6]">
-            <div class="absolute inset-0 flex items-center justify-center p-2 md:p-3">
+      <div class="bg-white p-3 md:p-5">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-border/60 bg-[#eef2f6]">
+            <div class="absolute inset-0 flex items-center justify-center p-3">
               <img
                 src="/images/Phase%202_Design%20change%202_1.png"
-                alt="Design change 2: engineering visual 1"
+                alt="Engine assembly with plastic plenum — prior thermal path before all-metal conduction upgrade"
                 width="944"
                 height="421"
                 decoding="async"
                 loading="lazy"
-                class="max-h-full max-w-full object-contain object-center [image-rendering:auto]"
+                class="max-h-full max-w-full object-contain object-center"
               />
             </div>
           </div>
-          <div class="relative aspect-[4/3] w-full min-w-0 overflow-hidden rounded-lg border border-border/60 bg-[#eef2f6]">
-            <div class="absolute inset-0 flex items-center justify-center p-2 md:p-3">
-              <img
-                src="/images/Phase%202_Design%20change%202_2.png"
-                alt="Design change 2: engineering visual 2"
-                width="630"
-                height="361"
-                decoding="async"
-                loading="lazy"
-                class="max-h-full max-w-full object-contain object-center [image-rendering:auto]"
-              />
-            </div>
-          </div>
-          <div class="relative aspect-[4/3] w-full min-w-0 overflow-hidden rounded-lg border border-border/60 bg-[#eef2f6]">
-            <div class="absolute inset-0 flex items-center justify-center p-2 md:p-3">
+          <div class="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-border/60 bg-[#eef2f6]">
+            <div class="absolute inset-0 flex items-center justify-center p-3">
               <img
                 src="/images/Phase%202_Design%20change%202_3.png"
-                alt="Design change 2: engineering visual 3"
+                alt="Engine with all-metal plenum — metallic conduction path from chip to enclosure"
                 width="530"
                 height="553"
                 decoding="async"
                 loading="lazy"
-                class="max-h-full max-w-full object-contain object-center [image-rendering:auto]"
+                class="max-h-full max-w-full object-contain object-center"
               />
             </div>
           </div>
         </div>
-        <p class="mt-3 text-center text-[11px] text-text-muted">Heatsink / stack visuals: design change documentation.</p>
+        <p class="mt-3 text-center text-[11px] text-text-muted">
+          Left: engine with plastic plenum. Right: all-metal plenum engine.
+        </p>
       </div>
     </div>
   </div>
 
+  {/* Phase 2 result */}
   <div class="mt-8 rounded-2xl border border-border bg-surface-elevated/60 p-6 md:p-8">
     <p class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">Phase 2 result</p>
     <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
-      The semiconductor and heatsink stack changes were physically validated. Return rate improved again, chip temperature dropped further, and the updated thermal path held up under test.
+      Both design changes were physically validated. The updated stack brought field returns to <strong class="text-text-primary">under 3%</strong>, a commercially sustainable threshold, and held up under extended test conditions.
     </p>
     <div class="mt-6 grid gap-4 sm:grid-cols-3">
       <div class="rounded-xl border border-border bg-background px-5 py-4">
-        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Return rate after Phase 2</p>
-        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">8% → &lt; 3%</p>
+        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Field return rate</p>
+        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">&lt;3%</p>
+        <p class="mt-1 text-sm text-text-muted">Final production state</p>
       </div>
       <div class="rounded-xl border border-border bg-background px-5 py-4">
-        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Chip temperature</p>
-        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">-6°C</p>
+        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Additional chip ΔT</p>
+        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">−6°C</p>
+        <p class="mt-1 text-sm text-text-muted">On top of Phase 1 reduction</p>
       </div>
       <div class="rounded-xl border border-border bg-background px-5 py-4">
         <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Status</p>
-        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">Validated</p>
-        <p class="mt-1 text-sm text-text-muted">Physical testing confirmed</p>
+        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">Shipped</p>
+        <p class="mt-1 text-sm text-text-muted">Validated & in production</p>
       </div>
     </div>
   </div>
 </div>
 
-{/* DISCLOSURE */}
+{/* ── WHAT THIS ENABLED ── */}
 
-<div id="disclosure" class="not-prose mb-6 scroll-mt-28">
-  <div class="rounded-2xl border border-border bg-surface-elevated/40 px-5 py-4">
-    <p class="text-sm leading-relaxed text-text-muted">
-      Disclosure: Project details are limited to non-proprietary information. Images shown are public, recreated, or selected to avoid confidential content.
+<div class="not-prose mb-16 scroll-mt-28">
+  <div class="overflow-hidden rounded-2xl border border-primary-accent/25 bg-primary-accent/5 p-6 md:p-8">
+    <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">What the redesign unlocked</p>
+    <h3 class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+      From fixing a failure to enabling a better product
+    </h3>
+    <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+      The thermal fix wasn't the end of the story. With a lower-resistance semiconductor and a fully metallic conduction path, the product could sustain substantially higher operating power without approaching thermal limits. That headroom was used to upgrade the product's output, delivering a more effective treatment in less time, while remaining thermally stable at load levels the previous generation could not reach.
     </p>
+    <div class="mt-6 grid gap-3 sm:grid-cols-3">
+      <div class="rounded-xl border border-primary-accent/20 bg-background px-5 py-5">
+        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Operating power</p>
+        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">+50%</p>
+        <p class="mt-1 text-sm leading-snug text-text-muted">Sustained at thermal stability vs previous generation</p>
+      </div>
+      <div class="rounded-xl border border-primary-accent/20 bg-background px-5 py-5">
+        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Treatment time</p>
+        <p class="mt-2 text-3xl font-semibold tracking-[-0.03em] text-text-primary">−33%</p>
+        <p class="mt-1 text-sm leading-snug text-text-muted">Faster session for the user, same or better efficacy</p>
+      </div>
+      <div class="rounded-xl border border-primary-accent/20 bg-background px-5 py-5">
+        <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Product outcome</p>
+        <p class="mt-2 text-2xl font-semibold tracking-[-0.02em] text-text-primary leading-snug">More effective. More reliable.</p>
+        <p class="mt-1 text-sm leading-snug text-text-muted">Thermally stable at elevated power across both phases</p>
+      </div>
+    </div>
   </div>
 </div>
+

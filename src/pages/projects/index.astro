@@ -1,140 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { ProjectCard } from '../../components/ProjectCard';
-
-const thermalRedesignCoverSlides = [
-  '/images/final-airflow-sim.png',
-  '/images/Option3_airflow.png',
-  '/images/Phase%202_Design%20change%202_2.png',
-  '/images/Phase%201_image1.png',
-] as const;
-
-const livOpticalCoverSlides = ['/images/liv-layman-bench-poc.png'] as const;
-
-const pressTestFixtureCoverSlides = [
-  '/images/Working%20concept_CAD2.png',
-  '/images/Working%20concept_actual.png',
-  '/images/Concept%202_Pneumatic%20systems_press.png',
-  '/images/Concept%203_pneumatic%20with%20optimized%20parts.png',
-] as const;
-
-const workProjects = [
-  {
-    title: 'Thermal Redesign Journey',
-    slug: 'thermal-redesign-journey',
-    context: 'Work project · Product reliability and thermal redesign',
-    problem:
-      'A deployed product was overheating in the field and customer returns climbed to 23%. The program needed a real thermal-path fix, not a workaround.',
-    action:
-      'Two-phase redesign: opened airflow with grill iterations in SolidWorks Flow Simulation and physical validation, then upgraded the internal stack (semiconductor package and all-metal heatsink) to remove the junction-to-case bottleneck.',
-    result:
-      'About 16°C chip temperature reduction overall; return rate improved from 23% to below 3%. Both phases were validated and shipped to production.',
-    tags: [
-      'Thermal Analysis',
-      'SolidWorks Flow Simulation',
-      'RCA',
-      '5 Whys',
-      'FMEA',
-      '8D',
-      'Design Iteration',
-      'DFM',
-      'Physical Validation',
-      'Supplier Evaluation',
-      'GD&T',
-    ],
-    cover: '/images/final-airflow-sim.png',
-  },
-  {
-    title: 'LIV Optical Test Rig',
-    slug: 'liv-optical-test-rig',
-    context: 'Work project · Production test and alignment repeatability',
-    problem: 'The existing LIV workflow was manual, slow, and too dependent on operator alignment to support reliable batch testing.',
-    action: 'Built the fixture from concept through released production configuration with kinematic mounting, GD&T, and production-minded test architecture.',
-    result: 'Delivered a released optical test asset with stronger repeatability and a 3x throughput improvement for batch testing.',
-    tags: ['GD&T', 'Tolerance Stack-up', 'Optical Alignment', 'ISO 13485'],
-    cover: '/images/liv-layman-bench-poc.png',
-  },
-  {
-    title: 'Press Test Fixture',
-    slug: 'press-test-fixture',
-    context: 'Work project · Press-fit quality, fixturing, and manufacturing scale-up',
-    problem:
-      'A critical electromechanical press-fit sub-assembly depended on manual alignment and subjective checks. Operator-to-operator variation was a direct contributor to yield loss and end-of-line escapes as volumes grew.',
-    action:
-      'Evolved the fixture in three generations: bench concept to lock measurement architecture and datums, pneumatic pilot with SolidWorks GD&T and optical alignment verification, then a production configuration with poka-yoke keying, fewer degrees of freedom, and constraint-driven tooling.',
-    result:
-      'Supported scale toward 1,500 units/week while holding first-pass yield around 95%; final architecture targeted zero operator-induced alignment errors and roughly 3× throughput versus early concept tooling.',
-    tags: [
-      'SolidWorks',
-      'GD&T',
-      'Tolerance Stack-up',
-      'Optical Alignment',
-      'Poka-Yoke',
-      'Fixturing',
-      'DFM',
-      'Constraint-Driven Design',
-      'ISO 13485',
-      'Manufacturing',
-    ],
-    cover: '/images/Working%20concept_CAD2.png',
-  },
-  {
-    title: 'Connector NPI & Smart Textiles',
-    slug: 'connector-npi-smart-textiles',
-    context: 'Work project · Connector integration and verification',
-    problem: 'Connector NPI and smart-textile integration required clearer requirements, manufacturable design decisions, and more structured verification thinking.',
-    action: 'Supported concept iteration, SolidWorks prototyping, DFM/DFA feedback, and verification-style planning in a cross-functional engineering setting.',
-    result: 'Helped move early integration work forward with stronger design clarity, better cross-functional alignment, and reduced development risk.',
-    tags: ['SolidWorks', 'DFM/DFA', 'Verification', 'NPI'],
-    cover: '/images/projects/project-1.svg',
-  },
-] as const;
-
-const cadSimulationProjects = [
-  {
-    title: 'SolidWorks Personal Projects',
-    slug: 'solidworks-personal-projects',
-    context: 'CAD & simulation · Personal CAD exploration',
-    problem: 'Independent projects were used to keep design thinking sharp and practice translating ideas into buildable mechanical concepts.',
-    action: 'Developed assemblies, mechanisms, and manufacturable part concepts with disciplined model structure and iterative refinement.',
-    result: 'Built breadth in CAD execution and design communication outside formal product programs.',
-    tags: ['SolidWorks', 'Assemblies', 'Mechanisms', 'DFM'],
-    cover: '/images/projects/project-2.svg',
-  },
-  {
-    title: 'ANSYS / Simulation Studies',
-    slug: 'ansys-simulation-studies',
-    context: 'CAD & simulation · Analysis-led engineering work',
-    problem: 'Early design decisions often need faster insight into thermal or structural behavior before committing to hardware changes.',
-    action: 'Used simulation studies to explore load paths, heat flow, and tradeoffs before physical build decisions were made.',
-    result: 'Improved design intuition and supported better engineering decisions earlier in the process.',
-    tags: ['ANSYS', 'Thermal', 'FEA', 'Tradeoffs'],
-    cover: '/images/projects/project-3.svg',
-  },
-] as const;
-
-const academicPersonalProjects = [
-  {
-    title: 'B.Tech Final Project',
-    slug: 'btech-final-project',
-    context: 'Academic / personal project · Capstone foundation',
-    problem: 'The capstone required turning an academic engineering problem into a more complete system definition and mechanical solution.',
-    action: 'Worked through concept definition, design development, documentation, and technical communication to carry the project through completion.',
-    result: 'Built an early foundation in structured engineering work and presenting technical decisions clearly.',
-    tags: ['Capstone', 'Mechanical Design', 'Systems', 'Documentation'],
-    cover: '/images/projects/project-1.svg',
-  },
-  {
-    title: 'Earlier Engineering Projects',
-    slug: 'earlier-engineering-projects',
-    context: 'Academic / personal project · Archive and experimentation',
-    problem: 'Smaller engineering builds and experiments often risk being forgotten even though they show range and technical curiosity.',
-    action: 'Collected earlier exploratory projects into a lighter archive of builds, concepts, and technical experimentation.',
-    result: 'Adds breadth to the portfolio without competing with the strongest professional case studies.',
-    tags: ['Archive', 'Concepts', 'Exploration', 'Breadth'],
-    cover: '/images/projects/project-2.svg',
-  },
-] as const;
+import { WorkProjectsCarousel } from '../../components/WorkProjectsCarousel';
+import {
+  allProjectsCarouselProjects,
+  cadCarouselProjects,
+} from '../../data/portfolioCarousel';
 ---
 
 <BaseLayout title="Projects" description="Selected work projects and supporting engineering portfolio pieces.">
@@ -151,42 +21,21 @@ const academicPersonalProjects = [
     <section class="mt-14">
       <div class="mb-8 max-w-3xl space-y-3">
         <h2 class="theme-section-title text-3xl font-semibold tracking-[-0.03em] md:text-4xl">
-          Work Projects
+          Projects
         </h2>
         <p class="max-w-none text-sm leading-relaxed text-text-muted md:whitespace-nowrap">
-          Disclosure: Project details are limited to non-proprietary information. Images shown are public, recreated, or selected to avoid confidential content.
+          Disclosure: Work project details are limited to non-proprietary information. Images shown are public, recreated, or selected to avoid confidential content.
         </p>
       </div>
 
-      <div class="grid grid-cols-12 gap-5">
-        {workProjects.map((project) => (
-          <div key={project.slug} class="col-span-12 md:col-span-6 xl:col-span-4">
-            <ProjectCard
-              client:load
-              title={project.title}
-              slug={project.slug}
-              context={project.context}
-              problem={project.problem}
-              action={project.action}
-              result={project.result}
-              tags={[...project.tags]}
-              cover={project.cover}
-              coverSlides={
-                project.slug === 'thermal-redesign-journey'
-                  ? [...thermalRedesignCoverSlides]
-                  : project.slug === 'liv-optical-test-rig'
-                    ? [...livOpticalCoverSlides]
-                    : project.slug === 'press-test-fixture'
-                      ? [...pressTestFixtureCoverSlides]
-                      : undefined
-              }
-              eyebrow="Work Project"
-              ctaLabel="Read more"
-              showSkills
-            />
-          </div>
-        ))}
-      </div>
+      <WorkProjectsCarousel
+        client:load
+        projects={allProjectsCarouselProjects.map((p) => ({
+          ...p,
+          tags: [...p.tags],
+          coverSlides: p.coverSlides ? [...p.coverSlides] : undefined,
+        }))}
+      />
     </section>
 
     <section class="mt-20 border-t border-border pt-16">
@@ -199,58 +48,24 @@ const academicPersonalProjects = [
         </p>
       </div>
 
-      <div class="mt-12 grid grid-cols-12 gap-5">
-        {cadSimulationProjects.map((project) => (
-          <div key={project.slug} class="col-span-12 md:col-span-6 xl:col-span-4">
-            <ProjectCard
-              client:load
-              title={project.title}
-              slug={project.slug}
-              context={project.context}
-              problem={project.problem}
-              action={project.action}
-              result={project.result}
-              tags={[...project.tags]}
-              cover={project.cover}
-              eyebrow="CAD & Simulation"
-              ctaLabel="Read more"
-              showSkills
-            />
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <section class="mt-20 border-t border-border pt-16">
-      <div class="max-w-4xl space-y-4">
-        <h2 class="theme-section-title text-4xl font-semibold tracking-[-0.03em] md:text-5xl">
-          Academic / Personal Projects
-        </h2>
-        <p class="max-w-3xl text-base leading-relaxed text-text-secondary">
-          Earlier and lighter projects that add context around academic foundation, self-directed learning, and engineering curiosity.
-        </p>
-      </div>
-
-      <div class="mt-12 grid grid-cols-12 gap-5">
-        {academicPersonalProjects.map((project) => (
-          <div key={project.slug} class="col-span-12 md:col-span-6 xl:col-span-4">
-            <ProjectCard
-              client:load
-              title={project.title}
-              slug={project.slug}
-              context={project.context}
-              problem={project.problem}
-              action={project.action}
-              result={project.result}
-              tags={[...project.tags]}
-              cover={project.cover}
-              eyebrow="Academic / Personal Projects"
-              ctaLabel="Read more"
-              showSkills
-            />
-          </div>
-        ))}
-      </div>
+      <WorkProjectsCarousel
+        client:load
+        eyebrow="CAD & Simulation"
+        ctaLabel="Read more"
+        projects={cadCarouselProjects.map((project) => ({
+          title: project.title,
+          slug: project.slug,
+          eyebrow: project.eyebrow,
+          context: project.context,
+          problem: project.problem,
+          action: project.action,
+          result: project.result,
+          summary: project.summary,
+          studyLinks: project.studyLinks ? [...project.studyLinks] : undefined,
+          tags: [...project.tags],
+          cover: project.cover,
+        }))}
+      />
     </section>
   </div>
 </BaseLayout>

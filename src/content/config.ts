@@ -9,11 +9,12 @@ const projects = defineCollection({
     summary: z.string().max(700),
     date: z.coerce.date(),
     featured: z.boolean().default(false),
-    cover: z.string(),
+    cover: z.string().optional(),
     tags: z.array(z.string()).min(1),
     liveUrl: z.string().url().optional(),
     repoUrl: z.string().url().optional(),
     duration: z.string().optional(),
+    glanceOutcome: z.string().optional(),
   }),
 });
 

@@ -1,0 +1,328 @@
+---
+title: "CHT Analysis: GPU Thermal Management"
+summary: "A conjugate heat transfer (CHT) study on a graphics card using ANSYS Fluent. Two simulation cases were built — a coarse global mesh and a refined inner-enclosure mesh — to study temperature distribution, hotspot regions, recirculation zones, and wall heat flux across the PCB, processor, and aluminium fin stack."
+date: 2022-06-01
+featured: false
+cover: "/images/cht-analysis/cht-case1-geometry-3d.jpg"
+tags: ["ANSYS Fluent", "CFD", "Conjugate Heat Transfer", "Turbulence Modelling", "Mesh Refinement", "Thermal Analysis", "k-ε Model", "Post-processing"]
+---
+
+## What is Conjugate Heat Transfer?
+
+Conjugate Heat Transfer (CHT) analysis is used when a computational domain contains **multiple co-existing heat transfer modes** — typically solid conduction and fluid convection — and the coupling at the solid–fluid interface must be resolved simultaneously.
+
+For electronic cooling problems like a GPU, CHT is the correct approach because:
+- Heat is **generated inside the silicon processor** and conducted through the heatsink fins (solid domain)
+- That heat is then removed by **forced convection from moving air** (fluid domain)
+- The two domains are tightly coupled — the temperature at the fin surface depends on both the conduction path through the solid and the local air velocity
+
+Standard CFD (fluid-only) or FEA (solid-only) would miss this coupling. CHT captures both and resolves the interface accurately.
+
+---
+
+## Physical Setup
+
+<div class="grid grid-cols-2 gap-6 my-8">
+  <figure>
+    <img src="/images/cht-analysis/cht-gpu-real-card.jpg" alt="Real 2GB graphics card — reference geometry" class="rounded-lg w-full" />
+    <figcaption>Reference: a commercial 2 GB graphics card used to define the geometry and thermal loading</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/cht-analysis/cht-gpu-cad-model.jpg" alt="SolidWorks CAD model showing Processor, Fins, Base, and Enclosure" class="rounded-lg w-full" />
+    <figcaption>SolidWorks simplification — four components modelled: Processor (silicon), Fins (aluminium), Base/PCB (FR4), and Enclosure bracket</figcaption>
+  </figure>
+</div>
+
+The GPU was simplified into four solid bodies with distinct material properties, placed inside an air-filled enclosure that defines the flow domain.
+
+---
+
+## Boundary Conditions & Input Parameters
+
+| Parameter | Value | Basis |
+|-----------|-------|-------|
+| Inlet air velocity | 2 m/s | Experimental fan study (Ref 1) — maximum recorded fan outlet velocity |
+| GPU power draw | 75 W | Typical 2 GB entry-level GPU thermal design power (Ref 2) |
+| Processor volume | 40 × 40 × 2 mm | Standard GPU die footprint |
+| Heat generation rate (Q) | 2.3437 × 10⁷ W/m³ | Q = P/V = 75 / (0.04 × 0.04 × 0.002) |
+| Solver type | Steady-state, pressure-based | — |
+| Turbulence model | Realizable k-ε | Appropriate for separated flows and recirculation near bluff bodies |
+| Iterations | 500 | Convergence monitored via residuals |
+
+> **Heat generation assumption:** 99.9% of GPU electrical power is assumed to convert to heat (Ref 2). The heat source is applied as a volumetric heat generation on the processor body only.
+
+---
+
+## Material Properties
+
+| Material | Component | Density (kg/m³) | Heat Capacity (J/kg·K) | Thermal Conductivity (W/m·K) |
+|----------|-----------|----------------|------------------------|------------------------------|
+| Aluminium | Fins | 2719 | 871 | 204.4 |
+| Silicon | Processor (GPU die) | 2000 | 710 | 150 |
+| FR4 (glass-epoxy laminate) | PCB | 1850 | 950 | 0.29 |
+| Air | Fluid domain | 1.225 | 1006.43 | 0.0242 |
+
+> FR4 has extremely low thermal conductivity (0.29 W/m·K) compared to the aluminium fins (204.4 W/m·K) — a 700× difference. This makes the PCB a thermal barrier rather than a heat spreader, confirming that the fin stack is the critical cooling path.
+
+---
+
+## Case 1 — Coarse Global Mesh (10 mm)
+
+### Geometry
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case1-geometry-3d.jpg" alt="Case 1 full computational domain — labelled inlet, outlet, enclosure, PCB, processor, and fins" class="rounded-lg w-full" />
+  <figcaption>Case 1 domain: outer enclosure (air) with the GPU assembly inside. Air enters from the left (inlet, 2 m/s) and exits right (outlet, atmospheric pressure). Components are labelled with their materials.</figcaption>
+</figure>
+
+<div class="grid grid-cols-2 gap-6 my-6">
+  <figure>
+    <img src="/images/cht-analysis/cht-case1-dimensions-card.jpg" alt="2D dimensional drawing of graphics card — front and top views" class="rounded-lg w-full" />
+    <figcaption>Graphics card dimensions (mm) — front elevation and plan view showing fin pitch, processor location, and PCB footprint</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/cht-analysis/cht-case1-dimensions-enclosure.jpg" alt="Outer enclosure dimensions: 191 mm long, 40.5 mm tall, 65 mm wide" class="rounded-lg w-full" />
+    <figcaption>Outer enclosure dimensions: 191 × 65 × 40.5 mm. Clearance of 50 mm upstream and 85 mm downstream allows flow to develop and recover.</figcaption>
+  </figure>
+</div>
+
+### Mesh Settings
+
+| Zone | Method | Element Size |
+|------|--------|-------------|
+| Global | Automatic | 10 mm |
+| PCB body | Body sizing | 1 mm |
+| Processor body | Body sizing | 1 mm |
+| Fins body | Body sizing | 1 mm |
+
+<div class="grid grid-cols-2 gap-6 my-6">
+  <figure>
+    <img src="/images/cht-analysis/cht-case1-mesh-3d-coarse.jpg" alt="3D surface mesh — Case 1 coarse" class="rounded-lg w-full" />
+    <figcaption>Case 1 surface mesh — 10 mm global element size. Coarser than Case 2, used as a baseline for comparison.</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/cht-analysis/cht-case1-mesh-3d.jpg" alt="3D mesh on GPU components showing refined body sizing on fins, PCB, and processor" class="rounded-lg w-full" />
+    <figcaption>Body-size overrides on fins, PCB, and processor (1 mm) capture the thin geometric features that the global 10 mm mesh would miss.</figcaption>
+  </figure>
+</div>
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case1-mesh-section.jpg" alt="2D cross-section mesh showing element density variation across the domain" class="rounded-lg w-full" />
+  <figcaption>Z-X plane cross-section of the mesh. Element density is highest near the card surface where thermal and velocity gradients are steepest.</figcaption>
+</figure>
+
+**Total mesh elements: 201,920**
+
+### Results
+
+#### Residual Convergence
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case1-residuals.jpg" alt="Residual plot — Case 1: continuity, x/y/z-velocity, energy, k, epsilon over 500 iterations" class="rounded-lg w-full" />
+  <figcaption>Residual history over 500 iterations. Energy residual (cyan) drops to ~10⁻⁸, confirming strong thermal convergence. Continuity and momentum residuals level off at ~10⁻⁴ to 10⁻⁵, acceptable for steady turbulent flow.</figcaption>
+</figure>
+
+#### Temperature Distribution
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case1-temp-global.jpg" alt="Global temperature contour — 26.8°C to 53.2°C — showing hot fins and cool PCB edges" class="rounded-lg w-full" />
+  <figcaption>Global temperature contour (26.8–53.2°C). The fin assembly and processor run hottest. Incoming air at ~27°C keeps the upstream face of the card significantly cooler.</figcaption>
+</figure>
+
+<div class="grid grid-cols-2 gap-6 my-6">
+  <figure>
+    <img src="/images/cht-analysis/cht-case1-temp-local-hotspot.jpg" alt="Local temperature hotspot — fins showing 50.5°C to 53.1°C with hotspot at processor location" class="rounded-lg w-full" />
+    <figcaption>Local hotspot region on the fin assembly (50.5–53.1°C). The peak temperature concentrates over the processor footprint where heat generation is highest.</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/cht-analysis/cht-case1-temp-local-fins.jpg" alt="Temperature on fins — alternate angle showing gradient from hot processor region to cooler fin tips" class="rounded-lg w-full" />
+    <figcaption>Alternate 3D view of the fin temperature gradient. Fin tips (cooler, blue) provide more effective heat exchange with air than the base region.</figcaption>
+  </figure>
+</div>
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case1-temp-zx-plane.jpg" alt="Temperature on Z-X mid-plane — showing thermal wake extending downstream of the card" class="rounded-lg w-full" />
+  <figcaption>Z-X plane temperature slice (26.8–53.2°C). The thermal plume rises and extends downstream. A region of warm, stagnant air (~38°C) forms behind the trailing edge of the fin array — a critical design concern.</figcaption>
+</figure>
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case1-temp-processor.jpg" alt="Processor-only temperature contour — 52.3°C to 53.1°C, nearly uniform" class="rounded-lg w-full" />
+  <figcaption>Isolated processor temperature (52.3–53.1°C). The die temperature is nearly uniform — the silicon's high thermal conductivity (150 W/m·K) spreads heat efficiently before it reaches the fin interface.</figcaption>
+</figure>
+
+#### Velocity & Flow Structure
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case1-velocity-vectors.jpg" alt="Velocity vector plot on Z-X plane showing 3 recirculation zones behind fins" class="rounded-lg w-full" />
+  <figcaption>Velocity vectors (0–2.875 m/s). Three distinct recirculation zones are visible behind the fin array. Air velocity in these zones drops below 0.3 m/s — significantly reducing local heat transfer effectiveness.</figcaption>
+</figure>
+
+> **Design Insight:** The warm (~38°C) stagnant air behind the fin trailing edge is dangerous for downstream components. Any heat-generating component placed there will not cool efficiently due to reduced temperature differential between air and component. Components without heat generation will also gradually warm up due to the trapped hot air. **The processor should be positioned upstream of these recirculation zones.**
+
+#### Temperature Streamlines & Heat Flux
+
+<div class="grid grid-cols-2 gap-6 my-6">
+  <figure>
+    <img src="/images/cht-analysis/cht-case1-streamlines-2d.jpg" alt="2D temperature-coloured streamlines showing hot wake region at 38°C downstream" class="rounded-lg w-full" />
+    <figcaption>2D streamline plot coloured by temperature. Hot air (33–46°C) accumulates behind the fin stack. Cooler streaks between fins show regions of active heat exchange.</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/cht-analysis/cht-case1-streamlines-3d.jpg" alt="3D temperature streamlines — hot flow through fins and cool bypass flow on flanks" class="rounded-lg w-full" />
+    <figcaption>3D streamlines. Flow through the fin channels picks up heat aggressively. Flank bypass flow (blue) remains much cooler and rejoins the wake downstream.</figcaption>
+  </figure>
+</div>
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case1-heat-flux.jpg" alt="Wall heat flux — 15 to 2742 W/m², highest at upstream fin faces" class="rounded-lg w-full" />
+  <figcaption>Wall heat flux (15–2742 W/m²). Heat flux peaks at the upstream fin faces where the temperature difference between the solid and incoming cool air is greatest. As air heats up moving downstream, the driving temperature differential — and therefore flux — decreases.</figcaption>
+</figure>
+
+---
+
+## Case 2 — Refined Mesh with Inner Enclosure
+
+The coarse global mesh in Case 1 uses 201,920 elements but cannot resolve thin boundary layers or the fine geometric features between fins accurately. Case 2 introduces a **conformal inner enclosure** tightly surrounding the GPU, enabling a much finer mesh in the thermally active region while keeping the outer domain coarser.
+
+### Geometry
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case2-geometry-3d.jpg" alt="Case 2 geometry — outer and inner enclosures visible, GPU components inside inner zone" class="rounded-lg w-full" />
+  <figcaption>Case 2 domain: a conformal inner enclosure (grey) surrounds the GPU closely. The outer enclosure (blue) handles the far-field flow. This two-zone approach concentrates mesh resolution where it matters most.</figcaption>
+</figure>
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case2-dimensions-inner.jpg" alt="Inner enclosure dimensional drawing — front, side, and top views in mm" class="rounded-lg w-full" />
+  <figcaption>Inner enclosure dimensions (all in mm). The inner zone extends 10–40 mm beyond the GPU footprint on each side to capture the near-field temperature and velocity gradients that drive heat transfer.</figcaption>
+</figure>
+
+### Mesh Settings
+
+| Zone | Method | Element Size | Notes |
+|------|--------|-------------|-------|
+| Global | Automatic | 5 mm | Halved from Case 1 |
+| Outer enclosure | Body sizing | — | Proximity capture: Yes (0.1 mm) |
+| Inner enclosure | Body sizing | 0.4 mm | Curvature capture: Yes |
+| Fins | Body sizing | 0.4 mm | Hard behaviour, no curvature/proximity |
+| Processor | Body sizing | 0.4 mm | Hard behaviour |
+| PCB | Body sizing | 2 mm | Curvature capture: Yes |
+| Multizone | Outer enclosure | — | For structured hex layers |
+
+<div class="grid grid-cols-2 gap-6 my-6">
+  <figure>
+    <img src="/images/cht-analysis/cht-case2-mesh-3d.jpg" alt="Case 2 3D mesh — significantly finer, golden colouring indicates higher element density" class="rounded-lg w-full" />
+    <figcaption>Case 2 surface mesh — the finer element sizing (0.4 mm on components) is visible as a denser, more uniform mesh texture. Total elements: 422,289 — 2.1× Case 1.</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/cht-analysis/cht-case2-mesh-processor-zoom.jpg" alt="Zoomed view of processor mesh — very fine uniform elements resolving the die surface accurately" class="rounded-lg w-full" />
+    <figcaption>Zoomed processor surface mesh. The 0.4 mm hard body sizing ensures the die-to-fin interface is resolved accurately — critical for CHT accuracy since this is where peak heat flux occurs.</figcaption>
+  </figure>
+</div>
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case2-mesh-section.jpg" alt="Case 2 cross-section mesh — inner enclosure boundary clearly visible as transition zone" class="rounded-lg w-full" />
+  <figcaption>Cross-section mesh view. The boundary between the inner fine zone and outer coarser region is clearly visible. The transition is smooth enough to avoid numerical artefacts at the interface.</figcaption>
+</figure>
+
+**Total mesh elements: 422,289**
+
+### Results
+
+#### Residual Convergence
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case2-residuals.jpg" alt="Case 2 residual plot — more oscillation in k and epsilon indicating more resolved turbulent structures" class="rounded-lg w-full" />
+  <figcaption>Case 2 residuals over 500 iterations. The k and ε (turbulence) residuals show more oscillation than Case 1 — expected with a finer mesh resolving smaller turbulent structures. Energy still converges to ~10⁻⁹.</figcaption>
+</figure>
+
+#### Temperature Distribution
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case2-temp-global.jpg" alt="Case 2 global temperature — 26.85°C to 52.29°C, slightly lower peak than Case 1" class="rounded-lg w-full" />
+  <figcaption>Case 2 global temperature (26.85–52.29°C). Peak temperature drops ~0.9°C versus Case 1 (53.18°C). The finer mesh resolves the boundary layer better, allowing more heat to transfer into the airstream.</figcaption>
+</figure>
+
+<div class="grid grid-cols-2 gap-6 my-6">
+  <figure>
+    <img src="/images/cht-analysis/cht-case2-temp-local-hotspot.jpg" alt="Case 2 local hotspot — 49.2°C to 52.2°C, lower peak, more gradual gradient" class="rounded-lg w-full" />
+    <figcaption>Case 2 local hotspot (49.2–52.2°C). The refined mesh redistributes the temperature gradient more smoothly compared to the sharper peak in Case 1.</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/cht-analysis/cht-case2-temp-local-fins.jpg" alt="Case 2 fin temperatures — showing cooler fin tips and finer gradient resolution" class="rounded-lg w-full" />
+    <figcaption>Fin temperature in Case 2. The finer mesh captures the temperature variation within individual fin channels more accurately, particularly the cool tip-to-base gradient.</figcaption>
+  </figure>
+</div>
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case2-temp-zx-plane.jpg" alt="Case 2 Z-X plane temperature — larger and more defined thermal plume extending downstream" class="rounded-lg w-full" />
+  <figcaption>Case 2 Z-X plane temperature. The thermal plume is larger and better resolved than in Case 1. The peak temperature on the processor shows as a sharper red concentration — the finer mesh captures the thermal boundary layer at the solid-fluid interface correctly.</figcaption>
+</figure>
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case2-temp-processor.jpg" alt="Case 2 processor temperature — 51.52°C to 52.25°C, slightly lower and more uniform" class="rounded-lg w-full" />
+  <figcaption>Case 2 processor temperature (51.5–52.2°C) — 0.9°C lower peak than Case 1, with better-resolved spatial distribution across the die surface.</figcaption>
+</figure>
+
+#### Velocity & Flow Structure
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-case2-velocity-vectors.jpg" alt="Case 2 velocity vectors — more than 3 recirculation zones resolved, finer flow structure visible" class="rounded-lg w-full" />
+  <figcaption>Case 2 velocity vectors. The finer mesh resolves more than 3 recirculation zones — the additional zones were present in Case 1 but too small to capture at the coarser resolution. Peak velocity: 2.522 m/s (vs. 2.875 m/s in Case 1).</figcaption>
+</figure>
+
+#### Temperature Streamlines & Heat Flux
+
+<div class="grid grid-cols-2 gap-6 my-6">
+  <figure>
+    <img src="/images/cht-analysis/cht-case2-streamlines-3d.jpg" alt="Case 2 3D temperature streamlines — improved resolution of inter-fin flow paths" class="rounded-lg w-full" />
+    <figcaption>Case 2 3D streamlines (coloured by temperature). The inter-fin flow paths are more detailed — individual channel flows are distinguishable, confirming the mesh captures fin-channel fluid dynamics correctly.</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/cht-analysis/cht-case2-heat-flux.jpg" alt="Case 2 wall heat flux — 3.6 to 4931 W/m², nearly double Case 1 peak" class="rounded-lg w-full" />
+    <figcaption>Case 2 wall heat flux (3.6–4931 W/m²). Peak heat flux is nearly double Case 1 (2742 W/m²). The finer mesh resolves the sharp thermal boundary layer at leading edges that the coarse mesh smeared out.</figcaption>
+  </figure>
+</div>
+
+---
+
+## Comparative Analysis
+
+<figure class="my-6">
+  <img src="/images/cht-analysis/cht-comparison-table.jpg" alt="Comparison table — Case 1, 2, 3: Max velocity, Max temp, Max and avg wall heat transfer coefficient, mesh elements" class="rounded-lg w-full" />
+  <figcaption>Results summary across three cases. Case 3 (not built in this study) represents a further refined mesh for reference. Key trend: as mesh refinement increases, max velocity decreases, wall heat transfer coefficients increase significantly, and peak temperature drops slightly.</figcaption>
+</figure>
+
+| Metric | Case 1 (10 mm global) | Case 2 (5 mm + inner zone) | Case 3 (reference) |
+|--------|----------------------|---------------------------|---------------------|
+| Max velocity (m/s) | 2.875 | 2.522 | 2.368 |
+| Max temperature (°C) | 53.175 | 52.01 | 52.292 |
+| Max wall HTC (W/m²·K) | 331.652 | 468.258 | 714.442 |
+| Avg wall HTC (W/m²·K) | 133.981 | 256.822 | 351.972 |
+| Mesh elements | 201,920 | 422,289 | 1,852,356 |
+
+**Key observations:**
+
+- **Temperature** is relatively insensitive to mesh refinement (< 1.2°C variation) — the bulk energy balance is captured even on coarse meshes
+- **Wall heat transfer coefficient** is highly mesh-sensitive — avg HTC nearly doubles from Case 1 to Case 2. This is because HTC depends on local velocity gradients at the wall, which are only resolved correctly with fine near-wall cells
+- **Max velocity** decreases with refinement — coarser meshes overpredict peak velocities because they smear boundary layers into adjacent cells
+- **Mesh independence** has not been fully achieved by Case 2 — Case 3's further ~4× element count shows HTC is still climbing. A wall y⁺ study would be needed for a production-grade result
+
+---
+
+## Key Engineering Insights
+
+1. **Recirculation zones set component placement rules.** The warm (38°C), low-velocity (~0.3 m/s) dead zone behind the fin trailing edge means any heat-generating component placed there will thermally self-destruct over time. The processor must sit upstream.
+
+2. **FR4 PCB is a thermal bottleneck.** At 0.29 W/m·K, the PCB conducts heat ~700× less effectively than the aluminium fins. Conduction through the board is negligible — all meaningful heat must exit through the fin stack. This is why the fin-to-processor interface thermal resistance is the dominant term.
+
+3. **Boundary layer resolution drives HTC accuracy.** The 91% increase in average HTC from Case 1 to Case 2 is not a physical change — it reflects the coarse mesh's inability to resolve the sharp velocity gradient at the wall. For thermal management decisions, always validate with a mesh sensitivity study.
+
+4. **Fin leading edge is the highest flux zone.** Wall heat flux peaks at the upstream fin faces and decays downstream as the air temperature rises. Fin optimisation (variable pitch, tapered profile) should prioritise the leading edge section.
+
+---
+
+## References
+
+1. Fan outlet velocity distributions — [academia.edu](https://www.academia.edu/5082653/Electronics_Cooling_Fans_Outlet_Velocity_Distributions_and_Calculations) — 25 mm fan max outlet velocity: 2 m/s
+2. GPU power-to-heat conversion — [electronics.stackexchange.com](https://electronics.stackexchange.com/questions/86922) — 99.999% of electrical power converted to heat
+3. Computing hardware materials — [engineering.com](https://www.engineering.com/story/what-raw-materials-are-used-to-make-hardware-in-computing-devices)
+4. FR4 material properties — [mgc.co.jp](https://www.mgc.co.jp/eng/products/sc/fr4.html)

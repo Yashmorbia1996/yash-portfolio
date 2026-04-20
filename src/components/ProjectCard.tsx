@@ -69,13 +69,13 @@ export function ProjectCard({
           </a>
         </h3>
         {context ? (
-          <p className="mt-2 text-sm leading-relaxed text-text-muted">
+          <p className="mt-2 text-[15px] leading-relaxed text-text-muted">
             {context}
           </p>
         ) : null}
 
         {hasCaseStudyPreview ? (
-          <div className="mt-6 flex-1 space-y-4 text-sm leading-relaxed text-text-secondary">
+          <div className="mt-6 flex-1 space-y-4 text-base leading-relaxed text-text-secondary">
             <div>
               <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">
                 Situation / Problem
@@ -94,7 +94,7 @@ export function ProjectCard({
         ) : (
           <div className="mt-6 flex-1">
             {summaryExcerpt ? (
-              <p className="text-sm leading-relaxed text-text-secondary">{summaryExcerpt}</p>
+              <p className="text-base leading-relaxed text-text-secondary">{summaryExcerpt}</p>
             ) : null}
             {showSkills && tags?.length ? (
               <div className="mt-4 flex flex-wrap gap-2">

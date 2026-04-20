@@ -78,11 +78,12 @@ const currentPath = Astro.url.pathname;
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       if (!prefersReducedMotion) {
-        new Lenis({
+        const lenis = new Lenis({
           duration: 1.2,
           easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           autoRaf: true,
         });
+        (window as unknown as Record<string, unknown>).__lenis = lenis;
 
         const reveals = document.querySelectorAll('.scroll-reveal');
         const viewportH = window.innerHeight;

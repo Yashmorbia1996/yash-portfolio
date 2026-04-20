@@ -10,6 +10,11 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://your-portfolio.example.com',
   output: 'static',
+  /** Static builds emit HTML meta refresh for these. Helps common slug typos and old bookmarks. */
+  redirects: {
+    '/projects/btech': '/projects/btech-final-project',
+    '/projects/b-tech-final-project': '/projects/btech-final-project',
+  },
   vite: {
     plugins: [tailwindcss()]
   },

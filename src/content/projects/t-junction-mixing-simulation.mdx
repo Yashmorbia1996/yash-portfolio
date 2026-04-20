@@ -1,0 +1,175 @@
+---
+title: "Mixing T-Junction: Thermal Mixing Simulation"
+summary: "A three-case CFD study on a T-junction mixing tee using ANSYS Fluent. Hot and cold airstreams mix at 90°, and the study explores how tee length and momentum ratio independently affect mixing effectiveness — quantified through outlet temperature standard deviation."
+date: 2022-08-01
+featured: false
+cover: "/images/t-junction/t-junction-case1-velocity-cutplane.jpg"
+tags: ["ANSYS Fluent", "CFD", "Thermal Mixing", "Momentum Ratio", "Turbulence Modelling", "Standard Deviation", "Parametric Study"]
+---
+
+## What is a Mixing T-Junction?
+
+A mixing T-junction (or mixing tee) brings two fluid streams together at a 90° angle — one entering horizontally, one vertically — and forces them to mix in a common downstream channel.
+
+In HVAC and thermal management applications, the goal is to blend a hot stream and a cold stream into a target comfort temperature. The challenge is that **mixing quality is not guaranteed** — poor velocity ratios or short channel lengths can leave stratified or unmixed zones at the outlet, delivering inconsistent temperatures.
+
+Two parameters primarily control mixing effectiveness:
+
+- **Channel length** — more length means more time and turbulence for the streams to homogenise
+- **Momentum ratio (MR)** — the ratio of hot-inlet velocity to cold-inlet velocity. Higher MR means the hot stream dominates and penetrates further into the cold stream, creating stronger turbulent mixing
+
+**Mixing effectiveness is quantified by the standard deviation of temperature at the outlet.** A low σ means the outlet temperature is uniform — good mixing. A high σ means stratification remains — poor mixing.
+
+---
+
+## Physical Setup & CAD Model
+
+The mixing tee geometry was built in SolidWorks and imported into ANSYS Fluent. The configuration:
+
+- **Hot inlet** (horizontal): warm airstream entering at 25 °C
+- **Cold inlet** (vertical, 90°): chilled airstream entering at 10 °C
+- **Outlet**: downstream channel where mixed air exits and temperature uniformity is measured
+
+<figure class="my-8">
+  <img src="/images/t-junction/t-junction-cad-model.jpg" alt="Mixing T-junction CAD model — horizontal hot inlet, vertical cold inlet, downstream outlet channel" class="rounded-lg w-full" />
+  <figcaption>SolidWorks CAD model of the mixing tee. Hot air enters horizontally (left), cold air enters vertically (bottom), and mixed air exits through the downstream channel (right).</figcaption>
+</figure>
+
+---
+
+## Boundary Conditions & Assumptions
+
+| Parameter | Value |
+|-----------|-------|
+| Hot inlet temperature | 25 °C |
+| Cold inlet temperature | 10 °C |
+| Hot inlet velocity (Cases 1, 2, 3) | 3 m/s |
+| Momentum ratio — Cases 1 & 2 | MR = 2 (V_hot / V_cold = 2) |
+| Momentum ratio — Case 3 | MR = 4 |
+| Tee length — Cases 1 & 3 | Short |
+| Tee length — Case 2 | Long |
+| Solver | Steady-state, pressure-based |
+| Turbulence model | k-ε |
+
+> **Mixing effectiveness metric:** Standard deviation (σ) of temperature at the outlet cross-section. Lower σ = better mixing.
+
+---
+
+## Case 1 — Short Tee, MR = 2
+
+Hot inlet velocity: 3 m/s · Cold inlet derived from MR = 2 · Short downstream channel
+
+<figure class="my-6">
+  <img src="/images/t-junction/t-junction-case1-residuals.jpg" alt="Case 1 residual convergence plot" class="rounded-lg w-full" />
+  <figcaption>Residual plot — Case 1. All residuals converge to acceptable levels, confirming solution stability.</figcaption>
+</figure>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <img src="/images/t-junction/t-junction-case1-std-dev.jpg" alt="Case 1 — standard deviation of temperature at outlet" class="rounded-lg w-full" />
+    <figcaption>Standard deviation of outlet temperature — Case 1 (short tee, MR 2). Baseline mixing performance.</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/t-junction/t-junction-case1-temp-outlet.jpg" alt="Case 1 — temperature distribution at outlet" class="rounded-lg w-full" />
+    <figcaption>Temperature distribution across the outlet cross-section. Visible stratification between the hot and cold regions.</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <img src="/images/t-junction/t-junction-case1-temp-cutplane.jpg" alt="Case 1 — temperature on longitudinal cut plane" class="rounded-lg w-full" />
+    <figcaption>Temperature contour on the longitudinal cut plane — shows the mixing front as the two streams interact downstream of the junction.</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/t-junction/t-junction-case1-velocity-cutplane.jpg" alt="Case 1 — velocity vectors on cut plane" class="rounded-lg w-full" />
+    <figcaption>Velocity vectors at the junction — the cold inlet jet deflects the hot stream, creating a shear layer that drives turbulent mixing.</figcaption>
+  </figure>
+</div>
+
+---
+
+## Case 2 — Long Tee, MR = 2
+
+Same velocity conditions as Case 1; downstream channel length increased to allow more mixing distance.
+
+<figure class="my-6">
+  <img src="/images/t-junction/t-junction-case2-residuals.jpg" alt="Case 2 residual convergence plot" class="rounded-lg w-full" />
+  <figcaption>Residual plot — Case 2. Converges cleanly; longer channel adds computational cells but does not destabilise the solver.</figcaption>
+</figure>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <img src="/images/t-junction/t-junction-case2-std-dev.jpg" alt="Case 2 — standard deviation of temperature at outlet" class="rounded-lg w-full" />
+    <figcaption>Standard deviation — Case 2 (long tee, MR 2). Lower σ than Case 1, confirming that longer mixing length improves uniformity.</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/t-junction/t-junction-case2-temp-outlet.jpg" alt="Case 2 — temperature distribution at outlet" class="rounded-lg w-full" />
+    <figcaption>Outlet temperature distribution — more uniform than Case 1 across the cross-section.</figcaption>
+  </figure>
+</div>
+
+<figure class="my-6">
+  <img src="/images/t-junction/t-junction-case2-temp-cutplane.jpg" alt="Case 2 — temperature on longitudinal cut plane" class="rounded-lg w-full" />
+  <figcaption>Temperature cut plane — the longer channel gives the mixing front more distance to flatten out, reducing the hot/cold stratification visible in Case 1.</figcaption>
+</figure>
+
+---
+
+## Case 3 — Short Tee, MR = 4
+
+Same short geometry as Case 1; hot inlet velocity doubled to raise momentum ratio to 4. Cold inlet velocity adjusted accordingly.
+
+<figure class="my-6">
+  <img src="/images/t-junction/t-junction-case3-residuals.jpg" alt="Case 3 residual convergence plot" class="rounded-lg w-full" />
+  <figcaption>Residual plot — Case 3. Higher momentum ratio increases turbulence intensity but convergence remains stable.</figcaption>
+</figure>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <img src="/images/t-junction/t-junction-case3-std-dev.jpg" alt="Case 3 — standard deviation of temperature at outlet" class="rounded-lg w-full" />
+    <figcaption>Standard deviation — Case 3 (short tee, MR 4). Lower σ than Case 1 (same geometry, MR 2) — momentum ratio alone improves mixing on the short tee.</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/t-junction/t-junction-case3-temp-outlet.jpg" alt="Case 3 — temperature distribution at outlet" class="rounded-lg w-full" />
+    <figcaption>Outlet temperature — more uniform than Case 1 despite identical geometry, driven by the stronger penetration of the hot stream at higher MR.</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <img src="/images/t-junction/t-junction-case3-temp-cutplane.jpg" alt="Case 3 — temperature on longitudinal cut plane" class="rounded-lg w-full" />
+    <figcaption>Temperature cut plane — higher momentum ratio creates a stronger shear layer at the junction, accelerating cross-stream heat transfer.</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/t-junction/t-junction-case3-velocity-cutplane.jpg" alt="Case 3 — velocity vectors on cut plane" class="rounded-lg w-full" />
+    <figcaption>Velocity vectors — the dominant hot stream at MR 4 penetrates further into the cold stream region, increasing turbulent mixing intensity near the junction.</figcaption>
+  </figure>
+</div>
+
+---
+
+## Results & Engineering Conclusions
+
+<div class="theme-panel rounded-2xl p-6 my-8 space-y-4">
+  <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Key findings</p>
+  <div class="space-y-3 text-[15px] leading-relaxed text-text-secondary">
+    <div class="flex gap-3">
+      <span class="text-primary-accent font-semibold shrink-0">01</span>
+      <p><strong class="text-text-primary">Channel length reduces standard deviation.</strong> The long tee (Case 2) achieved lower σ than the short tee (Case 1) at identical MR = 2. More mixing distance allows turbulence to flatten the temperature gradient before the outlet.</p>
+    </div>
+    <div class="flex gap-3">
+      <span class="text-primary-accent font-semibold shrink-0">02</span>
+      <p><strong class="text-text-primary">Higher momentum ratio improves mixing on a short tee.</strong> Case 3 (MR = 4, short) outperforms Case 1 (MR = 2, short) — the stronger hot-stream penetration creates a more energetic shear layer, accelerating cross-stream mixing within the same physical length.</p>
+    </div>
+    <div class="flex gap-3">
+      <span class="text-primary-accent font-semibold shrink-0">03</span>
+      <p><strong class="text-text-primary">Both levers are independent and additive.</strong> Length and momentum ratio address mixing through different physical mechanisms — length gives the flow time to homogenise, momentum ratio increases the turbulent energy available at the junction. In a real system, either can be used depending on whether geometric constraints or flow rate control is more accessible.</p>
+    </div>
+  </div>
+</div>
+
+| Case | Tee Length | Momentum Ratio | Outlet σ (°C) | Mixing Quality |
+|------|-----------|---------------|----------------|----------------|
+| 1 | Short | 2 | Baseline (highest) | Poorest |
+| 2 | Long | 2 | ~0.5 | Good — length helps |
+| 3 | Short | 4 | Lower than Case 1 | Good — MR helps |

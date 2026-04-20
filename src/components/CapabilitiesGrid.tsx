@@ -11,9 +11,9 @@ const capabilities = [
     points: [
       "Designed and iterated on an FDA-cleared handheld laser device from early concept through production release",
       "Developed 20+ production and test fixtures to control critical tolerances and reduce operator variability",
-      "Led thermal redesign across two phases, grill geometry and internal heatsink, that cut field return rates from 23% to 3%",
+      "Led thermal redesign across two phases, grill geometry and internal heatsink, that brought field return rates to under 3%",
     ],
-    metric: "23% -> 3% field returns",
+    metric: "<3% field returns",
     featured: true,
   },
   {
@@ -27,7 +27,7 @@ const capabilities = [
       "Redesigned workflow and fixture strategy to triple weekly output without adding proportional headcount",
       "Developed all SOPs under ISO 13485 document control for training and audit readiness",
     ],
-    metric: "500 -> 1,500 units/week",
+    metric: "500 → 1,500 units/week",
   },
   {
     icon: Globe2,
@@ -65,7 +65,7 @@ export function CapabilitiesGrid() {
         <h2 className="font-heading text-3xl md:text-4xl font-normal tracking-[-0.03em] text-foreground">
           How I operate
         </h2>
-        <p className="text-sm leading-relaxed text-body-text">
+        <p className="text-base leading-relaxed text-body-text">
           Mechanical engineering is the core. The other three are areas I took real ownership of because the product required it, not to broaden my resume, but because no one else was doing it.
         </p>
       </div>
@@ -90,12 +90,12 @@ export function CapabilitiesGrid() {
             <h3 className="mb-3 text-xl font-semibold tracking-[-0.01em] text-foreground">
               {title}
             </h3>
-            <p className="mb-5 max-w-2xl text-sm leading-relaxed text-body-text">
+            <p className="mb-5 max-w-2xl text-base leading-relaxed text-body-text">
               {summary}
             </p>
             <ul className="space-y-2">
               {points.map((point) => (
-                <li key={point} className="flex gap-2.5 text-sm text-muted-foreground">
+                <li key={point} className="flex gap-2.5 text-[15px] text-muted-foreground">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-current" aria-hidden />
                   <span>{point}</span>
                 </li>

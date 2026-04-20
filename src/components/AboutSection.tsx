@@ -22,13 +22,13 @@ export function AboutSection() {
         <div className="min-w-0 max-w-4xl space-y-4">
           <div className="space-y-2">
             <p className="text-sm font-medium text-foreground">{name}</p>
-            <p className="text-sm leading-relaxed text-body-text">{aboutNameNote}</p>
+            <p className="text-[15px] leading-relaxed text-body-text">{aboutNameNote}</p>
           </div>
-          <p className="text-sm text-muted-foreground">{role}</p>
+          <p className="text-[15px] text-muted-foreground">{role}</p>
           <h2 className="font-heading text-2xl font-normal tracking-[-0.03em] text-primary-accent md:text-3xl">
             {aboutTitle}
           </h2>
-          <div className="max-w-3xl space-y-3 text-sm leading-relaxed text-body-text">
+          <div className="max-w-3xl space-y-3 text-base leading-relaxed text-body-text">
             {aboutBioParagraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}

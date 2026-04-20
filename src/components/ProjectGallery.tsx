@@ -12,14 +12,14 @@ interface ProjectGalleryProps {
 }
 
 const placeholderImages: GalleryImage[] = [
-  { alt: "CAD render — assembly overview", aspect: "video" },
+  { alt: "CAD render: assembly overview", aspect: "video" },
   { alt: "Thermal management module, exploded view", aspect: "tall" },
   { alt: "Enclosure tooling detail", aspect: "square" },
   { alt: "PCB layout and flex cable routing", aspect: "wide" },
-  { alt: "Prototype build — alpha unit", aspect: "tall" },
+  { alt: "Prototype build: alpha unit", aspect: "tall" },
   { alt: "FEA stress analysis render", aspect: "video" },
   { alt: "Production fixture design", aspect: "square" },
-  { alt: "Final assembly — ISO view", aspect: "wide" },
+  { alt: "Final assembly: ISO view", aspect: "wide" },
 ];
 
 const aspectClass: Record<GalleryImage["aspect"], string> = {

@@ -30,12 +30,12 @@ const impactMetrics = [
     detail: "Increased through fixture strategy and workflow redesign.",
   },
   {
-    value: "85% -> 95%",
+    value: "85% → 95%",
     label: "First-Pass Yield",
     detail: "Maintained through tighter process control and repeatable builds.",
   },
   {
-    value: "23% -> 3%",
+    value: "<3%",
     label: "Field Returns",
     detail: "Reduced through thermal correction and reliability validation.",
   },
@@ -225,7 +225,7 @@ export function Hero() {
             </p>
 
             <h1 className="text-5xl font-semibold tracking-[-0.04em] text-text-primary md:text-6xl">
-              Yash Morbia
+              Yash Morbia 
             </h1>
 
             <div className="mt-4 max-w-[46rem]">

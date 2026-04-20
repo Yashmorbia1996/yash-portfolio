@@ -7,9 +7,11 @@ const INTERVAL_MS = 5000;
 export function ProjectCardCoverSlideshow({
   images,
   title,
+  cover = false,
 }: {
   images: string[];
   title: string;
+  cover?: boolean;
 }) {
   const slides = images.filter(Boolean);
   const [index, setIndex] = useState(0);
@@ -30,7 +32,11 @@ export function ProjectCardCoverSlideshow({
   if (slides.length === 1) {
     return (
       <div className="flex h-full w-full items-center justify-center bg-surface-elevated">
-        <img src={slides[0]} alt="" className="max-h-full max-w-full object-contain object-center" />
+        <img
+          src={slides[0]}
+          alt=""
+          className={cover ? "h-full w-full object-cover" : "max-h-full max-w-full object-contain object-center"}
+        />
       </div>
     );
   }
@@ -50,8 +56,8 @@ export function ProjectCardCoverSlideshow({
         >
           <img
             src={src}
-            alt={i === index ? `${title} — preview` : ""}
-            className="max-h-full max-w-full object-contain object-center"
+            alt={i === index ? `${title} preview` : ""}
+            className={cover ? "h-full w-full object-cover" : "max-h-full max-w-full object-contain object-center"}
           />
         </div>
       ))}
