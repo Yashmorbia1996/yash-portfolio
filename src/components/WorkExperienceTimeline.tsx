@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 
 export interface WorkTimelineEntry {
   id: string;
@@ -24,6 +25,13 @@ export interface WorkTimelineEntry {
 interface WorkExperienceTimelineProps {
   entries: WorkTimelineEntry[];
   variant?: "default" | "home";
+}
+
+/** Work entries that open details in a modal instead of in-card expand (NIRA, Flex) */
+const READ_MORE_MODAL_ENTRY_IDS = new Set<string>(["nira-innovations", "flex-ltd"]);
+
+function entryUsesReadMoreModal(id: string) {
+  return READ_MORE_MODAL_ENTRY_IDS.has(id);
 }
 
 function periodLabel(data: WorkTimelineEntry["data"]) {
@@ -180,19 +188,118 @@ function TimelineConnector({
   );
 }
 
+function WorkExperienceReadModal({
+  entry,
+  onClose,
+  variant,
+}: {
+  entry: WorkTimelineEntry;
+  onClose: () => void;
+  variant: "default" | "home";
+}) {
+  const { data } = entry;
+  const titleId = useId();
+
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div
+        className="absolute inset-0 bg-black/30 backdrop-blur-md"
+        onClick={onClose}
+        role="presentation"
+      />
+      <div
+        className="relative z-10 w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl bg-white p-10 shadow-2xl dark:border dark:border-white/10 dark:bg-[#1C1C1E]"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute right-6 top-6 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-white/10 dark:hover:bg-white/20"
+          aria-label="Close"
+        >
+          <span className="text-base leading-none text-text-primary" aria-hidden>
+            ×
+          </span>
+        </button>
+
+        <div className="pr-4 md:pr-0">
+          <p className="mb-1 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
+            {data.company}
+          </p>
+          <div className="mt-2 flex items-start gap-4">
+            <TimelineLogo data={data} size="md" />
+            <h2
+              id={titleId}
+              className={[
+                "min-w-0 text-text-primary",
+                variant === "home" ? "text-2xl font-semibold leading-tight md:text-[1.6rem]" : "text-lg font-semibold leading-tight md:text-xl",
+              ].join(" ")}
+            >
+              {data.role}
+            </h2>
+          </div>
+        </div>
+
+        <div
+          className={[
+            "prose prose-sm prose-neutral max-w-none dark:prose-invert md:prose-base",
+            variant === "home" ? "mt-6" : "mt-5",
+            "prose-p:text-text-secondary prose-li:text-text-secondary",
+          ].join(" ")}
+        >
+          {data.achievements.length > 0 ? (
+            <ul>
+              {data.achievements.map((line, i) => (
+                <li key={i}>{line}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-text-secondary">Add detailed bullet points here when ready.</p>
+          )}
+        </div>
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
 function TimelineCard({
   data,
   expanded,
   onToggleReadMore,
+  onOpenReadMoreModal,
+  readMoreInModal,
   pointer,
   variant,
 }: {
   data: WorkTimelineEntry["data"];
   expanded: boolean;
   onToggleReadMore: () => void;
+  onOpenReadMoreModal?: () => void;
+  readMoreInModal: boolean;
   pointer: "start" | "end" | "none";
   variant: "default" | "home";
 }) {
+  const showInlineList = !readMoreInModal && expanded;
+
   return (
     <article
       className={[
@@ -265,7 +372,7 @@ function TimelineCard({
 
       {data.achievements.length ? (
         <div className="mt-5">
-          {expanded ? (
+          {showInlineList ? (
             <ul
               className={
                 variant === "home" ? "space-y-3 border-t border-border/80 pt-5" : "space-y-2 border-t border-border/80 pt-4"
@@ -281,14 +388,19 @@ function TimelineCard({
           ) : null}
           <button
             type="button"
-            onClick={onToggleReadMore}
+            onClick={readMoreInModal ? onOpenReadMoreModal : onToggleReadMore}
             className={
-              variant === "home"
-                ? "mt-4 inline-flex text-sm font-semibold uppercase tracking-[0.12em] text-primary-accent transition-opacity duration-300 hover:opacity-80"
-                : "mt-3 inline-flex text-sm font-semibold uppercase tracking-[0.12em] text-primary-accent transition-opacity duration-300 hover:opacity-80"
+              readMoreInModal
+                ? [
+                    "inline-flex cursor-pointer text-sm font-semibold uppercase tracking-wider text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
+                    variant === "home" ? "mt-4" : "mt-3",
+                  ].join(" ")
+                : variant === "home"
+                  ? "mt-4 inline-flex text-sm font-semibold uppercase tracking-[0.12em] text-primary-accent transition-opacity duration-300 hover:opacity-80"
+                  : "mt-3 inline-flex text-sm font-semibold uppercase tracking-[0.12em] text-primary-accent transition-opacity duration-300 hover:opacity-80"
             }
           >
-            {expanded ? "Show less" : "Read more"}
+            {readMoreInModal ? "Read more" : expanded ? "Show less" : "Read more"}
           </button>
         </div>
       ) : null}
@@ -303,6 +415,12 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
   );
 
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [activeModal, setActiveModal] = useState<string | null>(null);
+
+  const activeModalEntry = useMemo(
+    () => (activeModal ? sorted.find((e) => e.id === activeModal) ?? null : null),
+    [activeModal, sorted],
+  );
 
   const toggle = (id: string) => {
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -312,6 +430,9 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
 
   return (
     <div className="work-experience-chain">
+      {activeModalEntry ? (
+        <WorkExperienceReadModal entry={activeModalEntry} onClose={() => setActiveModal(null)} variant={variant} />
+      ) : null}
       {/* Desktop: continuous rail + alternating rows */}
       <div className="relative hidden md:block">
         <div
@@ -323,7 +444,8 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
           {sorted.map((entry, i) => {
             const cardOnRight = i % 2 === 0;
             const { data } = entry;
-            const isOpen = !!expanded[entry.id];
+            const readMoreInModal = entryUsesReadMoreModal(entry.id);
+            const isOpen = !readMoreInModal && !!expanded[entry.id];
 
             return (
               <div
@@ -348,7 +470,9 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
                         <TimelineCard
                           data={data}
                           expanded={isOpen}
+                          readMoreInModal={readMoreInModal}
                           onToggleReadMore={() => toggle(entry.id)}
+                          onOpenReadMoreModal={() => setActiveModal(entry.id)}
                           pointer="start"
                           variant={variant}
                         />
@@ -362,7 +486,9 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
                         <TimelineCard
                           data={data}
                           expanded={isOpen}
+                          readMoreInModal={readMoreInModal}
                           onToggleReadMore={() => toggle(entry.id)}
+                          onOpenReadMoreModal={() => setActiveModal(entry.id)}
                           pointer="end"
                           variant={variant}
                         />
@@ -388,7 +514,8 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
         <div className="flex flex-col gap-10">
           {sorted.map((entry) => {
             const { data } = entry;
-            const isOpen = !!expanded[entry.id];
+            const readMoreInModal = entryUsesReadMoreModal(entry.id);
+            const isOpen = !readMoreInModal && !!expanded[entry.id];
             return (
               <div key={entry.id} className="relative min-w-0">
                 <div
@@ -403,7 +530,9 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
                 <TimelineCard
                   data={data}
                   expanded={isOpen}
+                  readMoreInModal={readMoreInModal}
                   onToggleReadMore={() => toggle(entry.id)}
+                  onOpenReadMoreModal={() => setActiveModal(entry.id)}
                   pointer="none"
                   variant={variant}
                 />
