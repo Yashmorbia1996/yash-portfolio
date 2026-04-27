@@ -68,7 +68,7 @@ const currentPath = Astro.url.pathname;
       Skip to content
     </a>
     <Header currentPath={currentPath} client:load />
-    <main id="main-content" class="min-h-screen scroll-mt-20 pt-14">
+    <main id="main-content" class="min-h-screen scroll-mt-20 bg-white pt-14 dark:bg-black">
       <slot />
     </main>
     <Footer />
@@ -88,6 +88,9 @@ const currentPath = Astro.url.pathname;
         const reveals = document.querySelectorAll('.scroll-reveal');
         const viewportH = window.innerHeight;
         reveals.forEach((el) => {
+          // Keep Work Experience always visible: it is critical above-the-fold content for many
+          // layouts, and hiding it until IO fires can fail if scroll/layout timing is unusual.
+          if (el.id === 'home-work-experience') return;
           const rect = el.getBoundingClientRect();
           if (rect.top > viewportH) el.classList.add('scroll-reveal--hidden');
         });

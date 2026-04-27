@@ -6,7 +6,7 @@ export function NextSection() {
   const { social, phone } = siteConfig;
 
   return (
-    <Section id="contact">
+    <Section id="contact" surface="white">
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="theme-section-title mb-4 text-5xl font-semibold md:text-6xl">
           What I want next

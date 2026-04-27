@@ -1,13 +1,20 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 
-const milestones = [
+type Milestone = {
+  number: string;
+  title: string;
+  future?: boolean;
+  tag?: string;
+};
+
+const milestones: Milestone[] = [
   { number: "01", title: "Coming to US" },
   { number: "02", title: "MS in Mechanical Engineering" },
   { number: "03", title: "Mechanical Engineering Co-op" },
   { number: "04", title: "Lead Mechanical Engineer" },
   { number: "05", title: "What's Next?", future: true, tag: "FUTURE-05" },
-] as const;
+];
 
 const futureHorizons = [
   "Transitioning to Siemens NX Advanced Assembly Mgmt",
@@ -18,7 +25,7 @@ export function CareerTimeline() {
   const [showFuture, setShowFuture] = useState(false);
 
   return (
-    <section className="scroll-reveal py-24 md:py-32">
+    <section className="scroll-reveal bg-[#f5f5f7] py-24 dark:bg-[#1C1C1E] md:py-32">
       <div className="site-container">
         <div className="theme-panel rounded-[1.75rem] px-5 py-7 md:px-8">
           <p className="theme-eyebrow text-center font-mono text-[11px] font-semibold uppercase tracking-[0.18em]">

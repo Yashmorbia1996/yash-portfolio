@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { LivBenchPocImage, isLivBenchPocSlideUrl } from "./LivBenchPocImage";
 import { ProjectCardCoverSlideshow } from "./ProjectCardCoverSlideshow";
 
 export interface StudyLink {
@@ -12,7 +13,7 @@ export interface CarouselProject {
   title: string;
   slug: string;
   tags: string[];
-  /** When problem, action, and result are all set, show the case-study preview layout. Otherwise show summary (e.g. “More projects” on detail pages). */
+  /** If any of problem/action/result are empty, the carousel derives copy from `summary` so Situation/Action/Result still render. */
   context?: string;
   problem?: string;
   action?: string;
@@ -21,7 +22,7 @@ export interface CarouselProject {
   studyLinks?: StudyLink[];
   cover?: string;
   coverSlides?: string[];
-  /** Per-card eyebrow label — overrides the component-level eyebrow prop */
+  /** Per-card eyebrow label, overrides the component-level eyebrow prop */
   eyebrow?: string;
 }
 
@@ -46,14 +47,69 @@ function pixelWheelDelta(e: WheelEvent, viewportH: number, viewportW: number): n
   return dy + dx;
 }
 
+const FRAME_CLASS: Record<"work" | "cad", string> = {
+  work:
+    "rounded-2xl border border-border bg-white p-4 pt-5 shadow-sm md:p-6 dark:border-border dark:bg-black dark:shadow-none",
+  cad: "rounded-2xl border border-border bg-[#f5f5f7] p-4 pt-5 md:p-6 dark:bg-[#1C1C1E]",
+};
+
+const FRAME_FADE_FROM: Record<"work" | "cad", string> = {
+  work: "from-white dark:from-black",
+  cad: "from-[#f5f5f7] dark:from-[#1C1C1E]",
+};
+
+/**
+ * Always supply three parts for the case-study block: use explicit P/A/R when all set,
+ * otherwise fall back to splitting `summary` or short placeholders (see project page fallback).
+ */
+function getCaseStudyBlocks(p: CarouselProject): { problem: string; action: string; result: string } {
+  const pr = p.problem?.trim() ?? "";
+  const ac = p.action?.trim() ?? "";
+  const re = p.result?.trim() ?? "";
+  if (pr && ac && re) {
+    return { problem: pr, action: ac, result: re };
+  }
+  const sum = p.summary?.trim() ?? "";
+  if (sum) {
+    const paras = sum.split(/\n\n+/).map((s) => s.trim()).filter(Boolean);
+    if (paras.length >= 3) {
+      return {
+        problem: pr || paras[0] || "-",
+        action: ac || paras[1] || "-",
+        result: re || paras[2] || "-",
+      };
+    }
+    if (paras.length === 2) {
+      return {
+        problem: pr || paras[0] || "-",
+        action: ac || paras[1] || "-",
+        result: re || "Details, figures, and post-processing are in the full case study post.",
+      };
+    }
+    return {
+      problem: pr || paras[0] || "-",
+      action: ac || "Methodology, boundary conditions, and run setup are described in the case study post.",
+      result: re || "Key metrics, plots, and conclusions are documented in the case study post.",
+    };
+  }
+  return { problem: pr || "-", action: ac || "-", result: re || "-" };
+}
+
+function hasExplicitCaseStudyPills(p: CarouselProject): boolean {
+  return Boolean(p.problem?.trim() && p.action?.trim() && p.result?.trim());
+}
+
 export function WorkProjectsCarousel({
   projects,
   eyebrow = "Work Project",
   ctaLabel = "Read case study",
+  frame = "none",
 }: {
   projects: CarouselProject[];
   eyebrow?: string;
   ctaLabel?: string;
+  /** Inset panel: `work` = white frame on gray band; `cad` = gray frame on white band */
+  frame?: "none" | "work" | "cad";
 }) {
   const N = projects.length;
   const [active, setActive] = useState(0);
@@ -75,12 +131,10 @@ export function WorkProjectsCarousel({
     const root = containerRef.current;
     if (!root) return;
 
-    /** Wheel → change slide when pointer path is inside a project card; otherwise Lenis / native scroll the page. */
+    /** Wheel → change slide only while the pointer target is inside this carousel region; page scrolls normally outside. */
     const onWheel = (e: WheelEvent) => {
-      const onCard = e.composedPath().some(
-        (n) => n instanceof Element && n.closest("[data-carousel-card]"),
-      );
-      if (!onCard) return;
+      const t = e.target;
+      if (!(t instanceof Node) || !root.contains(t)) return;
 
       e.preventDefault();
 
@@ -96,7 +150,7 @@ export function WorkProjectsCarousel({
 
       const a = activeRef.current;
 
-      // At most one slide per wheel event — large deltas (one mouse notch) must not skip to the end
+      // At most one slide per wheel event, large deltas (one mouse notch) must not skip to the end
       if (accRef.current >= WHEEL_ACC_THRESHOLD && a < N - 1) {
         goTo(a + 1);
         accRef.current = 0;
@@ -106,18 +160,22 @@ export function WorkProjectsCarousel({
       }
     };
 
-    root.addEventListener("wheel", onWheel, { passive: false });
+    root.addEventListener("wheel", onWheel, { passive: false, capture: true });
 
     return () => {
       getLenis()?.start?.();
-      root.removeEventListener("wheel", onWheel);
+      root.removeEventListener("wheel", onWheel, true);
     };
   }, [goTo, N]);
+
+  const fadeFrom = frame === "none" ? "from-background" : FRAME_FADE_FROM[frame];
+  const frameClass = frame === "none" ? "" : FRAME_CLASS[frame];
 
   return (
     <div
       ref={containerRef}
-      className="relative select-none overflow-x-hidden pb-14"
+      data-lenis-prevent-wheel
+      className={["relative select-none overflow-x-hidden pb-14", frameClass].filter(Boolean).join(" ")}
     >
       <div className="isolate mx-auto grid min-h-0 w-full max-w-sm justify-items-center px-3 pt-5 sm:max-w-md sm:px-4 [grid-template-areas:'stack']">
         {projects.map((p, i) => {
@@ -129,15 +187,13 @@ export function WorkProjectsCarousel({
           const showSlides = slideList.length > 1;
           const coverSrc = p.cover || COVER_FALLBACK;
           const singleSrc = slideList.length === 1 ? slideList[0] : coverSrc;
-          const hasCaseStudy = Boolean(p.problem && p.action && p.result);
-          const summaryExcerpt =
-            p.summary?.split(/\n\n+/)[0]?.trim() ?? p.summary?.trim() ?? "";
+          const caseBlocks = getCaseStudyBlocks(p);
+          const useSkillsLabel = hasExplicitCaseStudyPills(p);
 
           return (
             <div
               key={p.slug}
-              onClick={() => !isActive && goTo(i)}
-              className="[grid-area:stack] flex h-full min-h-0 w-full max-w-[min(24rem,calc(100vw-1.5rem))] flex-col justify-self-center self-stretch transition-[transform,opacity,filter] duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] sm:max-w-[min(28rem,calc(100vw-2rem))]"
+              className="[grid-area:stack] relative flex h-full min-h-0 w-full max-w-[min(24rem,calc(100vw-1.5rem))] flex-col justify-self-center self-stretch transition-[transform,opacity,filter] duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] sm:max-w-[min(28rem,calc(100vw-2rem))]"
               style={{
                 transform: `translateX(calc(${offset} * (100% + ${GAP}px)))`,
                 opacity:    isHidden ? 0 : isActive ? 1 : 0.4,
@@ -150,30 +206,34 @@ export function WorkProjectsCarousel({
               <a
                 href={`/projects/${p.slug}`}
                 onClick={(e) => {
-                  if (!isActive) e.preventDefault();
+                  if (!isActive) {
+                    e.preventDefault();
+                    goTo(i);
+                  }
                 }}
-                className="theme-panel group flex h-full min-h-0 w-full flex-col overflow-hidden rounded-2xl"
+                className="absolute inset-0 z-0 rounded-2xl"
+                aria-label={`View project: ${p.title}`}
                 data-carousel-card
-                data-lenis-prevent-wheel
-                onMouseEnter={() => {
-                  accRef.current = 0;
-                  getLenis()?.stop?.();
-                }}
-                onMouseLeave={() => {
-                  accRef.current = 0;
-                  getLenis()?.start?.();
-                }}
               >
-                {/* Image — aspect-video (same as ProjectCard) */}
+                <span className="sr-only">View project: {p.title}</span>
+              </a>
+              <div className="theme-panel group relative z-10 flex h-full min-h-0 w-full flex-col overflow-hidden rounded-2xl pointer-events-none">
+                {/* Image, aspect-video (same as ProjectCard) */}
                 <div className="aspect-video w-full shrink-0 overflow-hidden rounded-t-2xl border-b border-border bg-surface-elevated">
                   {showSlides ? (
                     <ProjectCardCoverSlideshow images={slideList} title={p.title} />
                   ) : singleSrc ? (
-                    <img
-                      src={singleSrc}
-                      alt={p.title}
-                      className="h-full w-full object-contain object-center"
-                    />
+                    isLivBenchPocSlideUrl(singleSrc) ? (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <LivBenchPocImage compact />
+                      </div>
+                    ) : (
+                      <img
+                        src={singleSrc}
+                        alt={p.title}
+                        className="h-full w-full object-contain object-center"
+                      />
+                    )
                   ) : null}
                 </div>
 
@@ -191,42 +251,55 @@ export function WorkProjectsCarousel({
                     )}
                   </div>
 
-                  {hasCaseStudy ? (
-                    <div className="mt-4 flex min-h-0 flex-1 flex-col gap-3 text-xs leading-relaxed text-text-secondary sm:mt-5 sm:gap-4 sm:text-sm">
-                      <div>
-                        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Situation / Problem</p>
-                        <p className="mt-1">{p.problem}</p>
-                      </div>
-                      <div>
-                        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Action</p>
-                        <p className="mt-1">{p.action}</p>
-                      </div>
-                      <div>
-                        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Result</p>
-                        <p className="mt-1">{p.result}</p>
-                      </div>
+                  <div className="mt-4 flex min-h-0 flex-1 flex-col gap-3 text-xs leading-relaxed text-text-secondary sm:mt-5 sm:gap-4 sm:text-sm">
+                    <div>
+                      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Situation / Problem</p>
+                      <p className="mt-1">{caseBlocks.problem}</p>
                     </div>
-                  ) : (
-                    <div className="mt-4 flex min-h-0 flex-1 flex-col text-xs leading-relaxed text-text-secondary sm:mt-5 sm:text-sm">
-                      {summaryExcerpt ? (
-                        <p className="leading-relaxed">{summaryExcerpt}</p>
-                      ) : null}
-                      {p.studyLinks && p.studyLinks.length > 0 && (
-                        <div className="mt-3 space-y-1.5 sm:mt-4">
-                          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted sm:text-[11px]">Studies</p>
-                          {p.studyLinks.map((s) => (
-                            <div
-                              key={s.slug || s.label}
-                              className={`flex items-center justify-between rounded-lg border px-3 py-2 ${s.slug ? "border-border bg-surface-elevated" : "border-dashed border-border opacity-50"}`}
-                            >
-                              <div className="min-w-0">
-                                <p className="text-[11px] font-medium text-text-primary sm:text-[12px]">{s.label}</p>
-                                {s.meta && <p className="mt-0.5 text-[10px] text-text-muted">{s.meta}</p>}
-                              </div>
-                              {s.slug && <span className="ml-3 shrink-0 text-[11px] text-primary-accent">→</span>}
+                    <div>
+                      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Action</p>
+                      <p className="mt-1">{caseBlocks.action}</p>
+                    </div>
+                    <div>
+                      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Result</p>
+                      <p className="mt-1">{caseBlocks.result}</p>
+                    </div>
+                  </div>
+                  {p.studyLinks && p.studyLinks.length > 0 && (
+                    <div className="mt-3 space-y-1.5 sm:mt-4">
+                      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted sm:text-[11px]">Related studies</p>
+                      {p.studyLinks.map((s) =>
+                        s.slug ? (
+                          <a
+                            key={s.slug}
+                            href={`/projects/${s.slug}`}
+                            className="pointer-events-auto flex items-center justify-between rounded-lg border border-border bg-surface-elevated px-3 py-2 transition-colors hover:border-border-strong"
+                          >
+                            <div className="min-w-0 flex-1 overflow-x-auto overflow-y-hidden pr-2">
+                              <p className="whitespace-nowrap text-[11px] font-medium text-text-primary sm:text-[12px]">
+                                {s.label}
+                              </p>
+                              {s.meta && (
+                                <p className="mt-0.5 whitespace-nowrap text-[10px] text-text-muted">{s.meta}</p>
+                              )}
                             </div>
-                          ))}
-                        </div>
+                            <span className="ml-3 shrink-0 text-[11px] text-primary-accent">→</span>
+                          </a>
+                        ) : (
+                          <div
+                            key={s.label}
+                            className="flex items-center justify-between rounded-lg border border-dashed border-border px-3 py-2 opacity-50"
+                          >
+                            <div className="min-w-0 flex-1 overflow-x-auto overflow-y-hidden pr-2">
+                              <p className="whitespace-nowrap text-[11px] font-medium text-text-primary sm:text-[12px]">
+                                {s.label}
+                              </p>
+                              {s.meta && (
+                                <p className="mt-0.5 whitespace-nowrap text-[10px] text-text-muted">{s.meta}</p>
+                              )}
+                            </div>
+                          </div>
+                        ),
                       )}
                     </div>
                   )}
@@ -234,7 +307,7 @@ export function WorkProjectsCarousel({
                   {p.tags?.length > 0 && (
                     <div className="mt-4 shrink-0 border-t border-border pt-4 sm:mt-5 sm:pt-5">
                       <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted mb-1.5 sm:text-[11px] sm:mb-2">
-                        {hasCaseStudy ? "Skills learned / applied" : "Tags"}
+                        {useSkillsLabel ? "Skills learned / applied" : "Tags"}
                       </p>
                       <div className="flex flex-wrap gap-1.5 sm:gap-2">
                         {p.tags.map(tag => (
@@ -250,15 +323,19 @@ export function WorkProjectsCarousel({
                     <span className="text-xs text-primary-accent sm:text-sm">{ctaLabel} →</span>
                   </div>
                 </div>
-              </a>
+              </div>
             </div>
           );
         })}
       </div>
 
       {/* Edge fades */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-16 bg-gradient-to-r from-background to-transparent sm:w-24" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-16 bg-gradient-to-l from-background to-transparent sm:w-24" />
+      <div
+        className={`pointer-events-none absolute inset-y-0 left-0 z-20 w-16 bg-gradient-to-r ${fadeFrom} to-transparent sm:w-24`}
+      />
+      <div
+        className={`pointer-events-none absolute inset-y-0 right-0 z-20 w-16 bg-gradient-to-l ${fadeFrom} to-transparent sm:w-24`}
+      />
 
       {/* Prev arrow */}
       {active > 0 && (

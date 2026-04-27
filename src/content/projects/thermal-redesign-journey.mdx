@@ -24,7 +24,7 @@ tags:
 glanceOutcome: "Both phases shipped to production. −16°C chip temp, field returns under 3%, +50% operating power vs previous generation."
 ---
 
-{/* ── HERO ── */}
+{/* -- HERO -- */}
 
 <div class="not-prose mt-6 mb-16">
   <div class="relative overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-8">
@@ -114,7 +114,7 @@ glanceOutcome: "Both phases shipped to production. −16°C chip temp, field ret
   </div>
 </div>
 
-{/* ── DISCLOSURE ── */}
+{/* -- DISCLOSURE -- */}
 
 <div id="disclosure" class="not-prose mb-16 scroll-mt-28">
   <div class="rounded-2xl border border-border bg-surface-elevated/40 px-5 py-4">
@@ -124,7 +124,7 @@ glanceOutcome: "Both phases shipped to production. −16°C chip temp, field ret
   </div>
 </div>
 
-{/* ── THE PROBLEM ── */}
+{/* -- THE PROBLEM -- */}
 
 <div id="the-problem" class="not-prose mb-16 scroll-mt-28">
   <div class="mb-8">
@@ -146,23 +146,23 @@ glanceOutcome: "Both phases shipped to production. −16°C chip temp, field ret
   {(() => {
     const steps = [
       { n: 1, label: 'Restrictive grill geometry', sub: 'Original enclosure design', warn: false },
-      { n: 2, label: 'Reduced airflow',            sub: 'Through the enclosure',     warn: false },
-      { n: 3, label: 'Heat accumulation',           sub: 'Chip exceeds design limits', warn: false },
-      { n: 4, label: 'Thermal failure',             sub: 'Component shutdown',        warn: true  },
-      { n: 5, label: 'Field return',                sub: 'Customer-reported',         warn: true  },
+      { n: 2, label: 'Reduced airflow', sub: 'Through the enclosure', warn: false },
+      { n: 3, label: 'Heat accumulation', sub: 'Chip exceeds design limits', warn: false },
+      { n: 4, label: 'Thermal failure', sub: 'Component shutdown', warn: true  },
+      { n: 5, label: 'Field return', sub: 'Customer-reported', warn: true  },
     ];
     return (
       <div class="rounded-2xl border border-border bg-surface-elevated/40 p-5 md:p-8">
         <p class="mb-7 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Root cause chain</p>
 
-        {/* ── Desktop: horizontal numbered timeline ── */}
+        {/* -- Desktop: horizontal numbered timeline -- */}
         <div class="relative hidden sm:block">
           {/* Rail connecting all circles */}
           <div class="absolute left-[10%] right-[10%] top-7 h-px bg-gradient-to-r from-primary-accent/40 via-border to-red-300/60" />
           <div class="grid grid-cols-5 gap-2">
             {steps.map((step) => (
               <div key={step.n} class="flex flex-col items-center gap-3">
-                {/* Numbered circle — sits on top of the rail */}
+                {/* Numbered circle, sits on top of the rail */}
                 <div class={[
                   'relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 bg-background text-sm font-bold shadow-sm',
                   step.warn
@@ -186,7 +186,7 @@ glanceOutcome: "Both phases shipped to production. −16°C chip temp, field ret
           </div>
         </div>
 
-        {/* ── Mobile: vertical timeline ── */}
+        {/* -- Mobile: vertical timeline -- */}
         <div class="flex flex-col sm:hidden">
           {steps.map((step, i) => (
             <div key={step.n} class="flex gap-4">
@@ -222,7 +222,7 @@ glanceOutcome: "Both phases shipped to production. −16°C chip temp, field ret
   })()}
 </div>
 
-{/* ── PHASE 1 ── */}
+{/* -- PHASE 1 -- */}
 
 <div id="phase-1-airflow" class="not-prose mb-16 scroll-mt-28">
   <div class="mb-2 flex items-center gap-3">
@@ -372,7 +372,7 @@ glanceOutcome: "Both phases shipped to production. −16°C chip temp, field ret
   </div>
 </div>
 
-{/* ── PHASE 2 ── */}
+{/* -- PHASE 2 -- */}
 
 <div id="phase-2-thermal" class="not-prose mb-16 scroll-mt-28">
   <div class="mb-2 flex items-center gap-3">
@@ -393,7 +393,7 @@ glanceOutcome: "Both phases shipped to production. −16°C chip temp, field ret
 
   <div class="flex flex-col gap-5">
 
-    {/* Design Change 1 — text only */}
+    {/* Design Change 1, text only */}
     <div class="overflow-hidden rounded-2xl border border-border bg-background">
       <div class="flex flex-col px-5 py-6 md:px-7 md:py-7">
         <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Design Change 1</p>
@@ -418,7 +418,7 @@ glanceOutcome: "Both phases shipped to production. −16°C chip temp, field ret
       </div>
     </div>
 
-    {/* Design Change 2 — with heatsink images */}
+    {/* Design Change 2, with heatsink images */}
     <div class="overflow-hidden rounded-2xl border border-border bg-background">
       <div class="border-b border-border px-5 py-5 md:px-7 md:py-6">
         <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Design Change 2</p>
@@ -433,7 +433,7 @@ glanceOutcome: "Both phases shipped to production. −16°C chip temp, field ret
             <div class="absolute inset-0 flex items-center justify-center p-3">
               <img
                 src="/images/Phase%202_Design%20change%202_1.png"
-                alt="Engine assembly with plastic plenum — prior thermal path before all-metal conduction upgrade"
+                alt="Engine assembly with plastic plenum, prior thermal path before all-metal conduction upgrade"
                 width="944"
                 height="421"
                 decoding="async"
@@ -446,7 +446,7 @@ glanceOutcome: "Both phases shipped to production. −16°C chip temp, field ret
             <div class="absolute inset-0 flex items-center justify-center p-3">
               <img
                 src="/images/Phase%202_Design%20change%202_3.png"
-                alt="Engine with all-metal plenum — metallic conduction path from chip to enclosure"
+                alt="Engine with all-metal plenum, metallic conduction path from chip to enclosure"
                 width="530"
                 height="553"
                 decoding="async"
@@ -489,7 +489,7 @@ glanceOutcome: "Both phases shipped to production. −16°C chip temp, field ret
   </div>
 </div>
 
-{/* ── WHAT THIS ENABLED ── */}
+{/* -- WHAT THIS ENABLED -- */}
 
 <div class="not-prose mb-16 scroll-mt-28">
   <div class="overflow-hidden rounded-2xl border border-primary-accent/25 bg-primary-accent/5 p-6 md:p-8">

@@ -21,14 +21,14 @@ A production-grade portfolio template for engineers and technical professionals.
 
 ## Features
 
-- **Linear Ash / Midnight theme** — Two handcrafted palettes (light + dark) using CSS variables. Theme toggle persists to `localStorage` with FOUC prevention.
-- **MDX content collections** — Type-safe schemas for Projects, Blog, and Work Experience. Add content by dropping `.mdx` files into the right folder; no component changes needed.
-- **Design Evolution timeline** — Per-project stepper component with step badges, connecting lines, and image placeholders, ready to swap in real renders.
-- **Impact metrics bar** — Hero stat cards (e.g., `$4M → $15M`) with a glassmorphic lift, configurable from `site.ts`.
-- **Capabilities grid** — 2×2 card grid for your four core competencies, icon + title + description.
-- **Scroll-reveal animations** — Sections animate in on scroll using `IntersectionObserver`. Respects `prefers-reduced-motion`.
-- **Fully responsive** — Mobile-first layouts. Navigation collapses to a slide-out Sheet on small screens. TOC sidebar and avatar column appear at `md`/`xl` breakpoints.
-- **Accessible** — Semantic HTML, visible focus rings, ARIA labels on icon-only buttons, 4.5:1+ contrast ratios for body text.
+- **Linear Ash / Midnight theme**, Two handcrafted palettes (light + dark) using CSS variables. Theme toggle persists to `localStorage` with FOUC prevention.
+- **MDX content collections**, Type-safe schemas for Projects, Blog, and Work Experience. Add content by dropping `.mdx` files into the right folder; no component changes needed.
+- **Design Evolution timeline**, Per-project stepper component with step badges, connecting lines, and image placeholders, ready to swap in real renders.
+- **Impact metrics bar**, Hero stat cards (e.g., `$4M → $15M`) with a glassmorphic lift, configurable from `site.ts`.
+- **Capabilities grid**, 2×2 card grid for your four core competencies, icon + title + description.
+- **Scroll-reveal animations**, Sections animate in on scroll using `IntersectionObserver`. Respects `prefers-reduced-motion`.
+- **Fully responsive**, Mobile-first layouts. Navigation collapses to a slide-out Sheet on small screens. TOC sidebar and avatar column appear at `md`/`xl` breakpoints.
+- **Accessible**, Semantic HTML, visible focus rings, ARIA labels on icon-only buttons, 4.5:1+ contrast ratios for body text.
 
 ---
 
@@ -81,9 +81,9 @@ npm run dev        # → http://localhost:4321
 │   │   └── ThemeToggle.tsx
 │   │
 │   ├── content/
-│   │   ├── projects/               # *.mdx — one file per project
-│   │   ├── blog/                   # *.mdx — one file per post
-│   │   ├── work/                   # *.mdx — one file per role
+│   │   ├── projects/               # *.mdx, one file per project
+│   │   ├── blog/                   # *.mdx, one file per post
+│   │   ├── work/                   # *.mdx, one file per role
 │   │   └── config.ts               # Zod schemas for all three collections
 │   │
 │   ├── layouts/
@@ -131,7 +131,7 @@ export const siteConfig = {
   location: "Boston, MA",
 
   url:         "https://janesmith.dev",
-  description: "Portfolio of Jane Smith — precision hardware from concept to production.",
+  description: "Portfolio of Jane Smith, precision hardware from concept to production.",
   ogImage:     "/images/og.jpg",
 
   social: {
@@ -176,7 +176,7 @@ duration: "3 months"                 # optional
 - Inspection cycle time: −55%
 ```
 
-Set `featured: true` on up to 3 projects — they appear in the **Featured Work** section on the home page.
+Set `featured: true` on up to 3 projects, they appear in the **Featured Work** section on the home page.
 
 **Project frontmatter schema:**
 
@@ -187,10 +187,10 @@ Set `featured: true` on up to 3 projects — they appear in the **Featured Work*
 | `date` | date | ✅ | ISO 8601 or `YYYY-MM-DD` |
 | `cover` | string | ✅ | Path under `public/` |
 | `tags` | string[] (min 1) | ✅ | Rendered as pills |
-| `featured` | boolean | — | Default: `false` |
-| `liveUrl` | URL | — | |
-| `repoUrl` | URL | — | |
-| `duration` | string | — | e.g., `"6 months"` |
+| `featured` | boolean |, | Default: `false` |
+| `liveUrl` | URL |, | |
+| `repoUrl` | URL |, | |
+| `duration` | string |, | e.g., `"6 months"` |
 
 ### 3. Add a work experience entry
 
@@ -219,11 +219,11 @@ achievements:
 | `company` | string | ✅ | |
 | `role` | string | ✅ | |
 | `startDate` | string | ✅ | e.g., `"Jan 2021"` |
-| `endDate` | string | — | Omit if current |
-| `current` | boolean | — | Default: `false` |
+| `endDate` | string |, | Omit if current |
+| `current` | boolean |, | Default: `false` |
 | `description` | string | ✅ | One-sentence summary |
 | `achievements` | string[] | ✅ | Bullet points |
-| `order` | number | — | Controls sort order |
+| `order` | number |, | Controls sort order |
 
 ### 4. Add a blog post
 
@@ -250,7 +250,7 @@ Colors live in `src/styles/globals.css` under `@theme` (light) and `.dark` (dark
 @theme {
   --color-background:     #F4F5F8;   /* page background */
   --color-foreground:     #1A1A21;   /* primary text */
-  --color-primary-accent: #5E6AD2;   /* Linear indigo — buttons, links, highlights */
+  --color-primary-accent: #5E6AD2;   /* Linear indigo, buttons, links, highlights */
   --color-card:           #FFFFFF;
   --color-muted-foreground: #8A8F98; /* secondary text */
   /* ... */
@@ -265,7 +265,7 @@ Colors live in `src/styles/globals.css` under `@theme` (light) and `.dark` (dark
 
 Change `--color-primary-accent` to swap the entire accent color across buttons, badges, and highlights in one edit.
 
-> **Note:** This project uses Tailwind CSS v4 with class-based dark mode. The `@variant dark (&:is(.dark *))` directive in `globals.css` binds `dark:` utilities to the `.dark` class managed by the theme toggle — not to the OS `prefers-color-scheme` setting.
+> **Note:** This project uses Tailwind CSS v4 with class-based dark mode. The `@variant dark (&:is(.dark *))` directive in `globals.css` binds `dark:` utilities to the `.dark` class managed by the theme toggle, not to the OS `prefers-color-scheme` setting.
 
 ### 6. Update the Design Evolution timeline
 
@@ -303,18 +303,18 @@ npm run preview   # Serve the dist/ build locally
 
 The output is a fully static site in `dist/`. Deploy to any static host:
 
-**Vercel** — Import the repo, framework preset: **Astro**. Zero config needed.
+**Vercel**, Import the repo, framework preset: **Astro**. Zero config needed.
 
-**Netlify** — Build command: `npm run build` · Publish directory: `dist`
+**Netlify**, Build command: `npm run build` · Publish directory: `dist`
 
-**GitHub Pages** — Add `base` to `astro.config.mjs` if hosting at a sub-path, then deploy `dist/` to the `gh-pages` branch.
+**GitHub Pages**, Add `base` to `astro.config.mjs` if hosting at a sub-path, then deploy `dist/` to the `gh-pages` branch.
 
 Before deploying, update two values:
 
 ```js
 // astro.config.mjs
 export default defineConfig({
-  site: 'https://your-domain.com',   // ← your real URL
+  site: 'https://your-domain.com', // ← your real URL
   // ...
 });
 ```
@@ -343,12 +343,12 @@ These values power the sitemap and canonical URLs.
 
 The repo ships with placeholder content you can replace or delete:
 
-- **Projects** — Press Test Fixture, LIV Optical Test Rig, Thermal Redesign Journey (all featured), plus Analytics Dashboard and Design System Rebuild (not featured)
-- **Blog** — "Getting Started with Astro"
-- **Work** — Acme Corp, Startup Inc
+- **Projects**, Press Test Fixture, LIV Optical Test Rig, Thermal Redesign Journey (all featured), plus Analytics Dashboard and Design System Rebuild (not featured)
+- **Blog**, "Getting Started with Astro"
+- **Work**, Acme Corp, Startup Inc
 
 ---
 
 ## License
 
-MIT — use it, fork it, ship it.
+MIT, use it, fork it, ship it.

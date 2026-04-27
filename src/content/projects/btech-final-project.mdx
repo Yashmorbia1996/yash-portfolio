@@ -38,7 +38,7 @@ tags:
       loading="eager"
     />
     <figcaption class="border-t border-border/80 bg-background/90 px-4 py-3 text-center text-xs leading-snug text-text-muted">
-      Completed RC surveillance-style airframe after fabrication and assembly—field photo from the capstone build.
+      Completed RC surveillance-style airframe after fabrication and assembly, field photo from the capstone build.
     </figcaption>
   </figure>
 </div>
@@ -66,7 +66,7 @@ tags:
     </div>
   </div>
   <p class="mt-4 text-center text-xs text-text-muted">
-    Key figures from the engineering specification and propulsion sizing—not a substitute for formal drawings or flight logs.
+    Key figures from the engineering specification and propulsion sizing, not a substitute for formal drawings or flight logs.
   </p>
 </div>
 
@@ -76,11 +76,11 @@ The capstone was to carry a surveillance-oriented RC aircraft from requirements 
 
 ## End-to-end project phases
 
-1. **Selection** — Materials, airfoil family, and electronics matched to weight, speed, and mission constraints.
-2. **Blueprint analysis** — Studied and adapted existing drawings to the chosen configuration and loads.
-3. **Computational + experimental aerodynamics** — XFLR5 predictions cross-checked with wind-tunnel data on a wing model.
-4. **Fabrication** — Structural members cut and assembled by hand from traced templates.
-5. **Assembly** — Integration of structure, control surfaces, and propulsion.
+1. **Selection**, Materials, airfoil family, and electronics matched to weight, speed, and mission constraints.
+2. **Blueprint analysis**, Studied and adapted existing drawings to the chosen configuration and loads.
+3. **Computational + experimental aerodynamics**, XFLR5 predictions cross-checked with wind-tunnel data on a wing model.
+4. **Fabrication**, Structural members cut and assembled by hand from traced templates.
+5. **Assembly**, Integration of structure, control surfaces, and propulsion.
 
 ## Aircraft specification (design targets)
 
@@ -131,18 +131,18 @@ After calculations and side-by-side comparison of multiple families, **Clark Y**
 
 **Why Clark Y fit this RC mission**
 
-1. **High camber** — Strong lift-to-drag performance for lightweight, slow RC-style flight envelopes.
-2. **Predictable stall** — Gentle separation progression—important when flying with payload and limited altitude margin.
-3. **Deep mid-section** — Room for spars, ribs, and internal routing without “paper-thin” structure compromises.
-4. **Internal volume** — Practical placement of servos (ailerons, flaps if used) and hardware without carving away primary structure.
+1. **High camber**, Strong lift-to-drag performance for lightweight, slow RC-style flight envelopes.
+2. **Predictable stall**, Gentle separation progression, important when flying with payload and limited altitude margin.
+3. **Deep mid-section**, Room for spars, ribs, and internal routing without “paper-thin” structure compromises.
+4. **Internal volume**, Practical placement of servos (ailerons, flaps if used) and hardware without carving away primary structure.
 
 The same Clark Y section was carried through **wings, ailerons, rudder, and elevators** for consistent aerodynamic behavior across the control suite.
 
 ## Aerodynamic analysis and wind tunnel
 
-After airfoil down-select, **XFLR5** was used to estimate lift, drag, and moment coefficients versus angle of attack at a **10 m/s** reference speed, with curves exported for review (e.g. in Excel). The narrative matches first-principles teaching: at low angle of attack, flow stays attached and lift builds with relatively modest drag; as angle of attack increases, lift and drag both rise until the wing reaches a critical angle where upper-surface separation grows—stall—with loss of lift and a sharp drag rise if angle is not reduced.
+After airfoil down-select, **XFLR5** was used to estimate lift, drag, and moment coefficients versus angle of attack at a **10 m/s** reference speed, with curves exported for review (e.g. in Excel). The narrative matches first-principles teaching: at low angle of attack, flow stays attached and lift builds with relatively modest drag; as angle of attack increases, lift and drag both rise until the wing reaches a critical angle where upper-surface separation grows, stall, with loss of lift and a sharp drag rise if angle is not reduced.
 
-**Wind tunnel testing** on a physical wing model was used to validate the software curve shapes—notably comparing **experimental Cl vs XFLR Cl vs angle of attack** to build confidence in the prediction stack before committing to full-scale build hours.
+**Wind tunnel testing** on a physical wing model was used to validate the software curve shapes, notably comparing **experimental Cl vs XFLR Cl vs angle of attack** to build confidence in the prediction stack before committing to full-scale build hours.
 
 <div class="not-prose my-10 grid gap-6 md:grid-cols-2">
   <figure class="overflow-hidden rounded-2xl border border-border bg-surface-elevated">
@@ -154,7 +154,7 @@ After airfoil down-select, **XFLR5** was used to estimate lift, drag, and moment
       loading="lazy"
     />
     <figcaption class="border-t border-border/80 px-3 py-2.5 text-center text-[11px] leading-snug text-text-muted">
-      Exp Cl vs XFLR Cl vs AOA (run 1)—note where simulation stall trend and tunnel data begin to diverge at higher AOA.
+      Exp Cl vs XFLR Cl vs AOA (run 1), note where simulation stall trend and tunnel data begin to diverge at higher AOA.
     </figcaption>
   </figure>
   <figure class="overflow-hidden rounded-2xl border border-border bg-surface-elevated">
@@ -166,7 +166,7 @@ After airfoil down-select, **XFLR5** was used to estimate lift, drag, and moment
       loading="lazy"
     />
     <figcaption class="border-t border-border/80 px-3 py-2.5 text-center text-[11px] leading-snug text-text-muted">
-      Companion plot from the same test campaign—used to cross-check repeatability and curve shape.
+      Companion plot from the same test campaign, used to cross-check repeatability and curve shape.
     </figcaption>
   </figure>
 </div>
@@ -200,14 +200,14 @@ Motor and propulsion choices were driven by a repeatable sizing thread:
 
 | Kv (approx.) | Thrust efficiency (g/W band) | Speed tendency |
 | --- | --- | --- |
-| 1000 | ~3.5–4.5 g/W | Slower, higher thrust feel |
-| 2000 | ~2.5–3.55 g/W | Mid / higher speed |
-| 3000 | ~1.8–2.5 g/W | Higher speed |
-| 4000 | ~1.6–2.5 g/W | High speed, lower thrust per watt |
+| 1000 | ~3.5-4.5 g/W | Slower, higher thrust feel |
+| 2000 | ~2.5-3.55 g/W | Mid / higher speed |
+| 3000 | ~1.8-2.5 g/W | Higher speed |
+| 4000 | ~1.6-2.5 g/W | High speed, lower thrust per watt |
 
 A **thrust and power test bench** tied motor + prop to a lever arm against an electronic balance, with receiver, ESC, battery, and combined current / voltage / power instrumentation to read static thrust and electrical load in one pass.
 
-**Bill of materials called out in documentation** included classes such as an **EMAX Simon Series 60A ESC**, a **1000 Kv** class brushless outrunner, **Futaba** servos for surfaces, and a **Turnigy 5000 mAh** LiPo for energy density—always subject to the exact SKU available at build time.
+**Bill of materials called out in documentation** included classes such as an **EMAX Simon Series 60A ESC**, a **1000 Kv** class brushless outrunner, **Futaba** servos for surfaces, and a **Turnigy 5000 mAh** LiPo for energy density, always subject to the exact SKU available at build time.
 
 ## Fabrication and assembly
 
@@ -253,23 +253,23 @@ Structural parts were **hand-made by tracing templates directly over blueprints*
       />
     </div>
     <figcaption class="flex flex-1 flex-col justify-start border-t border-border/80 px-3 py-3 text-center text-[11px] leading-snug text-text-muted">
-      Team assembly pass on a long-span wing—scale and alignment checks under real workshop constraints.
+      Team assembly pass on a long-span wing, scale and alignment checks under real workshop constraints.
     </figcaption>
   </figure>
 </div>
 
 ## Recognition
 
-The team’s build and flight activity drew press interest: the project was featured in *The Times of India*, highlighting Mumbai student aeromodellers and the K. J. Somaiya team (coverage referenced flight demos at venues such as the Mahalakshmi Race Course). Public articles sometimes round weights or flight duration differently than lab notebooks—engineering tables in this write-up use the **3000 g** specification and measured power-train data as the primary technical record.
+The team’s build and flight activity drew press interest: the project was featured in *The Times of India*, highlighting Mumbai student aeromodellers and the K. J. Somaiya team (coverage referenced flight demos at venues such as the Mahalakshmi Race Course). Public articles sometimes round weights or flight duration differently than lab notebooks, engineering tables in this write-up use the **3000 g** specification and measured power-train data as the primary technical record.
 
 <blockquote class="not-prose my-8 border-l-2 border-border pl-5 text-base leading-relaxed text-text-secondary italic">
   “This is the first time we are taking up the hobby and we wish we had done so right from the first year. Everyone should pursue it… go ahead, build your own plane; it's fascinating, learning journey.”
-  <footer class="mt-3 not-italic text-sm text-text-muted">— Yash Morbia, fourth-year mechanical engineering, as quoted in <cite>The Times of India</cite> coverage of the student team</footer>
+  <footer class="mt-3 not-italic text-sm text-text-muted">, Yash Morbia, fourth-year mechanical engineering, as quoted in <cite>The Times of India</cite> coverage of the student team</footer>
 </blockquote>
 
 ## Lessons learned
 
-- **Software without hardware is incomplete** — XFLR5 gave a fast Cl–α map, but the wind-tunnel pass caught where reality diverged from the idealized panel model.
-- **Propulsion is a system** — Kv, prop diameter/pitch, pack voltage, and ESC current headroom have to be traded together, not as isolated catalog picks.
-- **Lightweight structure is detail work** — tracing, cutting, and bonding hundreds of small members teaches tolerances that CAD-only courses rarely stress.
-- **Outcomes travel** — peer recognition matters less than the engineering habits, but it validated that the build was legible to people outside the lab bench.
+- **Software without hardware is incomplete**, XFLR5 gave a fast Cl-α map, but the wind-tunnel pass caught where reality diverged from the idealized panel model.
+- **Propulsion is a system**, Kv, prop diameter/pitch, pack voltage, and ESC current headroom have to be traded together, not as isolated catalog picks.
+- **Lightweight structure is detail work**, tracing, cutting, and bonding hundreds of small members teaches tolerances that CAD-only courses rarely stress.
+- **Outcomes travel**, peer recognition matters less than the engineering habits, but it validated that the build was legible to people outside the lab bench.

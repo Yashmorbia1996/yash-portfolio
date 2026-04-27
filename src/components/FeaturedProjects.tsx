@@ -10,6 +10,13 @@ const pressTestFixtureCoverSlides = [
   "/images/Concept%203_pneumatic%20with%20optimized%20parts.png",
 ] as const;
 
+/** Same visuals as `liv-optical-test-rig.mdx` (bench POC + fixture SVGs). */
+const livOpticalTestRigCoverSlides = [
+  "/images/liv-layman-bench-poc.png",
+  "/images/LIV%20test.svg",
+  "/images/Optical%20test.svg",
+] as const;
+
 const caseStudies = [
   {
     slug: "thermal-redesign-journey",
@@ -22,9 +29,10 @@ const caseStudies = [
   {
     slug: "liv-optical-test-rig",
     title: "LIV Optical Test Rig",
-    problem: "Manual laser testing caused high variability.",
-    action: "Designed 39-part assembly with kinematic mounting and GD&T package.",
-    result: "3x improvement in batch-test throughput.",
+    problem: "Manual laser testing caused high variability and weak beam-size screening.",
+    action:
+      "Bench POC, then two modular fixtures: magnetic-swap LIV (packaged engine + Headers) and optical beam sizing for the same form factors.",
+    result: "~3× batch throughput; LIV + beam checks; software spec for technicians.",
   },
   {
     slug: "press-test-fixture",
@@ -38,7 +46,7 @@ const caseStudies = [
 export function FeaturedProjects() {
 
   return (
-    <Section id="case-studies">
+    <Section id="case-studies" surface="gray">
       <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-4xl space-y-4">
           <p className="theme-section-title text-5xl font-semibold md:text-6xl">
@@ -70,10 +78,16 @@ export function FeaturedProjects() {
               cover={
                 project.slug === "press-test-fixture"
                   ? "/images/Working%20concept_CAD2.png"
-                  : undefined
+                  : project.slug === "liv-optical-test-rig"
+                    ? "/images/liv-layman-bench-poc.png"
+                    : undefined
               }
               coverSlides={
-                project.slug === "press-test-fixture" ? [...pressTestFixtureCoverSlides] : undefined
+                project.slug === "press-test-fixture"
+                  ? [...pressTestFixtureCoverSlides]
+                  : project.slug === "liv-optical-test-rig"
+                    ? [...livOpticalTestRigCoverSlides]
+                    : undefined
               }
             />
           </div>

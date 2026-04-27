@@ -60,9 +60,9 @@ const capabilities = [
 
 export function CapabilitiesGrid() {
   return (
-    <Section label="Capabilities" id="capabilities">
+    <Section label="Capabilities" id="capabilities" surface="gray">
       <div className="mb-10 max-w-3xl space-y-3">
-        <h2 className="font-heading text-3xl md:text-4xl font-normal tracking-[-0.03em] text-foreground">
+        <h2 className="font-heading text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-4xl dark:text-white">
           How I operate
         </h2>
         <p className="text-base leading-relaxed text-body-text">

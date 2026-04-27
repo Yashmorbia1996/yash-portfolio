@@ -1,0 +1,143 @@
+---
+import { cadCarouselProjects } from '../data/portfolioCarousel';
+
+const COVER_FALLBACK = '/images/projects/project-2.svg';
+const defaultEyebrow = 'CAD & Simulation';
+const defaultCta = 'Read more';
+---
+
+<div
+  class="mt-10 grid gap-6 rounded-2xl border border-border bg-[#f5f5f7] p-4 pt-5 shadow-sm sm:p-5 dark:border-border dark:bg-[#1C1C1E] dark:shadow-none md:grid-cols-2 md:items-stretch md:p-6"
+>
+  {cadCarouselProjects.map((p) => {
+    const hasCaseStudy = Boolean(
+      p.problem && p.action && p.result,
+    );
+    const coverSrc = p.cover || COVER_FALLBACK;
+    const excerpt =
+      p.summary?.split(/\n\n+/)[0]?.trim() ?? p.summary?.trim() ?? '';
+    return (
+      <div class="relative flex h-full min-h-0 w-full min-w-0 flex-col self-stretch">
+        <a
+          href={`/projects/${p.slug}`}
+          class="absolute inset-0 z-0 rounded-2xl"
+          aria-label={`View project: ${p.title}`}
+        >
+          <span class="sr-only">View project: {p.title}</span>
+        </a>
+        <div
+          class="theme-panel group relative z-10 flex h-full min-h-0 w-full min-w-0 flex-col overflow-hidden rounded-2xl p-0 pointer-events-none"
+        >
+          <div class="flex h-full min-h-0 w-full min-w-0 flex-col">
+            <div class="aspect-video w-full shrink-0 overflow-hidden rounded-t-2xl border-b border-border bg-surface-elevated">
+              <img
+                src={coverSrc}
+                alt={p.title}
+                class="h-full w-full object-contain object-center"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div class="flex min-h-0 flex-1 flex-col p-4 sm:p-5">
+              <div class="shrink-0">
+                <p class="theme-eyebrow font-mono text-[10px] font-semibold uppercase tracking-[0.16em] sm:text-[11px]">
+                  {p.eyebrow ?? defaultEyebrow}
+                </p>
+                <h3 class="mt-1.5 text-lg font-semibold tracking-[-0.03em] text-text-primary transition-colors duration-200 group-hover:text-primary-accent sm:mt-2 sm:text-xl">
+                  {p.title}
+                </h3>
+                {p.context && (
+                  <p class="mt-1.5 text-xs leading-relaxed text-text-muted sm:mt-2 sm:text-sm">
+                    {p.context}
+                  </p>
+                )}
+              </div>
+
+              {hasCaseStudy ? (
+                <div class="mt-4 flex min-h-0 flex-1 flex-col gap-3 text-xs leading-relaxed text-text-secondary sm:mt-5 sm:gap-4 sm:text-sm">
+                  <div>
+                    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">
+                      Situation / Problem
+                    </p>
+                    <p class="mt-1">{p.problem}</p>
+                  </div>
+                  <div>
+                    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Action</p>
+                    <p class="mt-1">{p.action}</p>
+                  </div>
+                  <div>
+                    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Result</p>
+                    <p class="mt-1">{p.result}</p>
+                  </div>
+                </div>
+              ) : (
+                <div class="mt-4 flex min-h-0 flex-1 flex-col text-xs leading-relaxed text-text-secondary sm:mt-5 sm:text-sm">
+                  {excerpt && <p class="leading-relaxed">{excerpt}</p>}
+                  {p.studyLinks && p.studyLinks.length > 0 && (
+                    <div class="mt-3 space-y-1.5 sm:mt-4">
+                      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted sm:text-[11px]">Studies</p>
+                      {p.studyLinks.map((s) =>
+                        s.slug ? (
+                          <a
+                            href={`/projects/${s.slug}`}
+                            class="pointer-events-auto flex items-center justify-between rounded-lg border border-border bg-surface-elevated px-3 py-2 transition-colors hover:border-border-strong"
+                          >
+                            <div class="min-w-0 flex-1 overflow-x-auto overflow-y-hidden pr-2">
+                              <p class="whitespace-nowrap text-[11px] font-medium text-text-primary sm:text-[12px]">
+                                {s.label}
+                              </p>
+                              {s.meta && (
+                                <p class="mt-0.5 whitespace-nowrap text-[10px] text-text-muted">{s.meta}</p>
+                              )}
+                            </div>
+                            <span class="ml-3 shrink-0 text-[11px] text-primary-accent" aria-hidden="true">→</span>
+                          </a>
+                        ) : (
+                          <div class="flex items-center justify-between rounded-lg border border-dashed border-border px-3 py-2 opacity-50">
+                            <div class="min-w-0 flex-1 overflow-x-auto overflow-y-hidden pr-2">
+                              <p class="whitespace-nowrap text-[11px] font-medium text-text-primary sm:text-[12px]">
+                                {s.label}
+                              </p>
+                              {s.meta && (
+                                <p class="mt-0.5 whitespace-nowrap text-[10px] text-text-muted">{s.meta}</p>
+                              )}
+                            </div>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {p.tags && p.tags.length > 0 && (
+                <div class="mt-4 shrink-0 border-t border-border pt-4 sm:mt-5 sm:pt-5">
+                  <p class="mb-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted sm:mb-2 sm:text-[11px]">
+                    {hasCaseStudy ? 'Skills learned / applied' : 'Tags'}
+                  </p>
+                  <div class="flex flex-wrap gap-1.5 sm:gap-2">
+                    {p.tags.map((tag) => (
+                      <span class="rounded-full border border-border px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.1em] text-text-muted sm:px-2.5 sm:py-1 sm:text-[11px] sm:tracking-[0.12em]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div class="mt-4 shrink-0 pt-0.5 sm:mt-5 sm:pt-1">
+                <a
+                  href={`/projects/${p.slug}`}
+                  class="pointer-events-auto relative z-20 inline-block text-xs text-primary-accent sm:text-sm"
+                >
+                  {defaultCta} →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>

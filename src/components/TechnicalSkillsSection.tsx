@@ -88,7 +88,7 @@ export function CapabilitiesPanel() {
 
 export function TechnicalSkillsSection() {
   return (
-    <Section id="capabilities">
+    <Section id="capabilities" surface="white">
       <div className="mb-12 max-w-4xl space-y-4">
         <p className="theme-section-title text-5xl font-semibold md:text-6xl">
           Capabilities

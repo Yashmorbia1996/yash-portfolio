@@ -10,7 +10,7 @@ export function AvatarColumn() {
         <img
           src={avatar}
           alt={name}
-          className="mb-5 h-32 w-32 rounded-full border border-solid border-border object-cover ring-2 ring-border/60"
+          className="mb-5 h-32 w-32 rounded-full border border-solid border-border object-cover object-top ring-2 ring-border/60"
         />
 
         <p className="mb-0.5 text-sm font-semibold text-foreground">{name}</p>

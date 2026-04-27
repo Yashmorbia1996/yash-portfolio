@@ -46,7 +46,7 @@ const work = defineCollection({
     coverImage: z.string().optional(),
     /** `centered`: logo-style assets; `full`: edge-to-edge photo banners */
     coverImageLayout: z.enum(['full', 'centered']).default('full'),
-    /** 1–2 characters shown in the selector + timeline node */
+    /** 1-2 characters shown in the selector + timeline node */
     brandInitial: z.string().optional(),
     /** Optional hex for logo chip background */
     brandColor: z.string().optional(),

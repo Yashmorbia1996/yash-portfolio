@@ -90,7 +90,7 @@ export function EvolutionTimeline({
           <li key={step.number} className="relative">
             <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-start">
 
-              {/* ── Left column: spine + text ── */}
+              {/* -- Left column: spine + text -- */}
               <div className="flex gap-4">
                 {/* Spine: badge + connecting line */}
                 <div className="flex flex-col items-center flex-shrink-0 w-8">
@@ -124,7 +124,7 @@ export function EvolutionTimeline({
                 </div>
               </div>
 
-              {/* ── Right column: image ── */}
+              {/* -- Right column: image -- */}
               <div className={cn("pt-1", index < steps.length - 1 ? "pb-14" : "pb-2")}>
                 <div className="rounded-xl border border-border bg-muted/30 aspect-video flex flex-col items-center justify-center gap-1.5 text-muted-foreground/40 overflow-hidden shadow-inner">
                   <ImagePlaceholder src={step.imageSrc} alt={step.imageAlt} />

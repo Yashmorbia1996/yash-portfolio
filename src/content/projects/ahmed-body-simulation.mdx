@@ -1,6 +1,6 @@
 ---
 title: "Ahmed Body: External Aerodynamics"
-summary: "ANSYS Fluent study on the Ahmed benchmark bluff body: multizone hexa mesh with inflation, density-based steady solver, k–ε turbulence, and a three-level grid refinement toward the academic mesh limit. Documents geometry, enclosures, residuals, drag history, and velocity/pressure/vector fields with qualitative discussion of wake resolution and wall pressure."
+summary: "ANSYS Fluent study on the Ahmed benchmark bluff body: multizone hexa mesh with inflation, density-based steady solver, k-ε turbulence, and a three-level grid refinement toward the academic mesh limit. Documents geometry, enclosures, residuals, drag history, and velocity/pressure/vector fields with qualitative discussion of wake resolution and wall pressure."
 date: 2022-08-01
 featured: false
 cover: "/images/ahmed-body/80c6045deb647f4ab1e837af52e5c800.jpg"
@@ -25,7 +25,7 @@ The **Ahmed body** was introduced by S. R. Ahmed in *Some Salient Features of th
 - Length ≈ **1.044 m**, height ≈ **0.288 m**, width ≈ **0.389 m**
 - **0.5 m** cylindrical legs; rear slant **40°** from horizontal
 
-The Ahmed body is used here to predict the **turbulent flow field** around a simplified car geometry using a **k–ε** turbulence model. Typical post-processed quantities include velocity magnitude, pressure, wake structure, and force metrics (drag and lift).
+The Ahmed body is used here to predict the **turbulent flow field** around a simplified car geometry using a **k-ε** turbulence model. Typical post-processed quantities include velocity magnitude, pressure, wake structure, and force metrics (drag and lift).
 
 ---
 
@@ -33,12 +33,12 @@ The Ahmed body is used here to predict the **turbulent flow field** around a sim
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
   <figure>
-    <img src="/images/ahmed-body/80c6045deb647f4ab1e837af52e5c800.jpg" alt="Ahmed body reference geometry — slanted rear and cylindrical supports" class="rounded-lg w-full" />
-    <figcaption>Fig. 1 — Reference Ahmed geometry used as the solid surface for the external flow solve.</figcaption>
+    <img src="/images/ahmed-body/80c6045deb647f4ab1e837af52e5c800.jpg" alt="Ahmed body reference geometry, slanted rear and cylindrical supports" class="rounded-lg w-full" />
+    <figcaption>Fig. 1, Reference Ahmed geometry used as the solid surface for the external flow solve.</figcaption>
   </figure>
   <figure>
     <img src="/images/ahmed-body/f8e73fa682d473eb2e3ee5e5750b83d4.jpg" alt="Inner and outer fluid enclosures around the Ahmed body" class="rounded-lg w-full" />
-    <figcaption>Fig. 2 — Inner and outer enclosures: mesh is generated in the fluid region outside the body to capture approach flow, boundary layers, and wake.</figcaption>
+    <figcaption>Fig. 2, Inner and outer enclosures: mesh is generated in the fluid region outside the body to capture approach flow, boundary layers, and wake.</figcaption>
   </figure>
 </div>
 
@@ -68,7 +68,7 @@ The model is enclosed so that mesh can be built **outside** the solid: an inner 
 | Ahmed body walls | No-slip wall (typical external aero setup) |
 | Far-field / outer boundaries | Pressure outlet / freestream extents per enclosure sizing |
 
-**Case 1 (coarser inner mesh) — documented mesh metrics**
+**Case 1 (coarser inner mesh), documented mesh metrics**
 
 | Item | Value |
 |------|--------|
@@ -77,12 +77,12 @@ The model is enclosed so that mesh can be built **outside** the solid: an inner 
 
 ---
 
-## Case 1 — Mesh, convergence, and force / scalar fields
+## Case 1, Mesh, convergence, and force / scalar fields
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
   <figure>
     <img src="/images/ahmed-body/a2f9801487f3c0cec5488ae45c9b6a80.jpg" alt="Hexa-mapped volume mesh for Case 1" class="rounded-lg w-full" />
-    <figcaption>Case 1 — Volume mesh (multizone / hexa-mapped topology).</figcaption>
+    <figcaption>Case 1, Volume mesh (multizone / hexa-mapped topology).</figcaption>
   </figure>
   <figure>
     <img src="/images/ahmed-body/9095ed926f5580c3da3fde1a56465854.jpg" alt="Inflation layers on the Ahmed body surface" class="rounded-lg w-full" />
@@ -93,7 +93,7 @@ The model is enclosed so that mesh can be built **outside** the solid: an inner 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
   <figure>
     <img src="/images/ahmed-body/1ea23096dc8821e8b95dea5115361bff.jpg" alt="Residual history Case 1" class="rounded-lg w-full" />
-    <figcaption>Residuals — Case 1 (density-based implicit steady solve).</figcaption>
+    <figcaption>Residuals, Case 1 (density-based implicit steady solve).</figcaption>
   </figure>
   <figure>
     <img src="/images/ahmed-body/58725766ddb149ac2544ecafcde4a6c3.jpg" alt="Drag coefficient convergence history" class="rounded-lg w-full" />
@@ -104,11 +104,11 @@ The model is enclosed so that mesh can be built **outside** the solid: an inner 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
   <figure>
     <img src="/images/ahmed-body/5b6e9536fe545e193875d3cfa5e41e30.jpg" alt="Velocity magnitude distribution Case 1" class="rounded-lg w-full" />
-    <figcaption>Velocity magnitude distribution — Case 1.</figcaption>
+    <figcaption>Velocity magnitude distribution, Case 1.</figcaption>
   </figure>
   <figure>
     <img src="/images/ahmed-body/76ca95375e62f99088277de5e2580764.jpg" alt="Pressure distribution on Ahmed body Case 1" class="rounded-lg w-full" />
-    <figcaption>Pressure distribution on the Ahmed surface — Case 1 (suction on legs and separated regions as discussed in the original write-up).</figcaption>
+    <figcaption>Pressure distribution on the Ahmed surface, Case 1 (suction on legs and separated regions as discussed in the original write-up).</figcaption>
   </figure>
 </div>
 
@@ -119,40 +119,40 @@ The model is enclosed so that mesh can be built **outside** the solid: an inner 
 
 ---
 
-## Refined mesh — additional residuals, Cd, and contours
+## Refined mesh, additional residuals, Cd, and contours
 
 The same post-processing sequence was repeated on a **finer inner mesh** (second mesh level in the grid study). Representative views:
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
   <figure>
     <img src="/images/ahmed-body/08dd819a5c013f8edfc7b34e6c5ededc.jpg" alt="Refined hexa mesh for Ahmed body study" class="rounded-lg w-full" />
-    <figcaption>Refined volume mesh — higher cell count toward the licence limit.</figcaption>
+    <figcaption>Refined volume mesh, higher cell count toward the licence limit.</figcaption>
   </figure>
   <figure>
     <img src="/images/ahmed-body/571a471daf7d81cbe2ad680f8736a7d1.jpg" alt="Residuals refined mesh case" class="rounded-lg w-full" />
-    <figcaption>Residuals — refined mesh case.</figcaption>
+    <figcaption>Residuals, refined mesh case.</figcaption>
   </figure>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
   <figure>
     <img src="/images/ahmed-body/3f0bb03b2dde5b0cc5fc074185e95ee3.jpg" alt="Drag coefficient refined case" class="rounded-lg w-full" />
-    <figcaption>Drag coefficient — refined case (**same 10⁻³ scale note** applies as on the earlier Cd figure).</figcaption>
+    <figcaption>Drag coefficient, refined case (**same 10⁻³ scale note** applies as on the earlier Cd figure).</figcaption>
   </figure>
   <figure>
     <img src="/images/ahmed-body/afaab622859746e507da6c2678beafa1.jpg" alt="Velocity contours refined mesh" class="rounded-lg w-full" />
-    <figcaption>Velocity contours with the refined mesh — smoother gradients and clearer wake definition.</figcaption>
+    <figcaption>Velocity contours with the refined mesh, smoother gradients and clearer wake definition.</figcaption>
   </figure>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
   <figure>
     <img src="/images/ahmed-body/a07502860165924606be7211ceeff779.jpg" alt="Pressure on Ahmed body refined case" class="rounded-lg w-full" />
-    <figcaption>Pressure on the Ahmed surface — refined mesh. Regions of **negative gauge pressure** appear on the cylindrical supports and other separated zones, consistent with acceleration over convex surfaces, separation bubbles, shear work, and local recirculation (as discussed in the original narrative).</figcaption>
+    <figcaption>Pressure on the Ahmed surface, refined mesh. Regions of **negative gauge pressure** appear on the cylindrical supports and other separated zones, consistent with acceleration over convex surfaces, separation bubbles, shear work, and local recirculation (as discussed in the original narrative).</figcaption>
   </figure>
   <figure>
     <img src="/images/ahmed-body/864c0ec56fef6a236a29dd69630add53.jpg" alt="Velocity vectors refined mesh wake" class="rounded-lg w-full" />
-    <figcaption>Velocity vectors — refined mesh, emphasising wake resolution with finer cells.</figcaption>
+    <figcaption>Velocity vectors, refined mesh, emphasising wake resolution with finer cells.</figcaption>
   </figure>
 </div>
 
@@ -163,9 +163,9 @@ The same post-processing sequence was repeated on a **finer inner mesh** (second
 <div class="theme-panel rounded-2xl p-6 my-8 space-y-4 text-[15px] leading-relaxed text-text-secondary">
   <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Takeaways (from the original study text)</p>
   <ul class="list-disc space-y-2 pl-5">
-    <li><strong class="text-text-primary">Grid refinement smooths the solution.</strong> As inner cells are increased toward the licence limit, velocity profiles and vector plots become progressively smoother — a practical sign of reduced discretisation error.</li>
+    <li><strong class="text-text-primary">Grid refinement smooths the solution.</strong> As inner cells are increased toward the licence limit, velocity profiles and vector plots become progressively smoother, a practical sign of reduced discretisation error.</li>
     <li><strong class="text-text-primary">Wake structure becomes clearer.</strong> Finer meshes resolve the wake and recirculation regions with less numerical diffusion.</li>
-    <li><strong class="text-text-primary">Negative wall pressures are physical, not a solver defect.</strong> Low-pressure pockets on the legs and separated zones align with Bernoulli-type acceleration, separation bubbles, shear-related work, and recirculation — all called out explicitly in the source write-up.</li>
+    <li><strong class="text-text-primary">Negative wall pressures are physical, not a solver defect.</strong> Low-pressure pockets on the legs and separated zones align with Bernoulli-type acceleration, separation bubbles, shear-related work, and recirculation, all called out explicitly in the source write-up.</li>
   </ul>
 </div>
 

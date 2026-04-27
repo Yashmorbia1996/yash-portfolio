@@ -88,9 +88,9 @@ order: 1                  # Controls display order (1 = first/most recent)
 
 Place images in `public/images/`:
 
-- `public/images/avatar.jpg` — your profile photo (shown on home + about)
-- `public/images/projects/` — project cover images
-- `public/images/blog/` — blog post cover images
+- `public/images/avatar.jpg`, your profile photo (shown on home + about)
+- `public/images/projects/`, project cover images
+- `public/images/blog/`, blog post cover images
 
 Recommended sizes:
 - Avatar: 400×400px (square)

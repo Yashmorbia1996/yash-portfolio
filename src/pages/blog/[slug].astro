@@ -24,43 +24,45 @@ const formattedDate = post.data.date.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title={post.data.title} description={post.data.summary}>
-  <div class="site-container pt-14 pb-20">
-    <div class="max-w-2xl mx-auto">
-      <!-- Back link -->
-      <Button variant="ghost" size="sm" asChild client:load>
-        <a href="/blog" class="mb-8 inline-flex items-center gap-1 text-muted-foreground hover:text-foreground">
-          <ArrowLeft className="h-4 w-4" />
-          All posts
-        </a>
-      </Button>
+  <div class="w-full bg-white dark:bg-black">
+    <div class="site-container pt-14 pb-8 md:pb-10">
+      <div class="mx-auto max-w-2xl">
+        <Button variant="ghost" size="sm" asChild client:load>
+          <a href="/blog" class="mb-8 inline-flex items-center gap-1 text-[#86868b] hover:text-[#1d1d1f] dark:text-[#A1A1A6] dark:hover:text-white">
+            <ArrowLeft className="h-4 w-4" />
+            All posts
+          </a>
+        </Button>
 
-      <!-- Header -->
-      <div class="mb-8 mt-4">
-        <time class="text-sm text-muted-foreground block mb-4">{formattedDate}</time>
-        <h1 class="font-heading text-4xl md:text-5xl font-normal tracking-[-0.03em] mb-3">
-          {post.data.title}
-        </h1>
-        <p class="mb-4 text-lg leading-relaxed text-text-secondary">
-          {post.data.summary}
-        </p>
-        <div class="flex flex-wrap gap-1.5">
-          {post.data.tags.map((tag) => (
-            <Badge variant="outline" client:load>{tag}</Badge>
-          ))}
+        <div class="mb-8 mt-4">
+          <time class="mb-4 block text-sm text-[#86868b] dark:text-[#A1A1A6]">{formattedDate}</time>
+          <h1 class="mb-3 font-heading text-4xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl dark:text-white">
+            {post.data.title}
+          </h1>
+          <p class="mb-4 text-lg leading-relaxed text-[#86868b] dark:text-[#A1A1A6]">
+            {post.data.summary}
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            {post.data.tags.map((tag) => (
+              <Badge variant="outline" client:load>{tag}</Badge>
+            ))}
+          </div>
         </div>
+
+        {post.data.cover && (
+          <img
+            src={post.data.cover}
+            alt={post.data.title}
+            class="mb-0 aspect-video w-full rounded-xl shadow-card object-cover"
+          />
+        )}
       </div>
+    </div>
+  </div>
 
-      <!-- Cover image -->
-      {post.data.cover && (
-        <img
-          src={post.data.cover}
-          alt={post.data.title}
-          class="w-full rounded-xl mb-10 shadow-card aspect-video object-cover"
-        />
-      )}
-
-      <!-- MDX content -->
-      <div class="prose prose-neutral dark:prose-invert max-w-none prose-content">
+  <div class="w-full bg-[#f5f5f7] py-12 dark:bg-[#1C1C1E] md:py-16">
+    <div class="site-container pb-20">
+      <div class="prose prose-neutral prose-content mx-auto max-w-2xl dark:prose-invert">
         <Content />
       </div>
     </div>

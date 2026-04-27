@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { BlogPostCard } from '../../components/BlogPostCard';
-import { Section } from '../../components/layout/Section';
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('blog');
@@ -9,25 +8,33 @@ const sorted = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime(
 ---
 
 <BaseLayout title="Blog" description="Thoughts on software, design, and building things.">
-  <Section label="Writing">
-    <h1 class="font-heading text-4xl md:text-5xl font-normal tracking-[-0.03em] mb-4 pt-8 md:pt-10">
-      Blog
-    </h1>
-    <p class="mb-12 max-w-lg text-text-secondary">
-      Thoughts on software, design, and the things I'm learning.
-    </p>
-    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {sorted.map((post) => (
-        <BlogPostCard
-          title={post.data.title}
-          summary={post.data.summary}
-          date={post.data.date}
-          tags={post.data.tags}
-          slug={post.id}
-          featured={post.data.featured}
-          client:visible
-        />
-      ))}
+  <div class="w-full bg-white dark:bg-black">
+    <div class="site-container pt-14 pb-10 md:pb-12">
+      <p class="theme-eyebrow mb-6 font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">Writing</p>
+      <h1 class="mb-4 font-heading text-4xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl dark:text-white">
+        Blog
+      </h1>
+      <p class="max-w-lg text-[#86868b] dark:text-[#A1A1A6]">
+        Thoughts on software, design, and the things I'm learning.
+      </p>
     </div>
-  </Section>
+  </div>
+
+  <section class="w-full bg-[#f5f5f7] py-12 dark:bg-[#1C1C1E] md:py-16" aria-label="Blog posts">
+    <div class="site-container pb-20">
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {sorted.map((post) => (
+          <BlogPostCard
+            title={post.data.title}
+            summary={post.data.summary}
+            date={post.data.date}
+            tags={post.data.tags}
+            slug={post.id}
+            featured={post.data.featured}
+            client:visible
+          />
+        ))}
+      </div>
+    </div>
+  </section>
 </BaseLayout>

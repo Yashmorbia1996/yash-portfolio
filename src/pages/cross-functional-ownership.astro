@@ -101,99 +101,102 @@ const sections = [
   title="Cross-Functional Ownership"
   description="Production leadership, supply chain execution, and quality and regulatory support in a regulated medtech setting: scaling output, stabilizing execution, and supporting compliant growth for an FDA-cleared device program."
 >
-  <div class="site-container pt-14 pb-24">
-    <div class="mx-auto max-w-5xl">
-
-      {/* ── HEADER ── */}
-      <div class="mb-16 grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] md:gap-12 md:items-start lg:mb-20">
-        <div>
-          <p class="theme-eyebrow mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">
-            Operations · Cross-functional
-          </p>
-          <h1 class="mb-6 text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">
-            Cross-Functional Ownership
-          </h1>
-          <div class="space-y-4 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
-            <p>
-              In this chapter of my career, my responsibilities extended beyond mechanical engineering into production leadership, supply chain execution, and quality and regulatory support. This page summarizes the operational ownership I took to scale output, stabilize execution, and support compliant growth in a regulated hardware program.
+  <div class="w-full bg-white dark:bg-black">
+    <div class="site-container pt-14 pb-10 md:pb-12">
+      <div class="mx-auto max-w-5xl">
+        <div class="mb-4 grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] md:items-start md:gap-12 lg:mb-6">
+          <div>
+            <p class="theme-eyebrow mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">
+              Operations · Cross-functional
             </p>
-            <p>
-              Mechanical engineering and project work are covered on{' '}
-              <a href="/projects" class="font-medium text-primary-accent underline-offset-4 transition-opacity hover:underline hover:opacity-90">Projects</a>.
-            </p>
+            <h1 class="mb-6 text-4xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl lg:text-6xl dark:text-white">
+              Cross-Functional Ownership
+            </h1>
+            <div class="space-y-4 text-base leading-[1.75] text-[#86868b] md:text-[1.05rem] dark:text-[#A1A1A6]">
+              <p>
+                In this chapter of my career, my responsibilities extended beyond mechanical engineering into production leadership, supply chain execution, and quality and regulatory support. This page summarizes the operational ownership I took to scale output, stabilize execution, and support compliant growth in a regulated hardware program.
+              </p>
+              <p>
+                Mechanical engineering and project work are covered on{' '}
+                <a href="/projects" class="font-medium text-primary-accent underline-offset-4 transition-opacity hover:underline hover:opacity-90">Projects</a>.
+              </p>
+            </div>
           </div>
-        </div>
 
-        {/* At-a-glance scope card */}
-        <div class="rounded-2xl border border-border bg-surface-elevated/50 p-5 md:p-6">
-          <p class="mb-4 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Scope</p>
-          <div class="flex flex-col gap-4">
-            {[
-              { label: 'Program', value: 'FDA-cleared medical device' },
-              { label: 'Context', value: 'Startup scaling from pilot to production' },
-              { label: 'Areas', value: 'Production · Supply Chain · Quality & Regulatory' },
-            ].map(({ label, value }) => (
-              <div class="border-t border-border/60 pt-4 first:border-0 first:pt-0">
-                <p class="mb-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted">{label}</p>
-                <p class="text-base font-medium leading-snug text-text-primary">{value}</p>
-              </div>
-            ))}
+          <div class="rounded-2xl border border-border bg-surface-elevated/50 p-5 md:p-6">
+            <p class="mb-4 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Scope</p>
+            <div class="flex flex-col gap-4">
+              {[
+                { label: 'Program', value: 'FDA-cleared medical device' },
+                { label: 'Context', value: 'Startup scaling from pilot to production' },
+                { label: 'Areas', value: 'Production · Supply Chain · Quality & Regulatory' },
+              ].map(({ label, value }) => (
+                <div class="border-t border-border/60 pt-4 first:border-0 first:pt-0">
+                  <p class="mb-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted">{label}</p>
+                  <p class="text-base font-medium leading-snug text-text-primary">{value}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      {/* ── SECTIONS ── */}
-      <div class="space-y-20 lg:space-y-24">
-        {sections.map((sec, idx) => (
-          <section class:list={['scroll-mt-28', idx > 0 ? 'border-t border-border pt-20 lg:pt-24' : '']} aria-labelledby={sec.id}>
+  {sections.map((sec, idx) => (
+    <section
+      class:list={[
+        'scroll-mt-28 w-full border-t border-border py-12 md:py-16 lg:py-20',
+        idx % 2 === 0 ? 'bg-[#f5f5f7] dark:bg-[#1C1C1E]' : 'bg-white dark:bg-black',
+      ]}
+      aria-labelledby={sec.id}
+    >
+      <div class="site-container">
+        <div class="mx-auto max-w-5xl">
+          <div class="mb-8 flex items-baseline gap-4">
+            <span class:list={['font-mono text-4xl font-bold tracking-[-0.05em] md:text-5xl', sec.numClass]}>{sec.num}</span>
+            <h2 id={sec.id} class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">{sec.title}</h2>
+          </div>
 
-            {/* Section header */}
-            <div class="mb-8 flex items-baseline gap-4">
-              <span class:list={['font-mono text-4xl font-bold tracking-[-0.05em] md:text-5xl', sec.numClass]}>{sec.num}</span>
-              <h2 id={sec.id} class="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">{sec.title}</h2>
+          <div class="grid gap-8 lg:grid-cols-12 lg:items-start lg:gap-10">
+            <div class="lg:col-span-4">
+              <p class="text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">{sec.body}</p>
             </div>
-
-            {/* Description + cards */}
-            <div class="grid gap-8 lg:grid-cols-12 lg:gap-10 lg:items-start">
-              <div class="lg:col-span-4">
-                <p class="text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">{sec.body}</p>
-              </div>
-              <div class="grid gap-3 sm:grid-cols-3 lg:col-span-8 lg:grid-cols-3">
-                {sec.cards.map((card) => (
-                  <article class="rounded-2xl border border-border bg-card p-5 shadow-[0_1px_0_0_rgba(0,0,0,0.04)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.05)]">
-                    <h3 class="text-[0.92rem] font-semibold leading-snug tracking-[-0.02em] text-text-primary">{card.title}</h3>
-                    <p class="mt-2.5 text-[15px] leading-relaxed text-text-secondary">{card.body}</p>
-                  </article>
-                ))}
-              </div>
+            <div class="grid gap-3 sm:grid-cols-3 lg:col-span-8 lg:grid-cols-3">
+              {sec.cards.map((card) => (
+                <article class="rounded-2xl border border-border bg-card p-5 shadow-[0_1px_0_0_rgba(0,0,0,0.04)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.05)]">
+                  <h3 class="text-[0.92rem] font-semibold leading-snug tracking-[-0.02em] text-text-primary">{card.title}</h3>
+                  <p class="mt-2.5 text-[15px] leading-relaxed text-text-secondary">{card.body}</p>
+                </article>
+              ))}
             </div>
+          </div>
 
-            {/* Metric tiles */}
-            <div class:list={['mt-8 rounded-2xl border p-4 md:p-5', sec.accentClass]}>
-              <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                {sec.metrics.map((item) => (
-                  <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-5 text-center ring-1 ring-border/50 sm:min-h-[7rem]">
-                    <p class="text-[1.85rem] font-semibold tabular-nums tracking-[-0.04em] text-text-primary leading-none md:text-[2.1rem]">{item.value}</p>
-                    {item.line2 && <p class="mt-1 text-base font-semibold tabular-nums tracking-[-0.03em] text-text-primary">{item.line2}</p>}
-                    <p class="mt-2.5 font-mono text-[10px] font-semibold uppercase leading-snug tracking-[0.14em] text-text-muted">{item.label}</p>
-                  </div>
-                ))}
-              </div>
+          <div class:list={['mt-8 rounded-2xl border p-4 md:p-5', sec.accentClass]}>
+            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {sec.metrics.map((item) => (
+                <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-5 text-center ring-1 ring-border/50 sm:min-h-[7rem]">
+                  <p class="text-[1.85rem] font-semibold tabular-nums leading-none tracking-[-0.04em] text-text-primary md:text-[2.1rem]">{item.value}</p>
+                  {item.line2 && <p class="mt-1 text-base font-semibold tabular-nums tracking-[-0.03em] text-text-primary">{item.line2}</p>}
+                  <p class="mt-2.5 font-mono text-[10px] font-semibold uppercase leading-snug tracking-[0.14em] text-text-muted">{item.label}</p>
+                </div>
+              ))}
             </div>
-
-          </section>
-        ))}
+          </div>
+        </div>
       </div>
+    </section>
+  ))}
 
-      {/* ── DISCLOSURE ── */}
-      <div class="mt-16 lg:mt-20">
+  <div class="w-full border-t border-border bg-white py-12 dark:bg-black md:py-16">
+    <div class="site-container pb-20">
+      <div class="mx-auto max-w-5xl">
         <div class="rounded-2xl border border-border bg-surface-elevated/40 px-5 py-4">
           <p class="text-sm leading-relaxed text-text-muted">
             <strong class="text-text-secondary">Disclosure:</strong> Summarized for a portfolio audience. Specific program metrics, supplier details, and commercial figures have been generalised or omitted in line with confidentiality obligations. All outcomes stated are directionally accurate.
           </p>
         </div>
       </div>
-
     </div>
   </div>
 </BaseLayout>

@@ -1,0 +1,401 @@
+---
+title: "Catalytic Converter: Flow Optimisation Study"
+summary: "A six-case SolidWorks Flow Simulation study on internal flow distribution through a catalytic converter. Starting from a baseline geometry with significant maldistribution, the study evaluates baffle and guided vane concepts to simultaneously improve catalyst inlet uniformity and reduce total pressure drop."
+date: 2024-01-01
+featured: false
+cover: "/images/catalytic-converter/case6-trajectories.png"
+tags: ["SolidWorks Flow Simulation", "CFD", "Porous Media", "Internal Flow", "Pressure Drop", "Parametric Study", "Design Optimisation"]
+---
+
+## What Is This Study About?
+
+A catalytic converter works by passing exhaust gas through porous catalyst blocks where chemical reactions neutralise pollutants. The efficiency of those reactions depends on **how evenly the flow is distributed** across the catalyst face, a concentrated jet hitting one region and starving another means uneven catalyst loading, faster localised degradation, and reduced conversion efficiency.
+
+This study uses SolidWorks Flow Simulation to evaluate six design configurations, starting from a bare baseline and progressively refining a guided vane geometry, to find the configuration that simultaneously produces the most uniform catalyst inlet flow **and** the lowest total pressure drop.
+
+Two porous media blocks represent the catalyst sections. The study uses cold-flow air at a fixed 10 m/s inlet velocity so that all cases are directly comparable.
+
+
+## Physical Setup & Geometry
+
+The converter geometry contains:
+- **Inlet pipe**, 10 m/s velocity inlet, air cold-flow
+- **Two isotropic porous catalyst blocks**, pressure-drop and flow-distribution targets
+- **Outlet**, static pressure at 101,325 Pa
+
+The geometry was created in SolidWorks and the flow study set up as an internal analysis. Catalyst blocks are modelled as porous media rather than resolving individual honeycomb channels, this keeps the model computationally light while preserving the pressure-drop and flow-distribution trends needed for design comparison.
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case1-geometry-front.png" alt="Baseline converter geometry, front view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Baseline geometry, front view. Two porous catalyst blocks downstream of the inlet pipe with no additional flow-control feature.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case1-geometry-isometric.png" alt="Baseline converter geometry, isometric view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Baseline geometry, isometric view.</figcaption>
+  </figure>
+</div>
+
+
+## Simulation Setup
+
+| Parameter | Value |
+|-----------|-------|
+| Analysis type | Internal flow |
+| Fluid | Air, cold-flow |
+| Inlet condition | Velocity inlet, 10 m/s for all cases |
+| Outlet condition | Static pressure, 101,325 Pa |
+| Catalyst approximation | Two isotropic porous media blocks |
+| Porous media reference area | 20,758 mm² (0.020758 m²) |
+| Porous media reference length | 100 mm (0.1 m) |
+| Primary metric | Velocity uniformity ratio at Porous Block 1 front face |
+| Secondary metric | Total converter pressure drop |
+
+### Goal Equations
+
+Both comparison metrics are equation goals extracted using the **Averaged Value** column:
+
+- **Velocity uniformity ratio** = Max velocity at Porous 1 front face ÷ Average velocity at Porous 1 front face
+- **Total converter pressure drop** = Inlet average static pressure − Outlet static pressure
+
+The uniformity ratio is dimensionless, velocity units cancel in the division. A ratio of **1.0 is perfect uniformity**; higher values indicate greater maldistribution.
+
+
+## Design Case Overview
+
+| Case | Configuration | Uniformity Ratio | vs Baseline | Total DP (Pa) | vs Baseline | Decision |
+|------|--------------|-----------------|-------------|---------------|-------------|----------|
+| 1 | Baseline, no baffle | 2.832 |, | 114.065 |, | Reference |
+| 2 | Circular baffle | 3.587 | −26.7% | 112.079 | −1.7% | Rejected |
+| 3 | Guided vane, 4 mm thick, 30 mm wide, 80 mm | 2.557 | +9.7% | 106.901 | +6.3% | Improved |
+| 4 | Guided vane, 4 mm thick, 20 mm wide, 90 mm | 2.602 | +8.1% | 110.016 | +3.5% | Improved |
+| 5 | Guided vane, 8 mm thick, 30 mm wide, 80 mm | 1.990 | +29.7% | 96.588 | +15.3% | Improved |
+| 6 | Guided vane, 8 mm thick, 20 mm wide, 90 mm | **1.540** | **+45.6%** | **93.120** | **+18.4%** | **Best** |
+
+> Uniformity ratio: lower = better. Pressure drop: lower = better.
+
+
+## Case 1, Baseline: No Baffle
+
+The unmodified converter geometry with two porous catalyst blocks and no additional flow-control feature.
+
+**Uniformity ratio: 2.832 · Total DP: 114.065 Pa · P1 avg/max velocity: 1.203 / 3.406 m/s**
+
+The inlet jet reaches the first catalyst face with a concentrated high-velocity core. The ratio of 2.832 confirms that peak velocity is nearly three times the face-averaged value, strong maldistribution.
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case1-velocity-cut.png" alt="Case 1, velocity cut plot" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Velocity cut plot, Case 1. The inlet jet penetrates directly toward the first catalyst block with no redirection.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case1-pressure-cut.png" alt="Case 1, static pressure cut plot" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Static pressure cut plot, Case 1. Pressure gradient concentrated at the catalyst inlet face.</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case1-front-face-velocity.png" alt="Case 1, front face velocity distribution at Porous Block 1" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Velocity distribution at Porous Block 1 front face, Case 1. The high-velocity core at the centre is clearly visible against low-velocity peripheral regions.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case1-trajectories.png" alt="Case 1, flow trajectories coloured by velocity" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Flow trajectories coloured by velocity, Case 1. Streamlines concentrate through the centre of the catalyst, confirming the maldistribution.</figcaption>
+  </figure>
+</div>
+
+
+## Case 2, Circular Baffle
+
+A circular baffle placed upstream of the first porous block to block the inlet jet directly.
+
+**Uniformity ratio: 3.587 · Total DP: 112.079 Pa · P1 avg/max velocity: 1.120 / 4.016 m/s**
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case2-geometry-front.png" alt="Case 2, circular baffle geometry, front view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Case 2 geometry, circular baffle positioned upstream of Porous Block 1.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case2-geometry-isometric.png" alt="Case 2, circular baffle geometry, isometric view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Isometric view, circular baffle concept.</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case2-velocity-cut.png" alt="Case 2, velocity cut plot" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Velocity cut plot, Case 2. The baffle forces flow around its edges, creating accelerated peripheral jets that worsen the distribution.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case2-front-face-velocity.png" alt="Case 2, front face velocity distribution" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Front face velocity distribution, Case 2. Peak velocity increased to 4.016 m/s, worse than baseline. Concept rejected.</figcaption>
+  </figure>
+</div>
+
+<figure class="my-6">
+  <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+    <img src="/images/catalytic-converter/case2-trajectories.png" alt="Case 2, flow trajectories coloured by velocity" class="max-h-full max-w-full object-contain" />
+  </div>
+  <figcaption>Flow trajectories, Case 2. Blocking the jet redirects flow to the periphery, creating edge-concentrated high-velocity paths through the catalyst.</figcaption>
+</figure>
+
+> **Rejected.** Simply blocking the inlet jet accelerates flow around the baffle edges and increases the uniformity ratio to 3.587, worse than the unmodified baseline. This confirms that jet-blocking without redirection is counterproductive.
+
+
+## Case 3, Guided Vane: 4 mm Thick, 30 mm Wide, 80 mm Location
+
+First guided vane concept. The vane redirects the inlet jet gradually rather than blocking it.
+
+**Uniformity ratio: 2.557 · Total DP: 106.901 Pa · P1 avg/max velocity: 0.752 / 1.924 m/s**
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case3-geometry-front.png" alt="Case 3, guided vane geometry, front view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Case 3 geometry, 4 mm thick, 30 mm wide guided vane at the 80 mm location.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case3-geometry-isometric.png" alt="Case 3, guided vane geometry, isometric view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Isometric view, first guided vane concept.</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case3-velocity-cut.png" alt="Case 3, velocity cut plot" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Velocity cut plot, Case 3. The vane redirects the jet, spreading momentum more broadly before the catalyst face.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case3-front-face-velocity.png" alt="Case 3, front face velocity distribution" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Front face velocity distribution, Case 3. Max velocity drops to 1.924 m/s vs 3.406 in the baseline. Improved.</figcaption>
+  </figure>
+</div>
+
+<figure class="my-6">
+  <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+    <img src="/images/catalytic-converter/case3-trajectories.png" alt="Case 3, flow trajectories" class="max-h-full max-w-full object-contain" />
+  </div>
+  <figcaption>Flow trajectories, Case 3. The guided vane spreads flow across a wider area of the catalyst compared to the baseline jet.</figcaption>
+</figure>
+
+
+## Case 4, Guided Vane: 4 mm Thick, 20 mm Wide, 90 mm Location
+
+Narrower 4 mm vane placed closer to the catalyst inlet.
+
+**Uniformity ratio: 2.602 · Total DP: 110.016 Pa · P1 avg/max velocity: 0.935 / 2.434 m/s**
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case4-geometry-front.png" alt="Case 4, guided vane geometry, front view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Case 4 geometry, 4 mm thick, 20 mm wide guided vane at the 90 mm location.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case4-geometry-isometric.png" alt="Case 4, guided vane geometry, isometric view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Isometric view, narrower 4 mm vane positioned closer to the inlet.</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case4-velocity-cut.png" alt="Case 4, velocity cut plot" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Velocity cut plot, Case 4. Narrower vane provides less jet redirection than Case 3.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case4-front-face-velocity.png" alt="Case 4, front face velocity distribution" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Front face velocity distribution, Case 4. Ratio of 2.602, slightly worse than Case 3. Reducing width at this location was not beneficial.</figcaption>
+  </figure>
+</div>
+
+<figure class="my-6">
+  <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+    <img src="/images/catalytic-converter/case4-trajectories.png" alt="Case 4, flow trajectories" class="max-h-full max-w-full object-contain" />
+  </div>
+  <figcaption>Flow trajectories, Case 4. Narrower vane captures less of the inlet jet, leaving more maldistribution than the wider Case 3 vane.</figcaption>
+</figure>
+
+
+## Case 5, Guided Vane: 8 mm Thick, 30 mm Wide, 80 mm Location
+
+Increasing vane thickness to 8 mm while keeping the 30 mm width and 80 mm location from Case 3.
+
+**Uniformity ratio: 1.990 · Total DP: 96.588 Pa · P1 avg/max velocity: 0.434 / 0.863 m/s**
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case5-geometry-front.png" alt="Case 5, guided vane geometry, front view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Case 5 geometry, 8 mm thick, 30 mm wide guided vane at 80 mm. The thicker cross-section provides stronger jet redirection.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case5-geometry-isometric.png" alt="Case 5, guided vane geometry, isometric view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Isometric view, 8 mm thick guided vane.</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case5-velocity-cut.png" alt="Case 5, velocity cut plot" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Velocity cut plot, Case 5. The thicker vane produces notably more uniform flow across the catalyst inlet face.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case5-front-face-velocity.png" alt="Case 5, front face velocity distribution" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Front face velocity distribution, Case 5. Max velocity reduced to 0.863 m/s. A large step improvement over all previous cases.</figcaption>
+  </figure>
+</div>
+
+<figure class="my-6">
+  <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+    <img src="/images/catalytic-converter/case5-trajectories.png" alt="Case 5, flow trajectories" class="max-h-full max-w-full object-contain" />
+  </div>
+  <figcaption>Flow trajectories, Case 5. The thicker vane spreads the inlet jet across the full catalyst face much more effectively.</figcaption>
+</figure>
+
+
+## Case 6, Guided Vane: 8 mm Thick, 20 mm Wide, 90 mm Location (Final Design)
+
+Reduced width and shifted the vane closer to the inlet. This is the **best performing configuration**.
+
+**Uniformity ratio: 1.540 · Total DP: 93.120 Pa · P1 avg/max velocity: 0.412 / 0.635 m/s**
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case6-geometry-front.png" alt="Case 6, final guided vane geometry, front view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Case 6 geometry, 8 mm thick, 20 mm wide guided vane at the 90 mm location. Final optimised configuration.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case6-geometry-isometric.png" alt="Case 6, final guided vane geometry, isometric view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Isometric view, final guided vane. The narrower width at closer proximity to the inlet provides the best jet-redirection balance.</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case6-velocity-cut.png" alt="Case 6, velocity cut plot showing highly uniform flow" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Velocity cut plot, Case 6. The most uniform flow distribution of all six cases. The inlet jet is fully redirected and distributed before reaching the catalyst.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case6-pressure-cut.png" alt="Case 6, static pressure cut plot" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Static pressure cut plot, Case 6. Total pressure drop reduced to 93.120 Pa, the lowest of all cases, including the baseline.</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case6-front-face-velocity.png" alt="Case 6, front face velocity distribution showing near-uniform loading" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Front face velocity distribution, Case 6. Max velocity 0.635 m/s vs 3.406 in the baseline. Near-uniform loading across the full catalyst face.</figcaption>
+  </figure>
+  <figure>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/catalytic-converter/case6-trajectories.png" alt="Case 6, flow trajectories coloured by velocity" class="max-h-full max-w-full object-contain" />
+    </div>
+    <figcaption>Flow trajectories, Case 6. Streamlines distribute evenly across the catalyst, confirming the maldistribution has been resolved.</figcaption>
+  </figure>
+</div>
+
+
+## Results & Engineering Conclusions
+
+<div class="theme-panel rounded-2xl p-6 my-8 space-y-4">
+  <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Key findings</p>
+  <div class="space-y-3 text-[15px] leading-relaxed text-text-secondary">
+    <div class="flex gap-3">
+      <span class="text-primary-accent font-semibold shrink-0">01</span>
+      <p><strong class="text-text-primary">Blocking a jet is not the same as redirecting it.</strong> The circular baffle (Case 2) worsened flow distribution to a ratio of 3.587, higher than the 2.832 baseline, because it forced flow around its edges, creating accelerated peripheral jets. Guided vanes that redirect rather than obstruct were consistently superior.</p>
+    </div>
+    <div class="flex gap-3">
+      <span class="text-primary-accent font-semibold shrink-0">02</span>
+      <p><strong class="text-text-primary">Vane thickness is the dominant design variable.</strong> Doubling thickness from 4 mm to 8 mm (Cases 3→5) reduced the uniformity ratio by 22% and cut total pressure drop by 9.6 Pa. Width and axial position produced smaller but still measurable improvements.</p>
+    </div>
+    <div class="flex gap-3">
+      <span class="text-primary-accent font-semibold shrink-0">03</span>
+      <p><strong class="text-text-primary">The final design improves both objectives simultaneously.</strong> The 8 mm guided vane (Case 6) achieved a 45.6% improvement in uniformity ratio and an 18.4% reduction in total pressure drop compared to baseline, demonstrating that flow redirection does not require a pressure-drop penalty when the vane geometry is well-tuned.</p>
+    </div>
+    <div class="flex gap-3">
+      <span class="text-primary-accent font-semibold shrink-0">04</span>
+      <p><strong class="text-text-primary">Porous media approximation is valid for design comparison.</strong> Mass flow balance was confirmed in every case (inlet and outlet magnitudes match). The porous media model is appropriate for relative trend analysis; absolute quantitative results would require directional resistance coefficients and mesh sensitivity validation before use in final design decisions.</p>
+    </div>
+  </div>
+</div>
+
+### Final Design Comparison
+
+| Metric | Baseline (Case 1) | Final Design (Case 6) | Improvement |
+|--------|------------------|-----------------------|-------------|
+| Velocity uniformity ratio | 2.832 | 1.540 | 45.6% lower |
+| Total converter pressure drop | 114.065 Pa | 93.120 Pa | 18.4% lower |
+| Porous Block 1 max velocity | 3.406 m/s | 0.635 m/s | 81.4% lower |
+| Porous Block 1 avg velocity | 1.203 m/s | 0.412 m/s | 65.8% lower |
+
+### Numerical Results, All Cases
+
+| Case | Inlet MF (kg/s) | Outlet MF (kg/s) | P1 Avg V (m/s) | P1 Max V (m/s) | Uniformity | DP P1 (Pa) | DP P2 (Pa) | Total Porous DP (Pa) | Total DP (Pa) |
+|------|----------------|-----------------|----------------|----------------|-----------|------------|------------|---------------------|---------------|
+| 1 | 0.006056 | −0.006056 | 1.203 | 3.406 | 2.832 | 2.528 | 3.641 | 6.205 | 114.065 |
+| 2 | 0.006056 | −0.006056 | 1.120 | 4.016 | 3.587 | 2.504 | 3.647 | 6.187 | 112.079 |
+| 3 | 0.006055 | −0.006055 | 0.752 | 1.924 | 2.557 | 3.498 | 3.659 | 7.193 | 106.901 |
+| 4 | 0.006055 | −0.006055 | 0.935 | 2.434 | 2.602 | 3.114 | 3.655 | 6.805 | 110.016 |
+| 5 | 0.006054 | −0.006054 | 0.434 | 0.863 | 1.990 | 3.874 | 3.658 | 7.569 | 96.588 |
+| 6 | 0.006054 | −0.006054 | 0.412 | 0.635 | 1.540 | 3.882 | 3.658 | 7.576 | 93.120 |
+
+
+## Limitations & Next Steps
+
+- **Isotropic porous media**, real catalytic converter honeycombs are directionally porous, with low resistance along channels and high resistance radially. A directional resistance model would give more accurate absolute pressure-drop values.
+- **Cold-flow study**, thermal effects, exhaust gas composition, transient pulsation from the engine, and catalytic heat generation are not included. A hot-flow study would be needed for thermal sizing.
+- **Mesh sensitivity**, current results are most reliable for relative comparison. A mesh sensitivity study comparing global and locally refined settings should precede any use of absolute values for final design decisions.
+- **Future directions**, directional porous media, elevated flow rates, thermal coupling, and a broader geometric sweep of vane angle and position.

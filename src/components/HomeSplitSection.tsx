@@ -15,10 +15,10 @@ export function HomeSplitSection({ entries }: HomeSplitSectionProps) {
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-600">
               Work Experience
             </p>
-            <h2 className="text-3xl font-semibold tracking-[-0.03em] text-gray-900 md:text-4xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-4xl dark:text-white">
               Built through real product ownership
             </h2>
-            <p className="text-base leading-relaxed text-gray-700">
+            <p className="text-base leading-relaxed text-[#86868b] dark:text-[#A1A1A6]">
               A closer look at the roles where design, production, and regulated hardware execution came together.
             </p>
           </div>

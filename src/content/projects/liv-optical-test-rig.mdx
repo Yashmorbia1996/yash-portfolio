@@ -1,11 +1,11 @@
 ---
 title: "LIV Optical Test Rig"
 summary: |
-  Built the in-house laser engine testing capability from scratch. Started with a wooden-block proof of concept to validate the measurement approach, then engineered three production-released fixtures for bare TO-9s, packaged engines, and InGaAs beam imaging. Also authored the LIV test system specification handed to the software team for a technician-ready UI.
+  Built in-house laser engine screening from a wooden-block LIV proof of concept through two modular production fixtures: one for batch LIV (magnetic swap between packaged engines and Headers) and one for optical beam-size checks on the same two form factors. Authored the LIV test system specification for the software team.
 date: 2023-10-01
 featured: true
 cover: "/images/liv-layman-bench-poc.png"
-glanceOutcome: "3 production fixtures released. 3x batch LIV throughput vs. legacy manual flow. Beam quality screening added to pre-release gating. LIV test system specification delivered to software team."
+glanceOutcome: "Two modular production fixtures (LIV + optical). Stronger batch throughput vs. legacy manual flow. Beam-size screening alongside power. Technician-facing LIV test spec delivered to software."
 tags:
   [
     "SolidWorks",
@@ -19,29 +19,27 @@ tags:
   ]
 ---
 
-{/* ── HERO METRICS ── */}
+import { LivBenchPocImage } from '../../components/LivBenchPocImage.tsx';
 
-<div class="not-prose mt-6 mb-16">
-  <div class="space-y-10">
+{/* -- HERO METRICS -- */}
+
+<div class="not-prose mt-6 mb-12">
+  <div class="space-y-8">
     <section>
       <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Key outcomes</p>
       <div class="mt-3 rounded-2xl border border-border/80 bg-surface-elevated/50 p-1.5 shadow-sm sm:p-2">
-        <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 sm:gap-2.5">
-          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
-            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">3×</p>
-            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Batch LIV throughput vs. legacy manual workflow</p>
+        <div class="grid gap-2 sm:grid-cols-3 sm:gap-2.5">
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7rem] sm:px-5 sm:py-5">
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">~3×</p>
+            <p class="mt-2 max-w-[14rem] text-xs leading-snug text-text-muted sm:text-[13px]">Batch LIV throughput vs. legacy manual workflow</p>
           </div>
-          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
-            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">3</p>
-            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Fixture lines released to production</p>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7rem] sm:px-5 sm:py-5">
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">2</p>
+            <p class="mt-2 max-w-[14rem] text-xs leading-snug text-text-muted sm:text-[13px]">Modular production fixtures: LIV + optical beam sizing</p>
           </div>
-          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
-            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">39</p>
-            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Part BOM on the fully documented Fixture 3 build</p>
-          </div>
-          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7.5rem] sm:px-5 sm:py-5">
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7rem] sm:px-5 sm:py-5">
             <p class="text-lg font-semibold leading-snug tracking-tight text-text-primary sm:text-xl">Wood → prod</p>
-            <p class="mt-2 max-w-[12rem] text-xs leading-snug text-text-muted sm:text-[13px]">Wooden block POC to AQL production batch release</p>
+            <p class="mt-2 max-w-[14rem] text-xs leading-snug text-text-muted sm:text-[13px]">Bench POC first, then released tooling built on measured learning</p>
           </div>
         </div>
       </div>
@@ -72,39 +70,36 @@ tags:
   </div>
 </div>
 
-{/* ── DISCLOSURE ── */}
+{/* -- DISCLOSURE -- */}
 
-<div class="not-prose mb-16">
+<div class="not-prose mb-12">
   <div class="rounded-2xl border border-border bg-surface-elevated/40 px-5 py-4">
     <p class="text-sm leading-relaxed text-text-muted">
-      <strong class="text-text-secondary">Disclosure:</strong> Optical performance data, laser specifications, and device identifiers have been withheld in line with confidentiality obligations. Images shown are non-proprietary fixture and bench setup imagery. All outcomes stated are directionally accurate.
+      <strong class="text-text-secondary">Disclosure:</strong> Optical performance data, laser specifications, and device identifiers are withheld where required. Bench photo uses localized softening on the finned heatsink and the drive PCB only (same regions as the portfolio reference crop). Outcomes are directionally accurate.
     </p>
   </div>
 </div>
 
-{/* ── THE PROBLEM ── */}
+{/* -- THE PROBLEM -- */}
 
-<div id="the-problem" class="not-prose mb-16 scroll-mt-28">
+<div id="the-problem" class="not-prose mb-12 scroll-mt-28">
   <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">
     The problem
   </h2>
   <h3 class="mt-4 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
-    No reliable way to screen laser engines before committing an entire batch
+    No fast, trustworthy batch screen before committing engines to the line
   </h3>
   <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-    The laser engine is the heart of the device. Before releasing a batch to the main production floor, we needed to verify that each engine met optical power and beam quality requirements. Without a fast, repeatable test method, the only option was slow manual spot-checking or releasing blind and catching failures downstream, which is expensive and disruptive in a regulated environment.
+    The laser engine needed repeatable LIV screening at volume, without measurement noise that looked like bad parts. We also needed a practical way to check <strong class="text-text-primary">beam shape and size</strong>, not only total power, before release.
   </p>
   <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-    The existing flow was manual, operator-sensitive, and not built for batch volume. What we needed was an <strong class="text-text-primary">AQL-capable screening station</strong>: fast enough to run through a batch, consistent enough that the measurement itself wasn't introducing noise, and easy enough to load and unload that any trained technician could run it without risk of damaging the engine or skewing the reading.
-  </p>
-  <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-    There was also a second gap: we could measure total optical power (LIV), but we had no way to see <strong class="text-text-primary">where the beam was going</strong>. A good power number with a badly shaped beam can still fail in the device. Catching that required adding spatial imaging to the test station.
+    The legacy flow was manual and operator-sensitive. The goal was AQL-friendly stations: quick load/unload, stable coupling, and clear handoff to software for technician-ready runs.
   </p>
 </div>
 
-{/* ── WHERE IT STARTED ── */}
+{/* -- WHERE IT STARTED -- */}
 
-<div id="bench-poc" class="not-prose mb-16 scroll-mt-28">
+<div id="bench-poc" class="not-prose mb-12 scroll-mt-28">
   <div class="mb-2 flex flex-wrap items-center gap-3">
     <span class="inline-flex rounded-md bg-primary-accent/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
       Where it started
@@ -116,22 +111,19 @@ tags:
   </div>
 
   <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-    Before any production fixture existed, I built a simple proof-of-concept on a <strong class="text-text-primary">wooden base</strong> with a COTS detector head, screw-terminal wiring, and a small drive PCB. The goal was not to have a production tool. It was to prove the measurement approach worked, understand what needed to be controlled, and develop the in-house LIV knowledge before investing in hard tooling.
-  </p>
-  <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-    That rudimentary setup let us run real LIV sweeps, debug the coupling path, and identify the main sources of measurement noise. Once we understood what the fixture needed to control, everything that came after was engineering that understanding into released production hardware.
+    I started with a <strong class="text-text-primary">wooden base</strong>, COTS detector path, screw-terminal wiring, and a small drive board, not to ship a product, but to prove the LIV approach, find noise sources, and learn what the production tooling had to control before cutting hard fixtures.
   </p>
 
   <div class="mt-6 overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
-    <img
-      src="/images/liv-layman-bench-poc.png"
-      alt="Early bench LIV proof of concept: detector, laser engine on plywood base, terminal block, and drive PCB"
-      decoding="async"
-      loading="lazy"
-      class="mx-auto block h-auto w-full max-w-[56rem] rounded-xl object-contain"
-    />
+    <div class="overflow-hidden rounded-xl bg-[#f8fafc]">
+      <div class="flex min-h-[150px] items-center justify-center p-3 pt-2 md:min-h-[200px] md:p-4 md:pt-3">
+        <LivBenchPocImage
+          imageClassName="mx-auto h-auto max-h-[min(42vh,320px)] w-auto max-w-full object-contain"
+        />
+      </div>
+    </div>
     <p class="mt-3 text-center text-xs text-text-muted">
-      The starting point. Wooden base, screw terminals, COTS optics. Not the end state, but it proved the measurement concept and informed everything built after it.
+      Bench POC: wooden base and screw terminals. Blur softens the finned heatsink and the green drive PCB only; the rest of the photo is unchanged.
     </p>
   </div>
 
@@ -139,229 +131,143 @@ tags:
     <div class="border-l-4 border-primary-accent px-5 py-5 md:px-6 md:py-6">
       <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Why this mattered</p>
       <p class="mt-3 text-base leading-relaxed text-text-secondary md:text-[17px]">
-        Starting with a rough POC instead of going straight to hard tooling meant the production fixtures were built on real measurement data, not assumptions. The wooden rig was cheap to change. The released fixtures were not.
+        Cheap iteration on wood first meant the released fixtures were anchored in real sweeps, not guesses.
       </p>
     </div>
   </div>
 </div>
 
-{/* ── FIXTURE 1 ── */}
+{/* -- FIXTURE 1: LIV -- */}
 
-<div id="fixture-1" class="not-prose mb-16 scroll-mt-28">
+<div id="fixture-liv" class="not-prose mb-12 scroll-mt-28">
   <div class="mb-2 flex flex-wrap items-center gap-3">
     <span class="inline-flex rounded-md bg-primary-accent/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
       Fixture 1
     </span>
     <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl">
-      Bare TO-9
+      Modular LIV (packaged engine · Headers)
     </h2>
     <span class="h-px min-w-[2rem] flex-1 bg-border" />
   </div>
 
   <h3 class="mt-4 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
-    Optical power LIV on the bare semiconductor package
+    One station, two magnetic load paths
   </h3>
   <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-    The first production fixture tested the bare TO-9 laser package before it went into full engine assembly. Testing at this level meant catching bad emitters early, before any integration work had been done on them. The fixture was designed to seat the TO-9 repeatably, constrain the optical coupling path, and make it fast and easy for a technician to load and unload without risking damage to the can.
+    Instead of splitting bare-can and packaged work across separate tools, I converged on a <strong class="text-text-primary">single LIV fixture</strong> built around modular inserts: quick magnetic swap between <strong class="text-text-primary">packaged engine</strong> characterization and <strong class="text-text-primary">Headers</strong> (header-level) testing. Same measurement discipline, less duplicate alignment architecture, faster changeover for the clean room.
   </p>
   <p class="mt-3 max-w-3xl text-sm font-medium text-text-primary md:text-base">
-    Released to production for bare-can screening as the first gating step in the engine build sequence.
+    Released for production batch LIV screening with controlled coupling and technician-friendly load/unload.
   </p>
 
   <div class="mt-6 overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
-    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Fixture 1 (production)</p>
-    <div class="mt-4 flex min-h-[12rem] items-center justify-center rounded-xl border border-dashed border-border/80 bg-muted/20 text-sm text-text-muted">
-      Add: liv-fixture-1-to9.png
+    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Fixture 1, LIV (production)</p>
+    <div class="mt-3 overflow-hidden rounded-xl bg-[#f8fafc]">
+      <div class="flex min-h-[150px] items-center justify-center p-3 pt-2 md:min-h-[200px] md:p-4 md:pt-3">
+        <img
+          src="/images/LIV%20test.svg"
+          alt="Modular LIV production fixture (vector illustration)"
+          decoding="async"
+          loading="lazy"
+          class="mx-auto h-auto max-h-[min(42vh,320px)] w-auto max-w-full object-contain"
+        />
+      </div>
     </div>
   </div>
 
-  <div class="mt-6 grid gap-6 md:grid-cols-2">
+  <div class="mt-6 grid gap-4 md:grid-cols-2">
     <div class="rounded-2xl border border-border bg-background px-5 py-5 md:px-6 md:py-6">
-      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">What I designed for</p>
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Design focus</p>
       <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary md:text-[15px]">
-        <li>Consistent, repeatable seating of the TO-9 body across many load cycles</li>
-        <li>Fast load and unload for a technician running a batch, not a one-off test</li>
-        <li>Controlled optical coupling path to prevent alignment error from looking like a bad part</li>
+        <li>Magnetic modular inserts: packaged engine vs. Headers, repeatable seating</li>
+        <li>Coupling path and datums tuned so variation reads as device, not fixture</li>
+        <li>Batch-oriented ergonomics and poka-yoke where it mattered most</li>
       </ul>
     </div>
     <div class="rounded-2xl border border-border bg-background px-5 py-5 md:px-6 md:py-6">
-      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Engineering focus</p>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary md:text-[15px]">
-        <li>Defined datums and tolerance stack-up on the axes that drive coupling error</li>
-        <li>Repeatability studies across load/unload cycles to validate the measurement is stable</li>
-        <li>Separated device variation from fixture variation before releasing to production</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="mt-6 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface-elevated/50">
-    <div class="border-l-4 border-primary-accent px-5 py-5 md:px-6 md:py-6">
-      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Design decision</p>
-      <p class="mt-3 text-base leading-relaxed text-text-secondary md:text-[17px]">
-        Datum strategy and measurement architecture were locked at this stage, before any packaging-level tooling was built. Fixing those decisions early meant the next two fixtures could build on a stable foundation rather than inherit unresolved alignment problems.
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Outcome</p>
+      <p class="mt-3 text-sm leading-relaxed text-text-secondary md:text-[15px]">
+        One LIV line replaced the older fragmented flow for these form factors and supported much higher batch throughput with clearer gating ahead of floor release.
       </p>
     </div>
   </div>
 </div>
 
-{/* ── FIXTURE 2 ── */}
+{/* -- FIXTURE 2: OPTICAL -- */}
 
-<div id="fixture-2" class="not-prose mb-16 scroll-mt-28">
+<div id="fixture-optical" class="not-prose mb-12 scroll-mt-28">
   <div class="mb-2 flex flex-wrap items-center gap-3">
     <span class="inline-flex rounded-md bg-primary-accent/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
       Fixture 2
     </span>
     <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl">
-      Complete Engine Package
+      Modular optical beam sizing
     </h2>
     <span class="h-px min-w-[2rem] flex-1 bg-border" />
   </div>
 
   <h3 class="mt-4 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
-    Production-representative LIV on the assembled laser engine
+    Beam size for packaged engines and Headers
   </h3>
   <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-    The second fixture tested the fully assembled laser engine, the same mechanical envelope and window that goes into the final device. Testing at this level exposed stack-up and integration effects that bare-can testing cannot catch. A TO-9 that passes individually can still behave differently once packaged, so this fixture was the real pre-release gate before engines were cleared to move to the main production floor.
-  </p>
-  <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-    The goal was the same as Fixture 1: easy load and unload for batch-volume AQL screening, with enough mechanical constraint that the test result reflects the engine, not the operator.
+    The second fixture is the <strong class="text-text-primary">optical measurement station</strong>: modular tooling to capture beam size on the same two configurations, <strong class="text-text-primary">packaged engine</strong> and <strong class="text-text-primary">Headers</strong>, so spatial performance is checked alongside the LIV story, without running two unrelated alignment stacks.
   </p>
   <p class="mt-3 max-w-3xl text-sm font-medium text-text-primary md:text-base">
-    Released to production as the packaged-engine LIV gating station prior to floor release.
+    Released for production optical screening with shared reference strategy to the LIV path where practical.
   </p>
 
   <div class="mt-6 overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
-    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Fixture 2 (production)</p>
-    <div class="mt-4 flex min-h-[12rem] items-center justify-center rounded-xl border border-dashed border-border/80 bg-muted/20 text-sm text-text-muted">
-      Add: liv-fixture-2-packaged.png
+    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Fixture 2, optical (production)</p>
+    <div class="mt-3 overflow-hidden rounded-xl bg-[#f8fafc]">
+      <div class="flex min-h-[150px] items-center justify-center p-3 pt-2 md:min-h-[200px] md:p-4 md:pt-3">
+        <img
+          src="/images/Optical%20test.svg"
+          alt="Modular optical beam-sizing production fixture (vector illustration)"
+          decoding="async"
+          loading="lazy"
+          class="mx-auto h-auto max-h-[min(42vh,320px)] w-auto max-w-full object-contain"
+        />
+      </div>
     </div>
   </div>
 
-  <div class="mt-6 grid gap-6 md:grid-cols-2">
-    <div class="rounded-2xl border border-border bg-background px-5 py-5 md:px-6 md:py-6">
-      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">What I designed for</p>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary md:text-[15px]">
-        <li>Full packaged engine seating with defined datums matching the production envelope</li>
-        <li>Tolerance stack-up analysis on tilt, decenter, and axial position</li>
-        <li>Structured repeatability testing under realistic load and unload cycles</li>
-      </ul>
-    </div>
-    <div class="rounded-2xl border border-border bg-background px-5 py-5 md:px-6 md:py-6">
-      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Engineering focus</p>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary md:text-[15px]">
-        <li>Minimized alignment sensitivity at the packaged assembly level</li>
-        <li>Poka-yoke features to reduce operator-introduced variation</li>
-        <li>Correlation between fixture constraint strategy and yield and retest rate</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="mt-6 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface-elevated/50">
-    <div class="border-l-4 border-primary-accent px-5 py-5 md:px-6 md:py-6">
-      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Design decision</p>
-      <p class="mt-3 text-base leading-relaxed text-text-secondary md:text-[17px]">
-        Architecture was refined here to isolate the dominant variance sources before scaling batch size. Releasing with unresolved alignment sensitivity would have made the LIV data noisy enough to be unreliable as a screening gate.
-      </p>
-    </div>
+  <div class="mt-6 rounded-2xl border border-border bg-surface-elevated/50 px-5 py-5 md:px-6 md:py-6">
+    <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Engineering intent</p>
+    <p class="mt-2 text-sm leading-relaxed text-text-secondary md:text-[15px]">
+      Fewer adjustable degrees of freedom, shared metrology mindset with the LIV station, and documentation suitable for manufacturing and quality handoff under ISO 13485 discipline.
+    </p>
   </div>
 </div>
 
-{/* ── FIXTURE 3 ── */}
+{/* -- SOFTWARE SPEC -- */}
 
-<div id="fixture-3" class="not-prose mb-16 scroll-mt-28">
-  <div class="mb-2 flex flex-wrap items-center gap-3">
-    <span class="inline-flex rounded-md bg-primary-accent/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
-      Fixture 3
-    </span>
-    <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl">
-      LIV + InGaAs Beam Imaging
-    </h2>
-    <span class="h-px min-w-[2rem] flex-1 bg-border" />
-  </div>
-
-  <h3 class="mt-4 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
-    Power and spatial beam quality in one station
-  </h3>
-  <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-    Optical power alone does not tell the full story. An engine can hit its LIV spec while still having a beam that is poorly shaped, clipped, or asymmetric in a way that will cause problems downstream. To catch those issues before they reach the device, the third fixture added a <strong class="text-text-primary">fixed InGaAs camera</strong> mounted to the same reference frame as the LIV collection path.
-  </p>
-  <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-    The camera was aligned and bore-sighted to the engine so that every test produced both a power curve and a spatial beam image. That combination could catch aperture clipping, facet issues, and coupling anomalies that scalar power measurement alone would miss. This became the most comprehensive pre-release screening station in the clean room.
-  </p>
-  <p class="mt-3 max-w-3xl text-sm font-medium text-text-primary md:text-base">
-    Released to production as the LIV and beam-imaging station. Full 39-part BOM with GD&T package, motion study, interference check, and exploded views completed for manufacturing and quality handoff.
-  </p>
-
-  <div class="mt-6 overflow-hidden rounded-2xl border border-border bg-white p-4 md:p-6">
-    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Fixture 3 (production)</p>
-    <div class="mt-4 flex min-h-[12rem] items-center justify-center rounded-xl border border-dashed border-border/80 bg-muted/20 text-sm text-text-muted">
-      Add: liv-fixture-3-ingaas.png
-    </div>
-  </div>
-
-  <div class="mt-6 grid gap-6 md:grid-cols-2">
-    <div class="rounded-2xl border border-border bg-background px-5 py-5 md:px-6 md:py-6">
-      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">What I designed for</p>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary md:text-[15px]">
-        <li>Rigid InGaAs camera mount sharing datums with the LIV optical axis</li>
-        <li>Reduced degrees of freedom: fewer adjustments, more repeatable constraint</li>
-        <li>Ergonomic load path for high-cycle batch screening without engine damage risk</li>
-        <li>Calibration and alignment procedure tying image plane to beam path</li>
-      </ul>
-    </div>
-    <div class="rounded-2xl border border-border bg-background px-5 py-5 md:px-6 md:py-6">
-      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Engineering impact</p>
-      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary md:text-[15px]">
-        <li>3x throughput for batch LIV vs. the legacy manual flow</li>
-        <li>Scalar power plus spatial beam QA in a single released station</li>
-        <li>Reduced dependence on operator skill for alignment-critical steps</li>
-        <li>Audit-ready documentation: GD&T, BOM, and verification package</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="mt-6 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface-elevated/50">
-    <div class="border-l-4 border-primary-accent px-5 py-5 md:px-6 md:py-6">
-      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Design decision</p>
-      <p class="mt-3 text-base leading-relaxed text-text-secondary md:text-[17px]">
-        Constraint-driven design over infinite adjustability. Every degree of freedom that a technician can adjust is also a degree of freedom they can get wrong. Locking the alignment mechanically meant the fixture performed the same way on day 1 and day 300.
-      </p>
-    </div>
-  </div>
-</div>
-
-{/* ── SOFTWARE SPEC ── */}
-
-<div id="software-spec" class="not-prose mb-16 scroll-mt-28">
+<div id="software-spec" class="not-prose mb-12 scroll-mt-28">
   <div class="mb-2 flex flex-wrap items-center gap-3">
     <span class="inline-flex rounded-md bg-primary-accent/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
       Beyond hardware
     </span>
     <h2 class="text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">
-      LIV Test System Specification
+      LIV test system specification
     </h2>
     <span class="h-px min-w-[2rem] flex-1 bg-border" />
   </div>
 
   <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-    A good fixture is only half the equation. The test system also needed software that a production technician could run reliably without engineering support on the floor. I authored the <strong class="text-text-primary">LIV test system specification</strong> handed to the software team, covering test sequence logic, pass/fail criteria, UI requirements for technicians, data logging structure, and error handling behavior.
-  </p>
-  <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
-    Giving the software team a clear, detailed spec rather than verbal direction meant the resulting UI matched what production actually needed, and avoided the back-and-forth that happens when hardware and software requirements are defined separately. The spec became the shared reference for both the software build and the production validation.
+    I wrote the <strong class="text-text-primary">LIV test system specification</strong> for software: sweep logic, pass/fail, technician UI expectations, logging, and error handling, so the build matched how production actually runs the stations.
   </p>
 
   <div class="mt-6 grid gap-4 sm:grid-cols-3">
     <div class="rounded-2xl border border-border bg-surface-elevated/50 p-5">
       <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Test sequence</p>
-      <p class="mt-2 text-sm leading-relaxed text-text-secondary">Defined the step-by-step LIV sweep logic, stimulus parameters, and measurement timing</p>
+      <p class="mt-2 text-sm leading-relaxed text-text-secondary">Sweep logic, stimulus, and timing locked down for repeatable runs</p>
     </div>
     <div class="rounded-2xl border border-border bg-surface-elevated/50 p-5">
       <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Technician UI</p>
-      <p class="mt-2 text-sm leading-relaxed text-text-secondary">Specified the interface requirements so the software team built screens that matched actual production workflow</p>
+      <p class="mt-2 text-sm leading-relaxed text-text-secondary">Screens and flows aligned to floor workflow, not ad hoc demos</p>
     </div>
     <div class="rounded-2xl border border-border bg-surface-elevated/50 p-5">
-      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Pass/fail and logging</p>
-      <p class="mt-2 text-sm leading-relaxed text-text-secondary">Defined acceptance criteria, data output format, and error handling for a regulated production record</p>
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Records</p>
+      <p class="mt-2 text-sm leading-relaxed text-text-secondary">Pass/fail criteria and data outputs suitable for regulated records</p>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 /** Shared About copy + metrics (homepage About block & /about intro). */
 export const aboutTitle = "About";
 
-/** Short line next to your name — same typography as About me body copy. */
+/** Short line next to your name: same typography as About me body copy. */
 export const aboutNameNote =
   "Thanks for checking out my portfolio! Whether you're a recruiter, fellow engineer, friend, or lost stranger, I hope you enjoy the ride.";
 

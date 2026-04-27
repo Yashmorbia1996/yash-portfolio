@@ -1,0 +1,553 @@
+---
+title: "CHT: Electronics Enclosure Cooling Optimisation"
+summary: "8-case SolidWorks Flow Simulation conjugate heat transfer study: fan placement, heat sink design, and airflow routing to cool a 25 W main chip and 10 W power block below 85 °C."
+date: 2024-06-01
+featured: false
+cover: "/images/cht-electronics/case08_cross_fan_temperature_cut.png"
+tags:
+  [
+    "SolidWorks Flow Simulation",
+    "CHT",
+    "Electronics Cooling",
+    "Forced Convection",
+    "Heat Sink",
+    "Parametric Study",
+    "Thermal Management",
+  ]
+---
+
+{/* -- HERO METRICS -- */}
+
+<div class="not-prose mt-6 mb-12">
+  <div class="space-y-8">
+    <section>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Key outcomes</p>
+      <div class="mt-3 rounded-2xl border border-border/80 bg-surface-elevated/50 p-1.5 shadow-sm sm:p-2">
+        <div class="grid gap-2 sm:grid-cols-3 sm:gap-2.5">
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7rem] sm:px-5 sm:py-5">
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">8</p>
+            <p class="mt-2 max-w-[14rem] text-xs leading-snug text-text-muted sm:text-[13px]">Design cases, fan position, venting, heat sink geometry</p>
+          </div>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7rem] sm:px-5 sm:py-5">
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">61 °C</p>
+            <p class="mt-2 max-w-[14rem] text-xs leading-snug text-text-muted sm:text-[13px]">Main chip, final design at 25 W full load</p>
+          </div>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-background px-4 py-4 text-center ring-1 ring-border/55 sm:min-h-[7rem] sm:px-5 sm:py-5">
+            <p class="text-4xl font-semibold tabular-nums tracking-[-0.05em] text-text-primary sm:text-[2.75rem] sm:leading-none">60 °C</p>
+            <p class="mt-2 max-w-[14rem] text-xs leading-snug text-text-muted sm:text-[13px]">Power block, final design. Both below 85 °C target</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+{/* -- SIMULATION SETUP -- */}
+
+<div id="setup" class="not-prose mb-12 scroll-mt-28">
+  <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">
+    Simulation setup
+  </h2>
+  <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
+    Internal forced convection with conjugate heat transfer, solid conduction and fluid convection solved together. All cases share the same boundary conditions; only fan placement, venting, and heat sink geometry change.
+  </p>
+
+  <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="rounded-2xl border border-border bg-background px-5 py-5">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Fluid</p>
+      <p class="mt-2 text-sm leading-relaxed text-text-secondary">Air at 25 °C ambient, 101 325 Pa. Outer walls: 5 W/m²·K convection to ambient.</p>
+    </div>
+    <div class="rounded-2xl border border-border bg-background px-5 py-5">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Heat loads</p>
+      <p class="mt-2 text-sm leading-relaxed text-text-secondary">Cases 01-04: 10 W chip / 5 W power block. Cases 04B-08: 25 W chip / 10 W power block (full design load). Target: both below 85 °C.</p>
+    </div>
+    <div class="rounded-2xl border border-border bg-background px-5 py-5">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Fan</p>
+      <p class="mt-2 text-sm leading-relaxed text-text-secondary">Sunon GM0535PFV1-8 (35 mm class) from the SolidWorks fan database. Fan curve applied, not a fixed flow rate.</p>
+    </div>
+    <div class="rounded-2xl border border-border bg-background px-5 py-5">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Heat sink (initial)</p>
+      <p class="mt-2 text-sm leading-relaxed text-text-secondary">Solid Al 6061 block on the main chip for Cases 01-06. Cases 07-08: finned Al heat sink, 50 × 50 mm base, 40 mm tall, 14 fins at 1 mm thick, 3.3 mm gaps.</p>
+    </div>
+    <div class="rounded-2xl border border-border bg-background px-5 py-5">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Goals tracked</p>
+      <p class="mt-2 text-sm leading-relaxed text-text-secondary">Max surface temperature on main chip and power block. Volume-averaged temperatures. Heat flow budget at enclosure walls.</p>
+    </div>
+    <div class="rounded-2xl border border-border bg-background px-5 py-5">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">Post-processing</p>
+      <p class="mt-2 text-sm leading-relaxed text-text-secondary">Temperature cut plots, flow trajectories, fluid temperature, velocity cuts, surface temperature maps.</p>
+    </div>
+  </div>
+</div>
+
+{/* -- CASE MATRIX -- */}
+
+<div id="cases" class="not-prose mb-12 scroll-mt-28">
+  <h2 class="text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl">
+    Case matrix
+  </h2>
+  <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary">
+    Each case changes one variable. Cases 01-04 ran at 10 W / 5 W to validate fan approach. Full 25 W / 10 W design load applied from Case 04B onward.
+  </p>
+
+  <div class="mt-6 overflow-x-auto rounded-2xl border border-border">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b border-border bg-surface-elevated">
+          <th class="px-4 py-3 text-left font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Case</th>
+          <th class="px-4 py-3 text-left font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Configuration</th>
+          <th class="px-4 py-3 text-right font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Load</th>
+          <th class="px-4 py-3 text-right font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Chip (°C)</th>
+          <th class="px-4 py-3 text-right font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Power Block (°C)</th>
+          <th class="px-4 py-3 text-left font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Outcome</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        <tr class="bg-background">
+          <td class="px-4 py-3 font-mono text-xs text-text-muted">01</td>
+          <td class="px-4 py-3 text-text-secondary">External inlet fan, baseline</td>
+          <td class="px-4 py-3 text-right font-mono text-xs text-text-muted">10 W / 5 W</td>
+          <td class="px-4 py-3 text-right tabular-nums text-text-primary">57.39</td>
+          <td class="px-4 py-3 text-right tabular-nums text-text-primary">48.95</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Reference</td>
+        </tr>
+        <tr class="bg-surface-elevated/30">
+          <td class="px-4 py-3 font-mono text-xs text-text-muted">02</td>
+          <td class="px-4 py-3 text-text-secondary">External inlet fan + reducer shroud</td>
+          <td class="px-4 py-3 text-right font-mono text-xs text-text-muted">10 W / 5 W</td>
+          <td class="px-4 py-3 text-right tabular-nums text-text-primary">48.33</td>
+          <td class="px-4 py-3 text-right tabular-nums text-text-primary">51.11</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Good chip cooling, packaging tradeoff</td>
+        </tr>
+        <tr class="bg-background">
+          <td class="px-4 py-3 font-mono text-xs text-text-muted">03</td>
+          <td class="px-4 py-3 text-text-secondary">External outlet fan</td>
+          <td class="px-4 py-3 text-right font-mono text-xs text-text-muted">10 W / 5 W</td>
+          <td class="px-4 py-3 text-right tabular-nums font-semibold text-red-500">118.78</td>
+          <td class="px-4 py-3 text-right tabular-nums text-text-primary">75.14</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Rejected, chip over limit</td>
+        </tr>
+        <tr class="bg-surface-elevated/30">
+          <td class="px-4 py-3 font-mono text-xs text-text-muted">04</td>
+          <td class="px-4 py-3 text-text-secondary">Internal fan</td>
+          <td class="px-4 py-3 text-right font-mono text-xs text-text-muted">10 W / 5 W</td>
+          <td class="px-4 py-3 text-right tabular-nums text-text-primary">50.87</td>
+          <td class="px-4 py-3 text-right tabular-nums text-text-primary">41.72</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Selected fan approach</td>
+        </tr>
+        <tr class="bg-background border-t border-dashed border-border/60">
+          <td class="px-4 py-3 font-mono text-xs text-text-muted">04B</td>
+          <td class="px-4 py-3 text-text-secondary">Internal fan, full design load</td>
+          <td class="px-4 py-3 text-right font-mono text-xs font-semibold text-text-secondary">25 W / 10 W</td>
+          <td class="px-4 py-3 text-right tabular-nums font-semibold text-red-500">99.80</td>
+          <td class="px-4 py-3 text-right tabular-nums text-text-primary">65.15</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Over limit, heat sink upgrade needed</td>
+        </tr>
+        <tr class="bg-surface-elevated/30">
+          <td class="px-4 py-3 font-mono text-xs text-text-muted">05</td>
+          <td class="px-4 py-3 text-text-secondary">Internal fan + upper vent</td>
+          <td class="px-4 py-3 text-right font-mono text-xs font-semibold text-text-secondary">25 W / 10 W</td>
+          <td class="px-4 py-3 text-right tabular-nums text-text-primary">84.37</td>
+          <td class="px-4 py-3 text-right tabular-nums text-text-primary">55.25</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Thermally OK, rejected, dust risk</td>
+        </tr>
+        <tr class="bg-background">
+          <td class="px-4 py-3 font-mono text-xs text-text-muted">06</td>
+          <td class="px-4 py-3 text-text-secondary">Internal fan + rear exhaust fan</td>
+          <td class="px-4 py-3 text-right font-mono text-xs font-semibold text-text-secondary">25 W / 10 W</td>
+          <td class="px-4 py-3 text-right tabular-nums font-semibold text-red-500">95.40</td>
+          <td class="px-4 py-3 text-right tabular-nums text-text-primary">58.48</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Rejected, worsened chip cooling</td>
+        </tr>
+        <tr class="bg-surface-elevated/30">
+          <td class="px-4 py-3 font-mono text-xs text-text-muted">07</td>
+          <td class="px-4 py-3 text-text-secondary">Internal fan + optimised Al heat sink</td>
+          <td class="px-4 py-3 text-right font-mono text-xs font-semibold text-text-secondary">25 W / 10 W</td>
+          <td class="px-4 py-3 text-right tabular-nums text-text-primary">50.89</td>
+          <td class="px-4 py-3 text-right tabular-nums font-semibold text-amber-500">84.10</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Chip fixed, power block now limiting</td>
+        </tr>
+        <tr class="bg-background border-t-2 border-primary-accent/30">
+          <td class="px-4 py-3 font-mono text-xs font-bold text-primary-accent">08</td>
+          <td class="px-4 py-3 font-semibold text-text-primary">Optimised HS + cross-flow inlet fan</td>
+          <td class="px-4 py-3 text-right font-mono text-xs font-semibold text-text-secondary">25 W / 10 W</td>
+          <td class="px-4 py-3 text-right tabular-nums font-bold text-green-500">61.07</td>
+          <td class="px-4 py-3 text-right tabular-nums font-bold text-green-500">59.96</td>
+          <td class="px-4 py-3 text-xs font-semibold text-primary-accent">Final design, both targets met</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{/* -- IMAGE HELPER -- */}
+export const Img = ({ src, alt, caption }) => (
+  <div class="my-0">
+    <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+      <img src={src} alt={alt} class="!h-full !w-full max-h-full object-contain object-center" />
+    </div>
+    {caption && <p class="mt-2 text-xs text-text-muted text-center">{caption}</p>}
+  </div>
+);
+
+{/* -- CASE 01 -- */}
+
+<div id="case01" class="not-prose mb-10 scroll-mt-28">
+  <div class="mb-3 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-primary-accent/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">Case 01 · 10 W / 5 W</span>
+    <h2 class="text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">External inlet fan, baseline</h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
+  <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+    Fan blows air directly into the enclosure from the front. Chip reaches 57.4 °C, power block 49.0 °C, both well within limit at 10 W load. Establishes the reference geometry and result for all comparisons.
+  </p>
+  <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case01_baseline_geometry.png" alt="Case 01, baseline geometry with external inlet fan" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Baseline geometry, external inlet fan</p>
+    </div>
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case01_baseline_temperature_cut.png" alt="Case 01, temperature cut showing chip at 57.4°C" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Temperature cut, chip 57.4 °C, power block 49.0 °C</p>
+    </div>
+    <div class="sm:col-span-2">
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case01_baseline_flow_trajectories.png" alt="Case 01, flow trajectories showing airflow through enclosure" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Flow trajectories, inlet fan drives air over components</p>
+    </div>
+  </div>
+</div>
+
+{/* -- CASE 02 -- */}
+
+<div id="case02" class="not-prose mb-10 scroll-mt-28">
+  <div class="mb-3 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-primary-accent/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">Case 02 · 10 W / 5 W</span>
+    <h2 class="text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">Inlet fan + reducer shroud</h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
+  <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+    A reducer shroud concentrates inlet airflow directly onto the chip heat sink. The chip improves to 48.3 °C, but the power block rises to 51.1 °C as the shroud restricts flow reaching that region. Packaging cost is also higher. Rejected as the primary path, the tradeoff between components is the wrong direction.
+  </p>
+  <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case02_reducer_shroud_geometry.png" alt="Case 02, reducer shroud geometry" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Reducer shroud concentrates inlet flow</p>
+    </div>
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case02_reducer_shroud_temperature_cut.png" alt="Case 02, temperature cut with shroud: chip 48.3°C, power block 51.1°C" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Temperature cut, chip 48.3 °C, power block rises to 51.1 °C</p>
+    </div>
+    <div class="sm:col-span-2">
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case02_reducer_shroud_flow_trajectories.png" alt="Case 02, flow trajectories showing concentrated airflow with shroud" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Flow trajectories, shroud channels air to heat sink, bypasses power block</p>
+    </div>
+  </div>
+</div>
+
+{/* -- CASE 03 -- */}
+
+<div id="case03" class="not-prose mb-10 scroll-mt-28">
+  <div class="mb-3 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-red-500/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-red-500">Case 03 · Rejected · 10 W / 5 W</span>
+    <h2 class="text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">External outlet fan</h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
+  <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+    Fan pulls air out of the enclosure instead of pushing it in. The chip reaches 118.8 °C, 34 °C above the limit at only half the design load. Hot exhaust recirculates over the chip before it can exit. Immediately rejected.
+  </p>
+  <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case03_geometry.png" alt="Case 03, external outlet fan geometry" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Outlet fan geometry</p>
+    </div>
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case03_external_outlet_fan_temperature_cut.png" alt="Case 03, temperature cut showing chip at 118.8°C" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Temperature cut, chip 118.8 °C (34 °C over limit at 10 W)</p>
+    </div>
+    <div class="sm:col-span-2">
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case03_external_outlet_fan_flow_trajectories.png" alt="Case 03, flow trajectories showing hot air recirculation with outlet fan" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Flow trajectories, hot air recirculates over chip before exiting</p>
+    </div>
+  </div>
+  <div class="mt-5 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface-elevated/50">
+    <div class="border-l-4 border-primary-accent px-5 py-5">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Key insight</p>
+      <p class="mt-2 text-base leading-relaxed text-text-secondary">Outlet vs. inlet: a 61 °C difference at the chip at the same power level. Fan direction determines whether cool air reaches the heat source before it absorbs heat from the rest of the enclosure.</p>
+    </div>
+  </div>
+</div>
+
+{/* -- CASE 04 -- */}
+
+<div id="case04" class="not-prose mb-10 scroll-mt-28">
+  <div class="mb-3 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-primary-accent/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">Case 04 · 10 W / 5 W</span>
+    <h2 class="text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">Internal fan</h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
+  <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+    Fan moved inside the enclosure. Chip drops to 50.9 °C and power block to 41.7 °C, the best combined result so far. Internal placement confirmed as the correct direction. The fan approach is selected; attention now shifts to whether it holds at full 25 W load.
+  </p>
+  <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case04_internal_fan_temperature_cut.png" alt="Case 04, temperature cut with internal fan: chip 50.9°C, power block 41.7°C" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Temperature cut, chip 50.9 °C, power block 41.7 °C</p>
+    </div>
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case04_internal_fan_chip_heatsink_surface_temp.png" alt="Case 04, chip and heat sink surface temperatures" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Chip and heat sink surface temperatures</p>
+    </div>
+    <div class="sm:col-span-2">
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case04_internal_fan_flow_trajectories.png" alt="Case 04, flow trajectories showing clean airflow over both components" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Flow trajectories, internal fan drives clean air over chip and power block</p>
+    </div>
+  </div>
+</div>
+
+{/* -- CASE 04B -- */}
+
+<div id="case04b" class="not-prose mb-10 scroll-mt-28">
+  <div class="mb-3 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-red-500/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-red-500">Case 04B · Stress test · 25 W / 10 W</span>
+    <h2 class="text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">Internal fan at full design load</h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
+  <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+    Same internal fan configuration as Case 04 but at the real design load: 25 W chip / 10 W power block. The chip rises to 99.8 °C, over the 85 °C limit. The fan placement is correct; the solid Al block heat sink is insufficient at full load. A finned heat sink is needed.
+  </p>
+  <div class="mt-5">
+    <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+      <img src="/images/cht-electronics/case04_internal_fan_fluid_temperature.png" alt="Case 04, fluid temperature showing thermal field reference for stress comparison" class="!h-full !w-full max-h-full object-contain object-center" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Fluid temperature field, at 25 W the solid block heat sink cannot keep pace (chip 99.8 °C)</p>
+  </div>
+</div>
+
+{/* -- CASE 05 -- */}
+
+<div id="case05" class="not-prose mb-10 scroll-mt-28">
+  <div class="mb-3 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-amber-500/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-500">Case 05 · Rejected · 25 W / 10 W</span>
+    <h2 class="text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">Internal fan + upper vent</h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
+  <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+    An upper vent is opened to allow hot air to escape directly. The chip drops to 84.4 °C, just within the 85 °C target. However, the open aperture creates an uncontrolled dust ingress path. Rejected despite meeting the thermal target.
+  </p>
+  <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case05_internal_fan_Upper_vent_temperature_cut.png" alt="Case 05, temperature cut with upper vent: chip 84.4°C" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Temperature cut, chip 84.4 °C (meets limit but only just)</p>
+    </div>
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case05_internal_fan_upper_vent_trajectories.png" alt="Case 05, flow trajectories showing hot air escaping through upper vent" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Flow trajectories, hot air exits through upper vent, but vent is open to dust</p>
+    </div>
+  </div>
+</div>
+
+{/* -- CASE 06 -- */}
+
+<div id="case06" class="not-prose mb-10 scroll-mt-28">
+  <div class="mb-3 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-red-500/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-red-500">Case 06 · Rejected · 25 W / 10 W</span>
+    <h2 class="text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">Internal fan + rear exhaust fan</h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
+  <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+    A rear exhaust fan is added alongside the internal fan to increase total airflow. The chip <strong class="text-text-primary">worsens to 95.4 °C</strong>, worse than Case 04B with no second fan. The rear exhaust fan pulls air away from the heat sink before it can absorb heat from the chip. More fans, worse result.
+  </p>
+  <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case06_internal_fan_rear_exhaust_temperature_cut.png" alt="Case 06, temperature cut showing chip worsened to 95.4°C with rear exhaust fan" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Temperature cut, chip 95.4 °C (worse than 04B despite added fan)</p>
+    </div>
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case06_internal_fan_rear_exhaust_flow_trajectories.png" alt="Case 06, flow trajectories showing airflow diverted from chip by rear exhaust" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Flow trajectories, rear fan pulls flow away before it reaches the chip heat sink</p>
+    </div>
+  </div>
+  <div class="mt-5 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface-elevated/50">
+    <div class="border-l-4 border-primary-accent px-5 py-5">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">Finding</p>
+      <p class="mt-2 text-base leading-relaxed text-text-secondary">More fans does not mean more cooling. Airflow routing matters as much as airflow quantity, the rear fan increased total flow but reduced the fraction that reached where it was needed.</p>
+    </div>
+  </div>
+</div>
+
+{/* -- CASE 07 -- */}
+
+<div id="case07" class="not-prose mb-10 scroll-mt-28">
+  <div class="mb-3 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-amber-500/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-500">Case 07 · 25 W / 10 W</span>
+    <h2 class="text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">Optimised aluminium heat sink</h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
+  <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+    The solid Al block is replaced with a finned heat sink: 50 × 50 mm base, 40 mm tall, 14 fins at 1 mm thick with 3.3 mm gaps. The chip drops to 50.9 °C. But the power block rises to 84.1 °C, right at the limit. The finned heat sink draws more airflow to the chip region, leaving less for the power block. Chip is no longer the bottleneck.
+  </p>
+  <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case07_optimized_al_hs_temperature_cut.png" alt="Case 07, temperature cut: chip 50.9°C, power block 84.1°C" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Temperature cut, chip 50.9 °C, power block 84.1 °C (at limit)</p>
+    </div>
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case07_optimized_al_hs_velocity_cut.png" alt="Case 07, velocity cut showing high airflow through heat sink fins" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Velocity cut, high-speed airflow through fins, less reaching power block</p>
+    </div>
+    <div class="sm:col-span-2">
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case07_optimized_al_hs_flow_trajectories.png" alt="Case 07, flow trajectories showing flow concentration around heat sink" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Flow trajectories, fins pull flow; power block region is under-served</p>
+    </div>
+  </div>
+</div>
+
+{/* -- CASE 08 -- */}
+
+<div id="case08" class="not-prose mb-12 scroll-mt-28">
+  <div class="mb-3 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-green-500/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-green-500">Case 08, Final design · 25 W / 10 W</span>
+    <h2 class="text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">Cross-flow inlet fan, both targets met</h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
+  <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+    A side-mounted cross-flow external inlet fan is added to deliver fresh air directly to the power block region. The internal fan and finned heat sink continue to manage the chip independently. Both components meet the 85 °C target with clear margin: chip 61.1 °C, power block 60.0 °C.
+  </p>
+  <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case08_cross_fan_geometry.png" alt="Case 08, final geometry with optimised heat sink and cross-flow inlet fan" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Final geometry, optimised heat sink + cross-flow inlet fan</p>
+    </div>
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case08_cross_fan_temperature_cut.png" alt="Case 08, temperature cut: chip 61.1°C, power block 60.0°C" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Temperature cut, chip 61.1 °C, power block 60.0 °C</p>
+    </div>
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case08_cross_fan_fluid_temp_cut.png" alt="Case 08, fluid temperature distribution showing balanced cooling" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Fluid temperature, balanced thermal distribution across enclosure</p>
+    </div>
+    <div>
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case08_cross_fan_velocity_cut.png" alt="Case 08, velocity cut showing dual fan airflow distribution" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Velocity cut, dual fan airflow covering both thermal zones</p>
+    </div>
+    <div class="sm:col-span-2">
+      <div class="w-full overflow-hidden rounded-xl border border-border bg-surface-elevated" style="height: 360px;">
+        <img src="/images/cht-electronics/case08_cross_fan_flow_trajectories.png" alt="Case 08, flow trajectories showing cross-flow fan delivering air to power block" class="!h-full !w-full max-h-full object-contain object-center" />
+      </div>
+      <p class="mt-2 text-xs text-text-muted text-center">Flow trajectories, cross-flow fan delivers fresh air directly to power block region</p>
+    </div>
+  </div>
+  <div class="mt-6 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface-elevated/50">
+    <div class="border-l-4 border-primary-accent px-5 py-5">
+      <p class="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-accent">What this study showed</p>
+      <p class="mt-2 text-base leading-relaxed text-text-secondary md:text-[17px]">The right answer wasn't more airflow, it was airflow reaching the right place. Fan direction (Cases 03 vs 04), fan count (Case 06), and where the heat sink concentrates flow (Case 07) all shaped the outcome more than total flow rate. The 8-case progression gave a defensible, evidence-backed path to both components under target.</p>
+    </div>
+  </div>
+</div>
+
+{/* -- FUTURE OPTIMISATIONS -- */}
+
+<div id="future" class="not-prose mb-12 scroll-mt-28">
+  <div class="mb-3 flex flex-wrap items-center gap-3">
+    <span class="inline-flex rounded-md bg-primary-accent/10 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">Future optimisations</span>
+    <h2 class="text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">Where this study could go next</h2>
+    <span class="h-px min-w-[2rem] flex-1 bg-border" />
+  </div>
+  <p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+    Case 08 meets the 85 °C target. The table below captures the most impactful next steps if power density increases or design constraints tighten.
+  </p>
+  <div class="mt-6 overflow-x-auto rounded-2xl border border-border">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b border-border bg-surface-elevated">
+          <th class="px-4 py-3 text-left font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Optimisation</th>
+          <th class="px-4 py-3 text-left font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Targets</th>
+          <th class="px-4 py-3 text-left font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">Note</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        <tr class="bg-background">
+          <td class="px-4 py-3 font-medium text-text-primary">Higher static pressure fan</td>
+          <td class="px-4 py-3 text-text-secondary">Air-side convection through the heat sink</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Improves flow through fin channels without adding passive dust-prone vents</td>
+        </tr>
+        <tr class="bg-surface-elevated/30">
+          <td class="px-4 py-3 font-medium text-text-primary">Dedicated power block heat sink</td>
+          <td class="px-4 py-3 text-text-secondary">Power block local heat rejection</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Reduces dependence on airflow alone for the secondary hot component</td>
+        </tr>
+        <tr class="bg-background">
+          <td class="px-4 py-3 font-medium text-text-primary">Heat pipe to remote fin stack</td>
+          <td class="px-4 py-3 text-text-secondary">Heat spreading and remote heat rejection</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Moves chip heat to a region with better available airflow or more fin volume</td>
+        </tr>
+        <tr class="bg-surface-elevated/30">
+          <td class="px-4 py-3 font-medium text-text-primary">Vapour chamber or copper spreader</td>
+          <td class="px-4 py-3 text-text-secondary">Chip heat spreading</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Reduces local hot spots before heat enters the fin stack</td>
+        </tr>
+        <tr class="bg-background">
+          <td class="px-4 py-3 font-medium text-text-primary">Filtered intake and controlled exhaust path</td>
+          <td class="px-4 py-3 text-text-secondary">Dust-controlled airflow</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Allows more airflow without uncontrolled open slots</td>
+        </tr>
+        <tr class="bg-surface-elevated/30">
+          <td class="px-4 py-3 font-medium text-text-primary">Push-pull fan architecture</td>
+          <td class="px-4 py-3 text-text-secondary">System through-flow</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Can increase pressure capability if the flow path is well controlled</td>
+        </tr>
+        <tr class="bg-background">
+          <td class="px-4 py-3 font-medium text-text-primary">TEC feasibility study</td>
+          <td class="px-4 py-3 text-text-secondary">Sub-ambient or precise temperature control</td>
+          <td class="px-4 py-3 text-text-muted text-xs">Only useful if hot-side heat rejection is upgraded; otherwise it adds heat to the system</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

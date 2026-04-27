@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { LivBenchPocImage, isLivBenchPocSlideUrl } from "./LivBenchPocImage";
 
 const INTERVAL_MS = 5000;
 
@@ -30,13 +31,18 @@ export function ProjectCardCoverSlideshow({
   if (slides.length === 0) return null;
 
   if (slides.length === 1) {
+    const src = slides[0];
     return (
       <div className="flex h-full w-full items-center justify-center bg-surface-elevated">
-        <img
-          src={slides[0]}
-          alt=""
-          className={cover ? "h-full w-full object-cover" : "max-h-full max-w-full object-contain object-center"}
-        />
+        {isLivBenchPocSlideUrl(src) ? (
+          <LivBenchPocImage compact />
+        ) : (
+          <img
+            src={src}
+            alt=""
+            className={cover ? "h-full w-full object-cover" : "max-h-full max-w-full object-contain object-center"}
+          />
+        )}
       </div>
     );
   }
@@ -48,17 +54,21 @@ export function ProjectCardCoverSlideshow({
     >
       {slides.map((src, i) => (
         <div
-          key={src}
+          key={`${src}-${i}`}
           className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 ease-out ${
             i === index ? "z-10 opacity-100" : "pointer-events-none z-0 opacity-0"
           }`}
           aria-hidden={i !== index}
         >
-          <img
-            src={src}
-            alt={i === index ? `${title} preview` : ""}
-            className={cover ? "h-full w-full object-cover" : "max-h-full max-w-full object-contain object-center"}
-          />
+          {isLivBenchPocSlideUrl(src) ? (
+            <LivBenchPocImage compact />
+          ) : (
+            <img
+              src={src}
+              alt={i === index ? `${title} preview` : ""}
+              className={cover ? "h-full w-full object-cover" : "max-h-full max-w-full object-contain object-center"}
+            />
+          )}
         </div>
       ))}
     </div>

@@ -1,0 +1,147 @@
+---
+title: "Wind Tunnel Simulation: Fan Design & Thermal Flow Analysis"
+summary: "Full design and simulation study of an axial fan in SolidWorks, from component modelling through assembly to external flow simulation and wind-tunnel thermal analysis. A fin heated to 50 W was placed inside the tunnel and fan speed was varied to observe the effect on temperature distribution across the fin surface and the downstream fluid."
+date: 2024-01-01
+featured: false
+cover: "/images/wind-tunnel/tunnel-fluid-temp-200rps.jpg"
+tags: ["SolidWorks", "Flow Simulation", "Thermal Analysis", "Assembly", "Motion Study"]
+---
+
+## Project Overview
+
+The goal of this study was to develop familiarity with complex SolidWorks design features and the Flow Simulation package. The work progressed in two phases: first designing and assembling a fully parametric axial fan from individual components, then using that fan inside a custom wind tunnel to simulate forced convection over a heated fin at multiple operating speeds.
+
+**Skills developed:** Product design · Flow Simulation · Motion study · Assembly modelling
+
+## Part 1, Fan Design & Assembly
+
+Each component of the fan was modelled individually before being assembled into a complete unit.
+
+### Components
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <div>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/wind-tunnel/fan-housing.jpg" alt="Fan housing, isometric view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Fan housing</p>
+  </div>
+  <div>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/wind-tunnel/fan-coil.jpg" alt="Coil and motor assembly" class="max-h-full max-w-full object-contain" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Coil & motor</p>
+  </div>
+  <div>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/wind-tunnel/fan-ball-bearing.jpg" alt="Ball bearing" class="max-h-full max-w-full object-contain" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Ball bearing</p>
+  </div>
+  <div>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/wind-tunnel/fan-propeller.jpg" alt="Propeller, 7-blade axial fan" class="max-h-full max-w-full object-contain" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Propeller (7-blade)</p>
+  </div>
+</div>
+
+### Assembly & Exploded View
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <div>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/wind-tunnel/fan-assembly.jpg" alt="Full fan assembly, isometric view" class="max-h-full max-w-full object-contain" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Fully assembled fan</p>
+  </div>
+  <div>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/wind-tunnel/fan-exploded-view.jpg" alt="Exploded view showing all fan components" class="max-h-full max-w-full object-contain" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Exploded view</p>
+  </div>
+</div>
+
+## Part 2, Wind Tunnel: Flow Over a Heated Fin
+
+A complete wind tunnel was modelled around the fan, including a flow straightener, contraction, working/test section, and diffuser. A thin fin was placed in the centre of the test section and assigned a surface heat source of **50 W**. Flow Simulation was run at three fan speeds, **1000 rps**, **800 rps**, and **200 rps**, to observe how airflow velocity affects temperature distribution on the fin and in the downstream fluid.
+
+**Expected trend:** as fan speed decreases, the fin spends longer in contact with slower-moving air, so both fin surface temperature and downstream fluid temperature rise.
+
+### Fin Surface Temperature
+
+Temperature contours mapped directly onto the fin surface show how heat builds up as fan speed drops.
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <div>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/wind-tunnel/fin-surface-temp-1000rps.jpg" alt="Fin surface temperature at 1000 rps, 20.32 °C to 34.94 °C" class="max-h-full max-w-full object-contain" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Fin surface, 1000 rps · T<sub>max</sub> = 34.94 °C</p>
+  </div>
+  <div>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/wind-tunnel/fin-surface-temp-200rps.jpg" alt="Fin surface temperature at 200 rps, 20.51 °C to 51.95 °C" class="max-h-full max-w-full object-contain" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Fin surface, 200 rps · T<sub>max</sub> = 51.95 °C</p>
+  </div>
+</div>
+
+At 1000 rps the fin peaks at **34.94 °C**; reducing to 200 rps raises the peak to **51.95 °C**, a 17 °C increase from halved airflow alone.
+
+### Fluid Temperature Distribution
+
+Cut plots through the tunnel show how heat transfers into the air passing over the fin.
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <div>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/wind-tunnel/tunnel-fluid-temp-1000rps.jpg" alt="Fluid temperature cut plot at 1000 rps, 20.05 °C to 34.44 °C" class="max-h-full max-w-full object-contain" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Fluid cut plot, 1000 rps · T<sub>max</sub> = 34.44 °C</p>
+  </div>
+  <div>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/wind-tunnel/tunnel-fluid-temp-200rps.jpg" alt="Fluid temperature cut plot at 200 rps, 20.05 °C to 51.75 °C" class="max-h-full max-w-full object-contain" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Fluid cut plot, 200 rps · T<sub>max</sub> = 51.75 °C</p>
+  </div>
+</div>
+
+### Solid Surface Temperature, Full Tunnel
+
+Solid surface contours across the entire tunnel assembly confirm that structural heat soak increases significantly at lower fan speeds.
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <div>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/wind-tunnel/tunnel-solid-temp-1000rps.jpg" alt="Tunnel solid surface temperature at 1000 rps, 33.26 °C to 34.94 °C" class="max-h-full max-w-full object-contain" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Tunnel solid, 1000 rps · T<sub>min</sub> = 33.26 °C, T<sub>max</sub> = 34.94 °C</p>
+  </div>
+  <div>
+    <div class="flex items-center justify-center rounded-lg overflow-hidden bg-surface-elevated" style="aspect-ratio: 3/2;">
+      <img src="/images/wind-tunnel/tunnel-solid-temp-800rps.jpg" alt="Tunnel solid surface temperature at 800 rps, 35.29 °C to 37.00 °C" class="max-h-full max-w-full object-contain" />
+    </div>
+    <p class="mt-2 text-xs text-text-muted text-center">Tunnel solid, 800 rps · T<sub>min</sub> = 35.29 °C, T<sub>max</sub> = 37.00 °C</p>
+  </div>
+</div>
+
+## Key Observations
+
+| Fan speed | Fin T<sub>max</sub> (°C) | Fluid T<sub>max</sub> (°C) |
+|-----------|--------------------------|---------------------------|
+| 1000 rps  | 34.94                    | 34.44                     |
+| 800 rps   | ~37.00                   |, |
+| 200 rps   | 51.95                    | 51.75                     |
+
+- Reducing fan speed from 1000 rps to 200 rps increases peak fin temperature by **~17 °C** (50% rise).
+- Fluid temperature closely tracks fin surface temperature, confirming efficient convective coupling between the fin and airstream.
+- All simulations used a basic mesh; refined settings using ANSYS Workbench could improve accuracy for production analysis.
+
+## Next Steps
+
+- Mount the fan directly adjacent to the fin to characterise near-field turbulence effects on heat transfer.
+- Introduce a circular cylinder in the test section to observe vortex shedding at low Reynolds numbers.
+- Refine mesh and compare results against analytical correlations for forced convection over a flat plate.

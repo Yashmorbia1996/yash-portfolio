@@ -1,6 +1,6 @@
 ---
 title: "ANSYS Software Studies"
-summary: "Simulation as a decision-support tool — using ANSYS Fluent, Mechanical, and related solvers to answer thermal and structural questions before committing to hardware. Each project here is a self-contained study with defined boundary conditions, a mesh strategy, and results tied back to engineering decisions."
+summary: "Simulation as a decision-support tool, using ANSYS Fluent, Mechanical, and related solvers to answer thermal and structural questions before committing to hardware. Each project here is a self-contained study with defined boundary conditions, a mesh strategy, and results tied back to engineering decisions."
 date: 2022-10-01
 featured: false
 cover: "/images/cht-analysis/cht-case1-temp-global.jpg"
@@ -16,7 +16,7 @@ tags: ["ANSYS Fluent", "CFD", "FEA", "Conjugate Heat Transfer", "Mesh Refinement
     <div class="aspect-video w-full overflow-hidden rounded-t-xl border-b border-border bg-surface-elevated">
       <img
         src="/images/cht-analysis/cht-case1-temp-global.jpg"
-        alt="CHT Analysis — global temperature contour on GPU"
+        alt="CHT Analysis, global temperature contour on GPU"
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
     </div>
@@ -27,8 +27,8 @@ tags: ["ANSYS Fluent", "CFD", "FEA", "Conjugate Heat Transfer", "Mesh Refinement
       </h3>
       <p style="text-decoration: none" class="text-xs text-text-muted mb-3">Conjugate heat transfer · Two-case mesh study</p>
       <div class="space-y-2 text-xs leading-relaxed text-text-secondary mb-4">
-        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Problem — </span>Predict hotspot regions, recirculation zones, and wall heat flux by coupling solid conduction with forced convection in one simultaneous model.</p>
-        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Result — </span>3+ recirculation zones; 91% HTC increase with mesh refinement; FR4 PCB confirmed as thermal bottleneck.</p>
+        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Problem, </span>Predict hotspot regions, recirculation zones, and wall heat flux by coupling solid conduction with forced convection in one simultaneous model.</p>
+        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Result, </span>3+ recirculation zones; 91% HTC increase with mesh refinement; FR4 PCB confirmed as thermal bottleneck.</p>
       </div>
       <div class="flex flex-wrap gap-1.5 border-t border-border pt-4 mb-4">
         {["ANSYS Fluent", "CFD", "CHT", "k-ε Model", "Mesh Refinement"].map(tag => (
@@ -45,7 +45,7 @@ tags: ["ANSYS Fluent", "CFD", "FEA", "Conjugate Heat Transfer", "Mesh Refinement
     <div class="aspect-video w-full overflow-hidden rounded-t-xl border-b border-border bg-surface-elevated">
       <img
         src="/images/t-junction/t-junction-case1-velocity-cutplane.jpg"
-        alt="Mixing T-junction — velocity vectors at junction showing shear layer"
+        alt="Mixing T-junction, velocity vectors at junction showing shear layer"
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
     </div>
@@ -56,8 +56,8 @@ tags: ["ANSYS Fluent", "CFD", "FEA", "Conjugate Heat Transfer", "Mesh Refinement
       </h3>
       <p style="text-decoration: none" class="text-xs text-text-muted mb-3">Parametric study · Three cases · Length & momentum ratio</p>
       <div class="space-y-2 text-xs leading-relaxed text-text-secondary mb-4">
-        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Problem — </span>Quantify how tee length and momentum ratio independently affect thermal mixing of hot and cold airstreams in a 90° T-junction.</p>
-        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Result — </span>Longer tee reduced σ to ~0.5 °C; doubling momentum ratio on the short tee achieved equivalent improvement — both levers confirmed independent and additive.</p>
+        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Problem, </span>Quantify how tee length and momentum ratio independently affect thermal mixing of hot and cold airstreams in a 90° T-junction.</p>
+        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Result, </span>Longer tee reduced σ to ~0.5 °C; doubling momentum ratio on the short tee achieved equivalent improvement, both levers confirmed independent and additive.</p>
       </div>
       <div class="flex flex-wrap gap-1.5 border-t border-border pt-4 mb-4">
         {["ANSYS Fluent", "CFD", "Thermal Mixing", "Parametric Study", "k-ε Model"].map(tag => (
@@ -74,7 +74,7 @@ tags: ["ANSYS Fluent", "CFD", "FEA", "Conjugate Heat Transfer", "Mesh Refinement
     <div class="aspect-video w-full overflow-hidden rounded-t-xl border-b border-border bg-surface-elevated">
       <img
         src="/images/flow-cylinder/cylinder-case2-vortex-shedding.jpg"
-        alt="Von Kármán vortex street — alternating vortices downstream of cylinder"
+        alt="Von Kármán vortex street, alternating vortices downstream of cylinder"
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
     </div>
@@ -85,8 +85,8 @@ tags: ["ANSYS Fluent", "CFD", "FEA", "Conjugate Heat Transfer", "Mesh Refinement
       </h3>
       <p style="text-decoration: none" class="text-xs text-text-muted mb-3">Steady & transient · Re = 100 · Strouhal number</p>
       <div class="space-y-2 text-xs leading-relaxed text-text-secondary mb-4">
-        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Problem — </span>Simulate von Kármán vortex shedding over a cylinder in both steady and transient modes and extract the Strouhal number from the transient signal.</p>
-        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Result — </span>St = 0.36 calculated from transient velocity-time signal; steady solver detected shedding but could not quantify frequency.</p>
+        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Problem, </span>Simulate von Kármán vortex shedding over a cylinder in both steady and transient modes and extract the Strouhal number from the transient signal.</p>
+        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Result, </span>St = 0.36 calculated from transient velocity-time signal; steady solver detected shedding but could not quantify frequency.</p>
       </div>
       <div class="flex flex-wrap gap-1.5 border-t border-border pt-4 mb-4">
         {["ANSYS Fluent", "CFD", "Vortex Shedding", "Transient", "Strouhal Number"].map(tag => (
@@ -114,8 +114,8 @@ tags: ["ANSYS Fluent", "CFD", "FEA", "Conjugate Heat Transfer", "Mesh Refinement
       </h3>
       <p style="text-decoration: none" class="text-xs text-text-muted mb-3">Bluff-body benchmark · k-ε · Multizone hexa mesh · Grid refinement</p>
       <div class="space-y-2 text-xs leading-relaxed text-text-secondary mb-4">
-        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Problem — </span>Benchmark external flow on the Ahmed geometry with documented inlet conditions (50 m/s, 300 K) and inflation near walls; assess mesh sensitivity toward the academic cell limit.</p>
-        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Result — </span>Coarse-to-fine hexa meshes with multizone blocking; residuals, drag history (with published Cd scale note), and velocity / pressure / vector fields showing clearer wake resolution as cells are refined.</p>
+        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Problem, </span>Benchmark external flow on the Ahmed geometry with documented inlet conditions (50 m/s, 300 K) and inflation near walls; assess mesh sensitivity toward the academic cell limit.</p>
+        <p style="text-decoration: none"><span class="font-mono font-semibold uppercase tracking-[0.1em] text-text-muted">Result, </span>Coarse-to-fine hexa meshes with multizone blocking; residuals, drag history (with published Cd scale note), and velocity / pressure / vector fields showing clearer wake resolution as cells are refined.</p>
       </div>
       <div class="flex flex-wrap gap-1.5 border-t border-border pt-4 mb-4">
         {["ANSYS Fluent", "CFD", "Ahmed body", "k-ε Model", "Mesh refinement"].map(tag => (
@@ -131,7 +131,7 @@ tags: ["ANSYS Fluent", "CFD", "FEA", "Conjugate Heat Transfer", "Mesh Refinement
 
 <div class="theme-panel rounded-2xl p-6 border-dashed opacity-50 my-4">
   <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted mb-2">Coming soon</p>
-  <p class="text-text-secondary text-[15px]">Additional simulation studies — structural FEA, parametric thermal studies — will be added here as they are documented.</p>
+  <p class="text-text-secondary text-[15px]">Additional simulation studies, structural FEA, parametric thermal studies, will be added here as they are documented.</p>
 </div>
 
 ---
@@ -140,7 +140,7 @@ tags: ["ANSYS Fluent", "CFD", "FEA", "Conjugate Heat Transfer", "Mesh Refinement
 
 | Tool | Use |
 |------|-----|
-| ANSYS Fluent | CFD — incompressible flow, turbulence modelling (k-ε, k-ω), conjugate heat transfer, steady & transient |
-| ANSYS Mechanical | FEA — static structural, thermal-structural coupling, contact analysis |
+| ANSYS Fluent | CFD, incompressible flow, turbulence modelling (k-ε, k-ω), conjugate heat transfer, steady & transient |
+| ANSYS Mechanical | FEA, static structural, thermal-structural coupling, contact analysis |
 | ANSYS Meshing | Structured/unstructured mesh, body sizing, inflation layers, proximity/curvature capture |
 | Post-processing | Contour plots, vector fields, streamlines, residual tracking, surface integrals (HTC, heat flux) |

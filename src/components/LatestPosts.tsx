@@ -26,9 +26,9 @@ export function LatestPosts({ posts }: LatestPostsProps) {
   if (latest.length === 0) return null;
 
   return (
-    <Section label="Writing">
+    <Section label="Writing" surface="gray">
       <div className="flex items-end justify-between mb-10">
-        <h2 className="font-heading text-3xl md:text-4xl font-normal tracking-[-0.03em]">
+        <h2 className="font-heading text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-4xl dark:text-white">
           Latest posts
         </h2>
         <Button variant="ghost" size="sm" asChild className="hidden sm:flex">

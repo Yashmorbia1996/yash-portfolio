@@ -19,7 +19,7 @@ export function Header({ currentPath = "/" }: HeaderProps) {
         <div className="site-container flex items-center justify-between gap-3 py-3 sm:gap-4 sm:py-3.5">
           <a
             href="/"
-            className="shrink-0 text-base font-semibold tracking-[-0.02em] text-text-primary transition-opacity hover:opacity-90 sm:text-[1.05rem]"
+            className="shrink-0 text-base font-semibold tracking-tight text-[#1d1d1f] transition-opacity hover:opacity-90 sm:text-[1.05rem] dark:text-white"
           >
             {name}
           </a>

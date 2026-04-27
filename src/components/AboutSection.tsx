@@ -7,7 +7,7 @@ export function AboutSection() {
   const { name, role, avatar, location } = siteConfig;
 
   return (
-    <Section label="About">
+    <Section label="About" surface="white">
       <div className="grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-start">
         <div className="flex shrink-0 flex-col gap-3">
           <img
@@ -15,7 +15,7 @@ export function AboutSection() {
             alt={name}
             width={160}
             height={160}
-            className="h-32 w-32 rounded-full border border-solid border-border object-cover shadow-card md:h-40 md:w-40"
+            className="h-32 w-32 rounded-full border border-solid border-border object-cover object-top shadow-card md:h-40 md:w-40"
           />
           <p className="text-xs text-muted-foreground">{location}</p>
         </div>

@@ -7,15 +7,15 @@
 
 ---
 
-## Session Summary — What Was Done Today
+## Session Summary, What Was Done Today
 
-### 1. Badge Reel — Manufacturing Card Images Fixed
+### 1. Badge Reel, Manufacturing Card Images Fixed
 Component cards (6 of them, 3-col grid) had cropped images.
 - **Root cause:** `h-full` on `<img>` equalled the full 176px container height, but `p-4` padding + `overflow-hidden` clipped 32px off top/bottom.
 - **Fix:** Changed each image container from `h-44 shrink-0 overflow-hidden bg-white p-4` to `h-44 shrink-0 bg-white p-4 flex items-center justify-center overflow-hidden`, and image from `h-full w-full object-contain` to `max-h-full max-w-full object-contain`.
-- **File:** `src/content/projects/badge-reel-redesign.mdx` — 6 image containers (Components 1–6)
+- **File:** `src/content/projects/badge-reel-redesign.mdx`, 6 image containers (Components 1-6)
 
-### 2. Badge Reel — Snap-Back Speed Chart Replaced
+### 2. Badge Reel, Snap-Back Speed Chart Replaced
 Replaced `whoop-badge-slide-14.jpg` (raw slide screenshot) with a native HTML bar chart.
 - 5 bars: Baseline (red), D1 (sky), D2 (amber), D3 ★ (emerald), D4 (gray)
 - Right-side data table with % deltas
@@ -23,12 +23,12 @@ Replaced `whoop-badge-slide-14.jpg` (raw slide screenshot) with a native HTML ba
 - No WHOOP branding anywhere
 - **File:** `src/content/projects/badge-reel-redesign.mdx` (around the "Recommended D3" section)
 
-### 3. Badge Reel — Slideshow Added to Project Card
+### 3. Badge Reel, Slideshow Added to Project Card
 Added `coverSlides` to badge-reel project card (same mechanism as other work project cards).
 - **Slides:** `badge-reel-cad-assembled.png`, `badge-reel-cad-exploded.jpg`, `badge-reel-d3-cad-assembled.png`, `badge-reel-photo-light-open.png`, `badge-reel-teardown-light.png`
 - **Files:** `src/pages/projects/index.astro` (added `badgeReelCoverSlides` array + wired to Personal Projects card), `src/pages/projects/[slug].astro` (wired to "More projects" section)
 
-### 4. Font Size Lift — Sitewide
+### 4. Font Size Lift, Sitewide
 Bumped body/description text from 14px (`text-sm`) to 16px (`text-base`) or 15px (`text-[15px]`) across all components.
 
 | File | Change |
@@ -41,7 +41,7 @@ Bumped body/description text from 14px (`text-sm`) to 16px (`text-base`) or 15px
 | `[slug].astro` | At-a-glance outcome text: `text-sm` → `text-base` |
 | `cross-functional-ownership.astro` | Scope card values: `text-sm` → `text-base`; section detail card body: `text-sm` → `text-[15px]` |
 
-**Baseline saved in memory** at `memory/project_font_sizes_baseline.md` — if user wants to revert, all original classes are recorded there.
+**Baseline saved in memory** at `memory/project_font_sizes_baseline.md`, if user wants to revert, all original classes are recorded there.
 
 ### 5. Operations Added to Nav
 Added "Operations" (→ `/cross-functional-ownership`) between Projects and Certifications.

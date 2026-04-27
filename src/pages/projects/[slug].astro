@@ -5,6 +5,13 @@ import { portfolioCarouselBySlug } from '../../data/portfolioCarousel';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
+  /** Still listed on /projects; hidden only from the bottom-of-page "More projects" carousel. */
+  const moreProjectsExcludedSlugs = new Set([
+    'earlier-engineering-projects',
+    'ansys-simulation-studies',
+    'solidworks-simulation-studies',
+  ]);
+
   // Explicit order matching the projects index page
   const portfolioOrder = [
     'thermal-redesign-journey',
@@ -15,11 +22,14 @@ export async function getStaticPaths() {
     'btech-final-project',
     'earlier-engineering-projects',
     'ansys-simulation-studies',
-    'solidworks-personal-projects',
+    'solidworks-simulation-studies',
     'cht-analysis-gpu',
     't-junction-mixing-simulation',
     'flow-over-cylinder-simulation',
     'ahmed-body-simulation',
+    'catalytic-converter-flow-optimization',
+    'wind-tunnel-fan-simulation',
+    'cht-electronics-cooling',
   ];
   const portfolioProjectIds = new Set(portfolioOrder);
   const allProjects = await getCollection('projects');
@@ -31,7 +41,9 @@ export async function getStaticPaths() {
     params: { slug: project.id },
     props: {
       project,
-      relatedProjects: portfolioProjects.filter((p) => p.id !== project.id),
+      relatedProjects: portfolioProjects.filter(
+        (p) => p.id !== project.id && !moreProjectsExcludedSlugs.has(p.id),
+      ),
     },
   }));
 }
@@ -47,13 +59,8 @@ const isJourneyCaseStudy =
   project.id === 'badge-reel-redesign' ||
   project.id === 'btech-final-project';
 
-/** Hub pages: just show title, then jump straight to MDX body — no summary, tags, or cover strip */
-const isHubPage = project.id === 'ansys-simulation-studies';
-
-const formattedDate = project.data.date.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-});
+/** Hub pages: just show title, then jump straight to MDX body, no summary, tags, or cover strip */
+const isHubPage = project.id === 'ansys-simulation-studies' || project.id === 'solidworks-simulation-studies';
 
 const summaryParagraphs = project.data.summary
   .split(/\n\n+/)
@@ -63,145 +70,158 @@ const metaDescription = summaryParagraphs[0] ?? project.data.summary;
 ---
 
 <BaseLayout title={project.data.title} description={metaDescription}>
-  <div class="site-container pt-10 pb-20">
-    <div class="mx-auto max-w-5xl">
+  <div class="w-full bg-white dark:bg-black">
+    <div class="site-container px-4 pt-10 pb-8 sm:px-6 md:pb-10">
+      <div class="mx-auto max-w-5xl">
+        <a
+          href="/projects"
+          class="mb-10 inline-flex items-center gap-2 text-sm text-text-muted transition-colors duration-200 hover:text-text-primary"
+        >
+          ← Projects
+        </a>
 
-      <a
-        href="/projects"
-        class="mb-10 inline-flex items-center gap-2 text-sm text-text-muted transition-colors duration-200 hover:text-text-primary"
-      >
-        ← Projects
-      </a>
-
-      {isHubPage ? (
-        <>
-          <p class="theme-eyebrow mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
-            CAD & Simulation
-          </p>
-          <h1 class="mb-10 text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">
-            {project.data.title}
-          </h1>
-        </>
-      ) : isJourneyCaseStudy ? (
-        <>
-          <p class="theme-eyebrow mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
-            Project Detail
-          </p>
-          <h1 class="mb-8 text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">
-            {project.data.title}
-          </h1>
-          {/* Two-column layout: summary left, at-a-glance right */}
-          <div class="mb-6 grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)] md:gap-12 md:items-start">
-            <div class="space-y-4 text-base leading-relaxed text-text-secondary md:text-lg">
+        {isHubPage ? (
+          <>
+            <p class="theme-eyebrow mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
+              CAD & Simulation
+            </p>
+            <h1 class="mb-10 text-4xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl lg:text-6xl dark:text-white">
+              {project.data.title}
+            </h1>
+          </>
+        ) : isJourneyCaseStudy ? (
+          <>
+            <p class="theme-eyebrow mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
+              Project Detail
+            </p>
+            <h1 class="mb-8 text-4xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl lg:text-6xl dark:text-white">
+              {project.data.title}
+            </h1>
+            <div class="mb-6 grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)] md:items-start md:gap-12">
+              <div class="space-y-4 text-base leading-relaxed text-text-secondary md:text-lg">
+                {summaryParagraphs.map((para) => (
+                  <p>{para}</p>
+                ))}
+              </div>
+              <div class="rounded-2xl border border-border bg-surface-elevated/50 p-5 md:p-6">
+                <p class="mb-4 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">At a glance</p>
+                <div class="flex flex-col gap-5">
+                  <div>
+                    <p class="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-muted">Skills & tools</p>
+                    <div class="flex flex-wrap gap-1.5">
+                      {project.data.tags.map((tag) => (
+                        <span class="inline-flex rounded-lg bg-background px-2.5 py-1 text-[12px] font-medium text-text-primary ring-1 ring-inset ring-border/60">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                  {project.data.glanceOutcome && (
+                    <div class="border-t border-border/60 pt-4">
+                      <p class="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-muted">Outcome</p>
+                      <p class="text-base leading-relaxed text-text-secondary">{project.data.glanceOutcome}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <p class="theme-eyebrow mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
+              Project Detail
+            </p>
+            <h1 class="mb-6 text-4xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl lg:text-6xl dark:text-white">
+              {project.data.title}
+            </h1>
+            <div class="mb-4 space-y-4 text-base leading-relaxed text-text-secondary md:text-lg">
               {summaryParagraphs.map((para) => (
                 <p>{para}</p>
               ))}
             </div>
-            <div class="rounded-2xl border border-border bg-surface-elevated/50 p-5 md:p-6">
-              <p class="mb-4 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">At a glance</p>
-              <div class="flex flex-col gap-5">
-                <div>
-                  <p class="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-muted">Skills & tools</p>
-                  <div class="flex flex-wrap gap-1.5">
-                    {project.data.tags.map((tag) => (
-                      <span class="inline-flex rounded-lg bg-background px-2.5 py-1 text-[12px] font-medium text-text-primary ring-1 ring-inset ring-border/60">{tag}</span>
-                    ))}
-                  </div>
-                </div>
-                {project.data.glanceOutcome && (
-                  <div class="border-t border-border/60 pt-4">
-                    <p class="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-muted">Outcome</p>
-                    <p class="text-base leading-relaxed text-text-secondary">{project.data.glanceOutcome}</p>
-                  </div>
-                )}
-              </div>
+            <div class="mb-8 mt-6 flex flex-wrap gap-2">
+              {project.data.tags.map((tag) => (
+                <span class="rounded-full border border-border px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-text-muted">{tag}</span>
+              ))}
             </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <p class="theme-eyebrow mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
-            Project Detail
-          </p>
-          <time class="mb-3 block text-xs text-text-muted">{formattedDate}</time>
-          <h1 class="mb-6 text-4xl font-semibold tracking-[-0.04em] text-text-primary md:text-5xl lg:text-6xl">
-            {project.data.title}
-          </h1>
-          <div class="mb-4 max-w-3xl space-y-4 text-base leading-relaxed text-text-secondary md:text-lg">
-            {summaryParagraphs.map((para) => (
-              <p>{para}</p>
-            ))}
-          </div>
-          <div class="mb-8 mt-6 flex flex-wrap gap-2">
-            {project.data.tags.map((tag) => (
-              <span class="rounded-full border border-border px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-text-muted">{tag}</span>
-            ))}
-          </div>
-        </>
-      )}
+          </>
+        )}
 
-      {(project.data.liveUrl || project.data.repoUrl) && (
-        <div class="mb-10 flex items-center gap-4">
-          {project.data.repoUrl && (
-            <a
-              href={project.data.repoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors duration-200 hover:text-text-primary"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-              </svg>
-              GitHub
-            </a>
-          )}
-          {project.data.liveUrl && (
-            <a
-              href={project.data.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1.5 text-sm text-primary-accent hover:opacity-80 transition-opacity duration-200"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M15 3h6v6"/>
-                <path d="M10 14 21 3"/>
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-              </svg>
-              Live site
-            </a>
-          )}
-        </div>
-      )}
-
-      {!isJourneyCaseStudy && !isHubPage && (
-        <div class="relative mt-10 mb-12">
-          <div class="aspect-video overflow-hidden rounded-3xl border border-border bg-surface-elevated">
-            {project.data.cover ? (
-              <img
-                src={project.data.cover}
-                alt={project.data.title}
-                class="h-full w-full object-cover"
-              />
-            ) : (
-              <div class="flex h-full w-full items-center justify-center text-text-muted/30">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
-                  <circle cx="9" cy="9" r="2"/>
-                  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+        {(project.data.liveUrl || project.data.repoUrl) && (
+          <div class="mb-10 flex items-center gap-4">
+            {project.data.repoUrl && (
+              <a
+                href={project.data.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors duration-200 hover:text-text-primary"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
                 </svg>
-              </div>
+                GitHub
+              </a>
+            )}
+            {project.data.liveUrl && (
+              <a
+                href={project.data.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 text-sm text-primary-accent transition-opacity duration-200 hover:opacity-80"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 3h6v6"/>
+                  <path d="M10 14 21 3"/>
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                </svg>
+                Live site
+              </a>
             )}
           </div>
-        </div>
-      )}
+        )}
 
-      <div class="prose prose-neutral dark:prose-invert max-w-none prose-content">
+        {!isJourneyCaseStudy && !isHubPage && (
+          <div class="relative mt-10 mb-0">
+            <div class="aspect-video overflow-hidden rounded-3xl border border-border bg-surface-elevated">
+              {project.data.cover ? (
+                <img
+                  src={project.data.cover}
+                  alt={project.data.title}
+                  class="!h-full !w-full object-contain"
+                />
+              ) : (
+                <div class="flex h-full w-full items-center justify-center text-text-muted/30">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                    <circle cx="9" cy="9" r="2"/>
+                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                  </svg>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full bg-[#f5f5f7] py-12 dark:bg-[#1C1C1E] md:py-16">
+    <div class="site-container px-4 sm:px-6">
+      <div
+        class={
+          isHubPage
+            ? "not-prose text-text-primary mx-auto max-w-5xl [&_a]:text-inherit [&_a]:no-underline [&_a:hover]:opacity-100 [&_h2]:mb-4 [&_h2]:mt-0 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-text-primary"
+            : "prose prose-neutral prose-content dark:prose-invert mx-auto max-w-5xl"
+        }
+      >
         <Content />
       </div>
+    </div>
+  </div>
 
-      {relatedProjects.length > 0 && (
-        <div class="mt-20 border-t border-border pt-12">
-          <h2 class="mb-6 text-xl font-semibold text-text-primary">More projects</h2>
+  {relatedProjects.length > 0 && (
+    <div class="w-full border-t border-border bg-white py-12 dark:bg-black md:py-16">
+      <div class="site-container px-4 pb-20 sm:px-6">
+        <div class="mx-auto max-w-5xl">
+          <h2 class="mb-6 text-xl font-semibold tracking-tight text-[#1d1d1f] dark:text-white">More projects</h2>
           <WorkProjectsCarousel
             client:load
             eyebrow="Other case studies"
@@ -216,6 +236,8 @@ const metaDescription = summaryParagraphs[0] ?? project.data.summary;
                   problem: card.problem,
                   action: card.action,
                   result: card.result,
+                  summary: card.summary,
+                  studyLinks: card.studyLinks ? card.studyLinks.map((l) => ({ ...l })) : undefined,
                   tags: [...card.tags],
                   cover: card.cover,
                   coverSlides: card.coverSlides ? [...card.coverSlides] : undefined,
@@ -231,8 +253,7 @@ const metaDescription = summaryParagraphs[0] ?? project.data.summary;
             })}
           />
         </div>
-      )}
-
+      </div>
     </div>
-  </div>
+  )}
 </BaseLayout>

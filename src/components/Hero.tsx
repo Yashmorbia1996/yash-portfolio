@@ -1,4 +1,4 @@
-import { type MouseEvent, useEffect, useState } from "react";
+import { type MouseEvent, useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRight, Award, ChevronRight, Handshake, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
@@ -56,6 +56,86 @@ export function Hero() {
   const [activeSection, setActiveSection] = useState<(typeof homepageSections)[number]["href"]>(
     homepageSections[0].href,
   );
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Mutable spring state, no re-renders; mimics damped thermal / fluid lag vs cursor
+  const spring = useRef({
+    o1: { x: 0.28, y: 0.45 },
+    o2: { x: 0.72, y: 0.38 },
+    o3: { x: 0.50, y: 0.65 },
+    tx: 0.50, ty: 0.50,
+    live: false,
+    /* Subtle grid parallax (px); eases toward cursor offset from center */
+    grid: { x: 0, y: 0 },
+  });
+
+  // RAF loop, query `.hero-thermal-orb` and `.hero-interactive-grid` after mount
+  useEffect(() => {
+    /* Per-orb gain: lower = heavier thermal mass, slower drift toward cursor */
+    const K = [0.016, 0.032, 0.048] as const;
+    const HOME = [{ x: 0.28, y: 0.45 }, { x: 0.72, y: 0.38 }, { x: 0.50, y: 0.65 }] as const;
+    const K_GRID = 0.042;
+    const GRID_PARALLAX_X = 26;
+    const GRID_PARALLAX_Y = 20;
+
+    const sect = document.getElementById("introduction") as HTMLElement | null;
+    const els = Array.from(document.querySelectorAll<HTMLElement>(".hero-thermal-orb"));
+    if (!sect || els.length < 3) return;
+
+    const gridEl = sect.querySelector<HTMLElement>(".hero-interactive-grid");
+
+    const reduceMotion = () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let rafId = 0;
+
+    function tick() {
+      const s = spring.current;
+      const w = sect!.offsetWidth;
+      const h = sect!.offsetHeight;
+      const reduced = reduceMotion();
+      const track = s.live && !reduced;
+      const orbs = [s.o1, s.o2, s.o3];
+      orbs.forEach((o, i) => {
+        const tx = track ? s.tx : HOME[i].x;
+        const ty = track ? s.ty : HOME[i].y;
+        o.x += (tx - o.x) * K[i];
+        o.y += (ty - o.y) * K[i];
+        els[i].style.transform = `translate(calc(${o.x * w}px - 50%), calc(${o.y * h}px - 50%))`;
+      });
+
+      if (gridEl) {
+        const targetGx = track ? (s.tx - 0.5) * GRID_PARALLAX_X : 0;
+        const targetGy = track ? (s.ty - 0.5) * GRID_PARALLAX_Y : 0;
+        s.grid.x += (targetGx - s.grid.x) * K_GRID;
+        s.grid.y += (targetGy - s.grid.y) * K_GRID;
+        gridEl.style.transform = `translate3d(${s.grid.x}px, ${s.grid.y}px, 0)`;
+      }
+
+      rafId = requestAnimationFrame(tick);
+    }
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
+  const handleMouseMove = useCallback((e: MouseEvent<HTMLElement>) => {
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+    const s = spring.current;
+    const el = sectionRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    s.tx = (e.clientX - rect.left) / rect.width;
+    s.ty = (e.clientY - rect.top) / rect.height;
+    s.live = true;
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    spring.current.live = false;
+  }, []);
 
   useEffect(() => {
     const sections = homepageSections
@@ -109,7 +189,18 @@ export function Hero() {
   };
 
   return (
-    <section id="introduction" className="pt-20 pb-24 md:pt-28 md:pb-32">
+    <section
+      id="introduction"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative overflow-hidden bg-white pt-20 pb-24 dark:bg-black md:pt-28 md:pb-32"
+    >
+      <div className="hero-bg-base" aria-hidden="true" />
+      <div className="hero-interactive-grid" aria-hidden="true" />
+      <div className="hero-thermal-orb hero-thermal-orb-1" aria-hidden="true" />
+      <div className="hero-thermal-orb hero-thermal-orb-2" aria-hidden="true" />
+      <div className="hero-thermal-orb hero-thermal-orb-3" aria-hidden="true" />
       <div className="site-container">
         <div className="grid gap-10 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-14">
           <aside className="hero-animate hero-animate-2">
@@ -118,8 +209,8 @@ export function Hero() {
                 <img
                   src={avatar}
                   alt={siteConfig.name}
-                  width={768}
-                  height={1024}
+                  width={1200}
+                  height={1168}
                   className="mx-auto h-auto w-full max-w-[18.5rem] rounded-[1.75rem] border border-border object-contain"
                   loading="eager"
                   decoding="async"

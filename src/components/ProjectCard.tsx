@@ -1,5 +1,6 @@
 "use client";
 
+import { LivBenchPocImage, isLivBenchPocSlideUrl } from "./LivBenchPocImage";
 import { ProjectCardCoverSlideshow } from "./ProjectCardCoverSlideshow";
 
 interface ProjectCardProps {
@@ -54,7 +55,13 @@ export function ProjectCard({
           {showSlideshow ? (
             <ProjectCardCoverSlideshow images={slideList} title={title} />
           ) : singleCoverSrc ? (
-            <img src={singleCoverSrc} alt={title} className="h-full w-full object-cover" />
+            isLivBenchPocSlideUrl(singleCoverSrc) ? (
+              <div className="flex h-full w-full items-center justify-center">
+                <LivBenchPocImage compact />
+              </div>
+            ) : (
+              <img src={singleCoverSrc} alt={title} className="h-full w-full object-cover" />
+            )
           ) : null}
         </div>
       </a>

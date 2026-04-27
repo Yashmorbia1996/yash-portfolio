@@ -235,7 +235,7 @@ export function MyJourneySection() {
   };
 
   return (
-    <Section id="my-journey">
+    <Section id="my-journey" surface="gray">
       <div className="mb-12 max-w-4xl space-y-4">
         <h2 className="theme-section-title text-5xl font-semibold md:text-6xl">
           My Journey &amp; What&apos;s Next
@@ -280,9 +280,9 @@ export function MyJourneySection() {
           </p>
         </div>
         <div className="lg:col-span-7">
-          <article className="theme-panel rounded-2xl border border-border bg-card p-6 shadow-[0_1px_0_0_rgba(0,0,0,0.04)] md:p-7 dark:shadow-[0_1px_0_0_rgba(255,255,255,0.05)]">
+          <article className="theme-panel rounded-2xl border border-border bg-card p-6 text-center shadow-[0_1px_0_0_rgba(0,0,0,0.04)] md:p-7 dark:shadow-[0_1px_0_0_rgba(255,255,255,0.05)]">
             <h4 className="text-lg font-semibold tracking-[-0.03em] text-text-primary md:text-xl">Next step</h4>
-            <p className="mt-3 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
+            <p className="mx-auto mt-3 max-w-lg text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
               If this profile fits a role you are hiring for, I would welcome a conversation.
             </p>
             {social.email ? (
