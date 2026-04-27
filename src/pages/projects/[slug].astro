@@ -224,6 +224,7 @@ const metaDescription = summaryParagraphs[0] ?? project.data.summary;
           <h2 class="mb-6 text-xl font-semibold tracking-tight text-[#1d1d1f] dark:text-white">More projects</h2>
           <WorkProjectsCarousel
             client:load
+            iframeModalForAll={true}
             eyebrow="Other case studies"
             ctaLabel="Read more"
             projects={relatedProjects.map((p) => {

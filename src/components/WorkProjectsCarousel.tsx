@@ -1,6 +1,9 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { allProjectsCarouselProjects } from "@/data/portfolioCarousel";
 import { LivBenchPocImage, isLivBenchPocSlideUrl } from "./LivBenchPocImage";
+import { CadSimulationStudyLinks } from "./CadSimulationStudyLinks";
+import { ProjectCaseStudyIframeModal } from "./ProjectCaseStudyIframeModal";
 import { ProjectCardCoverSlideshow } from "./ProjectCardCoverSlideshow";
 
 export interface StudyLink {
@@ -27,6 +30,11 @@ export interface CarouselProject {
 }
 
 const COVER_FALLBACK = "/images/projects/project-2.svg";
+
+/** Work, personal, and undergrad projects: full case study in modal iframe (see `allProjectsCarouselProjects`) */
+const READ_MORE_MODAL_SLUGS = new Set(
+  allProjectsCarouselProjects.map((p) => p.slug),
+);
 
 /** Horizontal offset between stacked cards (px); keep modest on narrow widths */
 const GAP = 16;
@@ -104,19 +112,29 @@ export function WorkProjectsCarousel({
   eyebrow = "Work Project",
   ctaLabel = "Read case study",
   frame = "none",
+  /** When true (e.g. project page “More projects”), every card opens the full case study in the iframe modal; full-card click and CTA use the modal. */
+  iframeModalForAll = false,
 }: {
   projects: CarouselProject[];
   eyebrow?: string;
   ctaLabel?: string;
   /** Inset panel: `work` = white frame on gray band; `cad` = gray frame on white band */
   frame?: "none" | "work" | "cad";
+  iframeModalForAll?: boolean;
 }) {
   const N = projects.length;
   const [active, setActive] = useState(0);
+  const [openModalSlug, setOpenModalSlug] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const accRef  = useRef(0);
   const activeRef = useRef(0);
   activeRef.current = active;
+
+  const modalProject = openModalSlug ? projects.find((p) => p.slug === openModalSlug) ?? null : null;
+
+  useEffect(() => {
+    setOpenModalSlug(null);
+  }, [active]);
 
   const goTo = useCallback((idx: number) => {
     const clamped = Math.max(0, Math.min(idx, N - 1));
@@ -189,6 +207,7 @@ export function WorkProjectsCarousel({
           const singleSrc = slideList.length === 1 ? slideList[0] : coverSrc;
           const caseBlocks = getCaseStudyBlocks(p);
           const useSkillsLabel = hasExplicitCaseStudyPills(p);
+          const useModalCta = iframeModalForAll || READ_MORE_MODAL_SLUGS.has(p.slug);
 
           return (
             <div
@@ -199,7 +218,7 @@ export function WorkProjectsCarousel({
                 opacity:    isHidden ? 0 : isActive ? 1 : 0.4,
                 filter:     isActive ? "none" : "blur(3px)",
                 pointerEvents: isHidden ? "none" : "auto",
-                cursor:     isActive ? "default" : "pointer",
+                cursor:     isActive && iframeModalForAll ? "pointer" : isActive ? "default" : "pointer",
                 zIndex:     isActive ? 10 : 1,
               }}
             >
@@ -209,10 +228,19 @@ export function WorkProjectsCarousel({
                   if (!isActive) {
                     e.preventDefault();
                     goTo(i);
+                    return;
+                  }
+                  if (iframeModalForAll) {
+                    e.preventDefault();
+                    setOpenModalSlug(p.slug);
                   }
                 }}
                 className="absolute inset-0 z-0 rounded-2xl"
-                aria-label={`View project: ${p.title}`}
+                aria-label={
+                  iframeModalForAll && isActive
+                    ? `Open case study: ${p.title}`
+                    : `View project: ${p.title}`
+                }
                 data-carousel-card
               >
                 <span className="sr-only">View project: {p.title}</span>
@@ -266,42 +294,11 @@ export function WorkProjectsCarousel({
                     </div>
                   </div>
                   {p.studyLinks && p.studyLinks.length > 0 && (
-                    <div className="mt-3 space-y-1.5 sm:mt-4">
-                      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted sm:text-[11px]">Related studies</p>
-                      {p.studyLinks.map((s) =>
-                        s.slug ? (
-                          <a
-                            key={s.slug}
-                            href={`/projects/${s.slug}`}
-                            className="pointer-events-auto flex items-center justify-between rounded-lg border border-border bg-surface-elevated px-3 py-2 transition-colors hover:border-border-strong"
-                          >
-                            <div className="min-w-0 flex-1 overflow-x-auto overflow-y-hidden pr-2">
-                              <p className="whitespace-nowrap text-[11px] font-medium text-text-primary sm:text-[12px]">
-                                {s.label}
-                              </p>
-                              {s.meta && (
-                                <p className="mt-0.5 whitespace-nowrap text-[10px] text-text-muted">{s.meta}</p>
-                              )}
-                            </div>
-                            <span className="ml-3 shrink-0 text-[11px] text-primary-accent">→</span>
-                          </a>
-                        ) : (
-                          <div
-                            key={s.label}
-                            className="flex items-center justify-between rounded-lg border border-dashed border-border px-3 py-2 opacity-50"
-                          >
-                            <div className="min-w-0 flex-1 overflow-x-auto overflow-y-hidden pr-2">
-                              <p className="whitespace-nowrap text-[11px] font-medium text-text-primary sm:text-[12px]">
-                                {s.label}
-                              </p>
-                              {s.meta && (
-                                <p className="mt-0.5 whitespace-nowrap text-[10px] text-text-muted">{s.meta}</p>
-                              )}
-                            </div>
-                          </div>
-                        ),
-                      )}
-                    </div>
+                    <CadSimulationStudyLinks
+                      links={p.studyLinks}
+                      linkEyebrow={iframeModalForAll ? eyebrow : "Simulation case study"}
+                      sectionLabel="Related studies"
+                    />
                   )}
 
                   {p.tags?.length > 0 && (
@@ -320,7 +317,17 @@ export function WorkProjectsCarousel({
                   )}
 
                   <div className="mt-4 shrink-0 pt-0.5 sm:mt-5 sm:pt-1">
-                    <span className="text-xs text-primary-accent sm:text-sm">{ctaLabel} →</span>
+                    {useModalCta ? (
+                      <button
+                        type="button"
+                        onClick={() => setOpenModalSlug(p.slug)}
+                        className="pointer-events-auto relative z-20 inline-flex cursor-pointer text-left text-sm font-semibold uppercase tracking-wider text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                      >
+                        {iframeModalForAll ? ctaLabel : "Read more"}
+                      </button>
+                    ) : (
+                      <span className="text-xs text-primary-accent sm:text-sm">{ctaLabel} →</span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -328,6 +335,15 @@ export function WorkProjectsCarousel({
           );
         })}
       </div>
+
+      {modalProject ? (
+        <ProjectCaseStudyIframeModal
+          slug={modalProject.slug}
+          title={modalProject.title}
+          eyebrow={modalProject.eyebrow ?? (iframeModalForAll ? eyebrow : "Work project")}
+          onClose={() => setOpenModalSlug(null)}
+        />
+      ) : null}
 
       {/* Edge fades */}
       <div
