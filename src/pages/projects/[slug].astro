@@ -1,17 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { WorkProjectsCarousel } from '../../components/WorkProjectsCarousel';
-import { portfolioCarouselBySlug } from '../../data/portfolioCarousel';
+import { cadCarouselProjects } from '../../data/portfolioCarousel';
+import { CadSimulationStudyLinks } from '../../components/CadSimulationStudyLinks';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  /** Still listed on /projects; hidden only from the bottom-of-page "More projects" carousel. */
-  const moreProjectsExcludedSlugs = new Set([
-    'earlier-engineering-projects',
-    'ansys-simulation-studies',
-    'solidworks-simulation-studies',
-  ]);
-
   // Explicit order matching the projects index page
   const portfolioOrder = [
     'thermal-redesign-journey',
@@ -39,16 +32,11 @@ export async function getStaticPaths() {
 
   return portfolioProjects.map((project) => ({
     params: { slug: project.id },
-    props: {
-      project,
-      relatedProjects: portfolioProjects.filter(
-        (p) => p.id !== project.id && !moreProjectsExcludedSlugs.has(p.id),
-      ),
-    },
+    props: { project },
   }));
 }
 
-const { project, relatedProjects } = Astro.props;
+const { project } = Astro.props;
 const { Content } = await render(project);
 /** Case-study layout: summary + at-a-glance, no date/cover strip; body continues in MDX */
 const isJourneyCaseStudy =
@@ -61,6 +49,13 @@ const isJourneyCaseStudy =
 
 /** Hub pages: just show title, then jump straight to MDX body, no summary, tags, or cover strip */
 const isHubPage = project.id === 'ansys-simulation-studies' || project.id === 'solidworks-simulation-studies';
+const hubStudyLinks = isHubPage
+  ? (cadCarouselProjects.find((c) => c.slug === project.id)?.studyLinks ?? []).map((l) => ({
+      label: l.label,
+      meta: l.meta,
+      slug: l.slug,
+    }))
+  : [];
 
 const summaryParagraphs = project.data.summary
   .split(/\n\n+/)
@@ -212,49 +207,18 @@ const metaDescription = summaryParagraphs[0] ?? project.data.summary;
             : "prose prose-neutral prose-content dark:prose-invert mx-auto max-w-5xl"
         }
       >
+        {isHubPage && hubStudyLinks.length > 0 && (
+          <div class="mb-10 max-w-2xl">
+            <CadSimulationStudyLinks
+              client:load
+              links={hubStudyLinks}
+              linkEyebrow="Simulation case study"
+              sectionLabel="Studies"
+            />
+          </div>
+        )}
         <Content />
       </div>
     </div>
   </div>
-
-  {relatedProjects.length > 0 && (
-    <div class="w-full border-t border-border bg-white py-12 dark:bg-black md:py-16">
-      <div class="site-container px-4 pb-20 sm:px-6">
-        <div class="mx-auto max-w-5xl">
-          <h2 class="mb-6 text-xl font-semibold tracking-tight text-[#1d1d1f] dark:text-white">More projects</h2>
-          <WorkProjectsCarousel
-            client:load
-            iframeModalForAll={true}
-            eyebrow="Other case studies"
-            ctaLabel="Read more"
-            projects={relatedProjects.map((p) => {
-              const card = portfolioCarouselBySlug[p.id];
-              if (card) {
-                return {
-                  title: card.title,
-                  slug: card.slug,
-                  context: card.context,
-                  problem: card.problem,
-                  action: card.action,
-                  result: card.result,
-                  summary: card.summary,
-                  studyLinks: card.studyLinks ? card.studyLinks.map((l) => ({ ...l })) : undefined,
-                  tags: [...card.tags],
-                  cover: card.cover,
-                  coverSlides: card.coverSlides ? [...card.coverSlides] : undefined,
-                };
-              }
-              return {
-                title: p.data.title,
-                slug: p.id,
-                summary: p.data.summary,
-                tags: [...p.data.tags],
-                cover: p.data.cover,
-              };
-            })}
-          />
-        </div>
-      </div>
-    </div>
-  )}
 </BaseLayout>

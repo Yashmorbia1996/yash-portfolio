@@ -107,20 +107,27 @@ function hasExplicitCaseStudyPills(p: CarouselProject): boolean {
   return Boolean(p.problem?.trim() && p.action?.trim() && p.result?.trim());
 }
 
+/** ANSYS / SolidWorks hub slugs: full case study review only from the `CadSimulationStudyLinks` list, not the card. */
+const CAD_HUB_REVIEW_VIA_STUDIES_ONLY = new Set([
+  "ansys-simulation-studies",
+  "solidworks-simulation-studies",
+]);
+
+function isCadHubStudiesListOnly(p: CarouselProject): boolean {
+  return CAD_HUB_REVIEW_VIA_STUDIES_ONLY.has(p.slug);
+}
+
 export function WorkProjectsCarousel({
   projects,
   eyebrow = "Work Project",
   ctaLabel = "Read case study",
   frame = "none",
-  /** When true (e.g. project page “More projects”), every card opens the full case study in the iframe modal; full-card click and CTA use the modal. */
-  iframeModalForAll = false,
 }: {
   projects: CarouselProject[];
   eyebrow?: string;
   ctaLabel?: string;
   /** Inset panel: `work` = white frame on gray band; `cad` = gray frame on white band */
   frame?: "none" | "work" | "cad";
-  iframeModalForAll?: boolean;
 }) {
   const N = projects.length;
   const [active, setActive] = useState(0);
@@ -207,7 +214,8 @@ export function WorkProjectsCarousel({
           const singleSrc = slideList.length === 1 ? slideList[0] : coverSrc;
           const caseBlocks = getCaseStudyBlocks(p);
           const useSkillsLabel = hasExplicitCaseStudyPills(p);
-          const useModalCta = iframeModalForAll || READ_MORE_MODAL_SLUGS.has(p.slug);
+          const studiesListOnly = isCadHubStudiesListOnly(p);
+          const useModalCta = READ_MORE_MODAL_SLUGS.has(p.slug) && !studiesListOnly;
 
           return (
             <div
@@ -218,33 +226,46 @@ export function WorkProjectsCarousel({
                 opacity:    isHidden ? 0 : isActive ? 1 : 0.4,
                 filter:     isActive ? "none" : "blur(3px)",
                 pointerEvents: isHidden ? "none" : "auto",
-                cursor:     isActive && iframeModalForAll ? "pointer" : isActive ? "default" : "pointer",
+                cursor: !isActive || useModalCta ? "pointer" : "default",
                 zIndex:     isActive ? 10 : 1,
               }}
             >
-              <a
-                href={`/projects/${p.slug}`}
-                onClick={(e) => {
-                  if (!isActive) {
-                    e.preventDefault();
-                    goTo(i);
-                    return;
+              {studiesListOnly ? (
+                <div
+                  role="presentation"
+                  className="absolute inset-0 z-0 cursor-default rounded-2xl"
+                  onClick={!isActive ? () => goTo(i) : undefined}
+                  data-carousel-card
+                />
+              ) : (
+                <a
+                  href={`/projects/${p.slug}`}
+                  onClick={(e) => {
+                    if (!isActive) {
+                      e.preventDefault();
+                      goTo(i);
+                      return;
+                    }
+                    if (useModalCta) {
+                      e.preventDefault();
+                      setOpenModalSlug(p.slug);
+                    }
+                  }}
+                  className="absolute inset-0 z-0 rounded-2xl"
+                  aria-label={
+                    useModalCta && isActive
+                      ? `Open case study: ${p.title}`
+                      : `View project: ${p.title}`
                   }
-                  if (iframeModalForAll) {
-                    e.preventDefault();
-                    setOpenModalSlug(p.slug);
-                  }
-                }}
-                className="absolute inset-0 z-0 rounded-2xl"
-                aria-label={
-                  iframeModalForAll && isActive
-                    ? `Open case study: ${p.title}`
-                    : `View project: ${p.title}`
-                }
-                data-carousel-card
-              >
-                <span className="sr-only">View project: {p.title}</span>
-              </a>
+                  data-carousel-card
+                >
+                  <span className="sr-only">
+                    {useModalCta && isActive
+                      ? `Open case study: ${p.title}`
+                      : `View project: ${p.title}`}
+                  </span>
+                </a>
+              )}
               <div className="theme-panel group relative z-10 flex h-full min-h-0 w-full flex-col overflow-hidden rounded-2xl pointer-events-none">
                 {/* Image, aspect-video (same as ProjectCard) */}
                 <div className="aspect-video w-full shrink-0 overflow-hidden rounded-t-2xl border-b border-border bg-surface-elevated">
@@ -271,7 +292,14 @@ export function WorkProjectsCarousel({
                     <p className="theme-eyebrow font-mono text-[10px] font-semibold uppercase tracking-[0.16em] sm:text-[11px]">
                       {p.eyebrow ?? eyebrow}
                     </p>
-                    <h3 className="mt-1.5 text-lg font-semibold tracking-[-0.03em] text-text-primary transition-colors duration-200 group-hover:text-primary-accent sm:mt-2 sm:text-xl">
+                    <h3
+                      className={[
+                        "mt-1.5 text-lg font-semibold tracking-[-0.03em] text-text-primary transition-colors duration-200 sm:mt-2 sm:text-xl",
+                        !studiesListOnly && "group-hover:text-primary-accent",
+                      ]
+                        .filter(Boolean)
+                        .join(" ")}
+                    >
                       {p.title}
                     </h3>
                     {p.context && (
@@ -296,8 +324,8 @@ export function WorkProjectsCarousel({
                   {p.studyLinks && p.studyLinks.length > 0 && (
                     <CadSimulationStudyLinks
                       links={p.studyLinks}
-                      linkEyebrow={iframeModalForAll ? eyebrow : "Simulation case study"}
-                      sectionLabel="Related studies"
+                      linkEyebrow="Simulation case study"
+                      sectionLabel={studiesListOnly ? "Studies" : "Related studies"}
                     />
                   )}
 
@@ -316,19 +344,21 @@ export function WorkProjectsCarousel({
                     </div>
                   )}
 
-                  <div className="mt-4 shrink-0 pt-0.5 sm:mt-5 sm:pt-1">
-                    {useModalCta ? (
-                      <button
-                        type="button"
-                        onClick={() => setOpenModalSlug(p.slug)}
-                        className="pointer-events-auto relative z-20 inline-flex cursor-pointer text-left text-sm font-semibold uppercase tracking-wider text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-                      >
-                        {iframeModalForAll ? ctaLabel : "Read more"}
-                      </button>
-                    ) : (
-                      <span className="text-xs text-primary-accent sm:text-sm">{ctaLabel} →</span>
-                    )}
-                  </div>
+                  {!studiesListOnly && (
+                    <div className="mt-4 shrink-0 pt-0.5 sm:mt-5 sm:pt-1">
+                      {useModalCta ? (
+                        <button
+                          type="button"
+                          onClick={() => setOpenModalSlug(p.slug)}
+                          className="pointer-events-auto relative z-20 inline-flex cursor-pointer text-left text-sm font-semibold uppercase tracking-wider text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                        >
+                          Read more
+                        </button>
+                      ) : (
+                        <span className="text-xs text-primary-accent sm:text-sm">{ctaLabel} →</span>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -340,7 +370,7 @@ export function WorkProjectsCarousel({
         <ProjectCaseStudyIframeModal
           slug={modalProject.slug}
           title={modalProject.title}
-          eyebrow={modalProject.eyebrow ?? (iframeModalForAll ? eyebrow : "Work project")}
+          eyebrow={modalProject.eyebrow ?? "Work project"}
           onClose={() => setOpenModalSlug(null)}
         />
       ) : null}

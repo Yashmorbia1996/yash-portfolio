@@ -1,6 +1,6 @@
 /**
  * Single source for WorkProjectsCarousel copy and cover slides on the projects index
- * and on individual project pages ("More projects").
+ * and shared case-study data for `portfolioCarouselBySlug`.
  */
 export type StudyLink = {
   label: string;
@@ -150,7 +150,7 @@ export const cadCarouselProjects = [
   },
 ] as const satisfies readonly PortfolioCarouselEntry[];
 
-/** Individual case studies (ANSYS / SolidWorks) for “More projects” and any consumer that needs full P/A/R copy. */
+/** Individual case studies (ANSYS / SolidWorks) for `portfolioCarouselBySlug` and any consumer that needs full P/A/R copy. */
 export const simulationStudyCarouselProjects = [
   {
     title: 'CHT Analysis: GPU Thermal Management',
