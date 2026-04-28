@@ -1,11 +1,13 @@
 {
-  "name": "portfolio-starter-template",
+  "name": "yash-morbia-portfolio",
+  "private": true,
   "type": "module",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check": "astro check",
     "astro": "astro"
   },
   "dependencies": {
@@ -15,8 +17,6 @@
     "@fontsource/dm-sans": "^5.2.8",
     "@fontsource/dm-serif-display": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
-    "@radix-ui/react-dialog": "^1.1.4",
-    "@radix-ui/react-separator": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.2",
     "@tailwindcss/vite": "^4.2.1",
     "@types/react": "^19.2.14",
@@ -34,9 +34,6 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
     "@tailwindcss/typography": "^0.5.19",
-    "canvas": "^3.2.3",
-    "mupdf": "^1.27.0",
-    "pdfjs-dist": "^5.6.205",
     "typescript": "^5.9.3"
   }
 }

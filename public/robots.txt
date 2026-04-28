@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+# Replace with your real domain on deploy (also: astro.config.mjs `site` and src/config/site.ts `url`).
 Sitemap: https://your-portfolio.example.com/sitemap-index.xml

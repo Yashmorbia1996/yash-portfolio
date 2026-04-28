@@ -1,9 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { allProjectsCarouselProjects } from "@/data/portfolioCarousel";
 import { LivBenchPocImage, isLivBenchPocSlideUrl } from "./LivBenchPocImage";
 import { CadSimulationStudyLinks } from "./CadSimulationStudyLinks";
-import { ProjectCaseStudyIframeModal } from "./ProjectCaseStudyIframeModal";
 import { ProjectCardCoverSlideshow } from "./ProjectCardCoverSlideshow";
 
 export interface StudyLink {
@@ -30,11 +28,6 @@ export interface CarouselProject {
 }
 
 const COVER_FALLBACK = "/images/projects/project-2.svg";
-
-/** Work, personal, and undergrad projects: full case study in modal iframe (see `allProjectsCarouselProjects`) */
-const READ_MORE_MODAL_SLUGS = new Set(
-  allProjectsCarouselProjects.map((p) => p.slug),
-);
 
 /** Horizontal offset between stacked cards (px); keep modest on narrow widths */
 const GAP = 16;
@@ -131,17 +124,11 @@ export function WorkProjectsCarousel({
 }) {
   const N = projects.length;
   const [active, setActive] = useState(0);
-  const [openModalSlug, setOpenModalSlug] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const accRef  = useRef(0);
   const activeRef = useRef(0);
   activeRef.current = active;
 
-  const modalProject = openModalSlug ? projects.find((p) => p.slug === openModalSlug) ?? null : null;
-
-  useEffect(() => {
-    setOpenModalSlug(null);
-  }, [active]);
 
   const goTo = useCallback((idx: number) => {
     const clamped = Math.max(0, Math.min(idx, N - 1));
@@ -215,7 +202,6 @@ export function WorkProjectsCarousel({
           const caseBlocks = getCaseStudyBlocks(p);
           const useSkillsLabel = hasExplicitCaseStudyPills(p);
           const studiesListOnly = isCadHubStudiesListOnly(p);
-          const useModalCta = READ_MORE_MODAL_SLUGS.has(p.slug) && !studiesListOnly;
 
           return (
             <div
@@ -226,7 +212,7 @@ export function WorkProjectsCarousel({
                 opacity:    isHidden ? 0 : isActive ? 1 : 0.4,
                 filter:     isActive ? "none" : "blur(3px)",
                 pointerEvents: isHidden ? "none" : "auto",
-                cursor: !isActive || useModalCta ? "pointer" : "default",
+                cursor: !isActive ? "pointer" : "default",
                 zIndex:     isActive ? 10 : 1,
               }}
             >
@@ -244,26 +230,13 @@ export function WorkProjectsCarousel({
                     if (!isActive) {
                       e.preventDefault();
                       goTo(i);
-                      return;
-                    }
-                    if (useModalCta) {
-                      e.preventDefault();
-                      setOpenModalSlug(p.slug);
                     }
                   }}
                   className="absolute inset-0 z-0 rounded-2xl"
-                  aria-label={
-                    useModalCta && isActive
-                      ? `Open case study: ${p.title}`
-                      : `View project: ${p.title}`
-                  }
+                  aria-label={`View project: ${p.title}`}
                   data-carousel-card
                 >
-                  <span className="sr-only">
-                    {useModalCta && isActive
-                      ? `Open case study: ${p.title}`
-                      : `View project: ${p.title}`}
-                  </span>
+                  <span className="sr-only">{`View project: ${p.title}`}</span>
                 </a>
               )}
               <div className="theme-panel group relative z-10 flex h-full min-h-0 w-full flex-col overflow-hidden rounded-2xl pointer-events-none">
@@ -289,7 +262,7 @@ export function WorkProjectsCarousel({
                 {/* Body fills remaining height so every slide matches the tallest card in the stack */}
                 <div className="flex min-h-0 flex-1 flex-col p-4 sm:p-5">
                   <div className="shrink-0">
-                    <p className="theme-eyebrow font-mono text-[10px] font-semibold uppercase tracking-[0.16em] sm:text-[11px]">
+                    <p className="theme-eyebrow">
                       {p.eyebrow ?? eyebrow}
                     </p>
                     <h3
@@ -307,17 +280,17 @@ export function WorkProjectsCarousel({
                     )}
                   </div>
 
-                  <div className="mt-4 flex min-h-0 flex-1 flex-col gap-3 text-xs leading-relaxed text-text-secondary sm:mt-5 sm:gap-4 sm:text-sm">
+                  <div className="mt-4 flex min-h-0 flex-1 flex-col gap-3 text-sm leading-relaxed text-text-secondary sm:mt-5 sm:gap-4">
                     <div>
-                      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Situation / Problem</p>
+                      <p className="theme-eyebrow text-text-muted">Situation / Problem</p>
                       <p className="mt-1">{caseBlocks.problem}</p>
                     </div>
                     <div>
-                      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Action</p>
+                      <p className="theme-eyebrow text-text-muted">Action</p>
                       <p className="mt-1">{caseBlocks.action}</p>
                     </div>
                     <div>
-                      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Result</p>
+                      <p className="theme-eyebrow text-text-muted">Result</p>
                       <p className="mt-1">{caseBlocks.result}</p>
                     </div>
                   </div>
@@ -331,7 +304,7 @@ export function WorkProjectsCarousel({
 
                   {p.tags?.length > 0 && (
                     <div className="mt-4 shrink-0 border-t border-border pt-4 sm:mt-5 sm:pt-5">
-                      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted mb-1.5 sm:text-[11px] sm:mb-2">
+                      <p className="theme-eyebrow text-text-muted mb-1.5 sm:mb-2">
                         {useSkillsLabel ? "Skills learned / applied" : "Tags"}
                       </p>
                       <div className="flex flex-wrap gap-1.5 sm:gap-2">
@@ -346,17 +319,9 @@ export function WorkProjectsCarousel({
 
                   {!studiesListOnly && (
                     <div className="mt-4 shrink-0 pt-0.5 sm:mt-5 sm:pt-1">
-                      {useModalCta ? (
-                        <button
-                          type="button"
-                          onClick={() => setOpenModalSlug(p.slug)}
-                          className="pointer-events-auto relative z-20 inline-flex cursor-pointer text-left text-sm font-semibold uppercase tracking-wider text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-                        >
-                          Read more
-                        </button>
-                      ) : (
-                        <span className="text-xs text-primary-accent sm:text-sm">{ctaLabel} →</span>
-                      )}
+                      <span className="text-sm font-semibold uppercase tracking-[0.12em] text-primary-accent">
+                        {ctaLabel} →
+                      </span>
                     </div>
                   )}
                 </div>
@@ -365,15 +330,6 @@ export function WorkProjectsCarousel({
           );
         })}
       </div>
-
-      {modalProject ? (
-        <ProjectCaseStudyIframeModal
-          slug={modalProject.slug}
-          title={modalProject.title}
-          eyebrow={modalProject.eyebrow ?? "Work project"}
-          onClose={() => setOpenModalSlug(null)}
-        />
-      ) : null}
 
       {/* Edge fades */}
       <div

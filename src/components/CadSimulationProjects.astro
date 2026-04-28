@@ -34,38 +34,38 @@ const defaultEyebrow = 'CAD & Simulation';
 
             <div class="flex min-h-0 flex-1 flex-col p-4 sm:p-5">
               <div class="shrink-0">
-                <p class="theme-eyebrow font-mono text-[10px] font-semibold uppercase tracking-[0.16em] sm:text-[11px]">
+                <p class="theme-eyebrow">
                   {p.eyebrow ?? defaultEyebrow}
                 </p>
                 <h3 class="mt-1.5 text-lg font-semibold tracking-[-0.03em] text-text-primary sm:mt-2 sm:text-xl">
                   {p.title}
                 </h3>
                 {p.context && (
-                  <p class="mt-1.5 text-xs leading-relaxed text-text-muted sm:mt-2 sm:text-sm">
+                  <p class="mt-1.5 text-sm leading-relaxed text-text-muted sm:mt-2">
                     {p.context}
                   </p>
                 )}
               </div>
 
               {hasCaseStudy ? (
-                <div class="mt-4 flex min-h-0 flex-1 flex-col gap-3 text-xs leading-relaxed text-text-secondary sm:mt-5 sm:gap-4 sm:text-sm">
+                <div class="mt-4 flex min-h-0 flex-1 flex-col gap-3 text-sm leading-relaxed text-text-secondary sm:mt-5 sm:gap-4">
                   <div>
-                    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">
+                    <p class="theme-eyebrow text-text-muted">
                       Situation / Problem
                     </p>
                     <p class="mt-1">{p.problem}</p>
                   </div>
                   <div>
-                    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Action</p>
+                    <p class="theme-eyebrow text-text-muted">Action</p>
                     <p class="mt-1">{p.action}</p>
                   </div>
                   <div>
-                    <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Result</p>
+                    <p class="theme-eyebrow text-text-muted">Result</p>
                     <p class="mt-1">{p.result}</p>
                   </div>
                 </div>
               ) : (
-                <div class="mt-4 flex min-h-0 flex-1 flex-col text-xs leading-relaxed text-text-secondary sm:mt-5 sm:text-sm">
+                <div class="mt-4 flex min-h-0 flex-1 flex-col text-sm leading-relaxed text-text-secondary sm:mt-5">
                   {excerpt && <p class="leading-relaxed">{excerpt}</p>}
                   {p.studyLinks && p.studyLinks.length > 0 && (
                     <CadSimulationStudyLinks
@@ -77,10 +77,10 @@ const defaultEyebrow = 'CAD & Simulation';
                 </div>
               )}
 
-              {p.tags && p.tags.length > 0 && (
+              {hasCaseStudy && p.tags && p.tags.length > 0 && (
                 <div class="mt-4 shrink-0 border-t border-border pt-4 sm:mt-5 sm:pt-5">
-                  <p class="mb-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted sm:mb-2 sm:text-[11px]">
-                    {hasCaseStudy ? 'Skills learned / applied' : 'Tags'}
+                  <p class="theme-eyebrow text-text-muted mb-1.5 sm:mb-2">
+                    Skills learned / applied
                   </p>
                   <div class="flex flex-wrap gap-1.5 sm:gap-2">
                     {p.tags.map((tag) => (

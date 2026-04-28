@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { WorkProjectsCarousel } from '../../components/WorkProjectsCarousel';
+import { ProjectCard } from '../../components/ProjectCard';
 import CadSimulationProjects from '../../components/CadSimulationProjects.astro';
 import { allProjectsCarouselProjects } from '../../data/portfolioCarousel';
 ---
@@ -10,10 +10,10 @@ import { allProjectsCarouselProjects } from '../../data/portfolioCarousel';
   <div class="w-full bg-white dark:bg-black">
     <div class="site-container pt-14 pb-10 md:pb-12">
       <div class="max-w-4xl">
-        <h1 class="mb-4 text-5xl font-semibold tracking-tight text-[#1d1d1f] md:text-6xl dark:text-white">
+        <h1 class="mb-4 text-5xl font-semibold tracking-tight text-text-primary md:text-6xl">
           Projects
         </h1>
-        <p class="text-base leading-relaxed text-[#86868b] md:text-lg md:whitespace-nowrap dark:text-[#A1A1A6]">
+        <p class="text-base leading-relaxed text-text-secondary md:text-lg">
           A fast-scanning catalog of selected work, supporting engineering projects, and broader technical exploration.
         </p>
       </div>
@@ -24,20 +24,36 @@ import { allProjectsCarouselProjects } from '../../data/portfolioCarousel';
   <section class="w-full bg-[#f5f5f7] py-12 dark:bg-[#1C1C1E] md:py-16" aria-label="Selected work projects">
     <div class="site-container">
       <div class="mb-8 max-w-none space-y-3">
-        <p class="max-w-none text-sm leading-relaxed text-text-muted md:whitespace-nowrap">
+        <h2 class="theme-section-title">Selected Work Projects</h2>
+        <p class="text-base leading-relaxed text-text-secondary">
+          Core projects with clear situation, action, and result summaries. Click any active card to open the full case study.
+        </p>
+        <p class="max-w-none text-sm leading-relaxed text-text-muted">
           Disclosure: Work project details are limited to non-proprietary information. Images shown are public, recreated, or selected to avoid confidential content.
         </p>
       </div>
 
-      <WorkProjectsCarousel
-        client:load
-        frame="work"
-        projects={allProjectsCarouselProjects.map((p) => ({
-          ...p,
-          tags: [...p.tags],
-          coverSlides: p.coverSlides ? [...p.coverSlides] : undefined,
-        }))}
-      />
+      <div class="grid grid-cols-12 gap-5">
+        {allProjectsCarouselProjects.map((project) => (
+          <div class="col-span-12 md:col-span-6 xl:col-span-4">
+            <ProjectCard
+              title={project.title}
+              slug={project.slug}
+              href={`/projects/${project.slug}`}
+              context={project.context}
+              problem={project.problem}
+              action={project.action}
+              result={project.result}
+              tags={[...project.tags]}
+              eyebrow={project.eyebrow}
+              ctaLabel="Read case study"
+              showSkills
+              cover={project.cover}
+              coverSlides={project.coverSlides ? [...project.coverSlides] : undefined}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 

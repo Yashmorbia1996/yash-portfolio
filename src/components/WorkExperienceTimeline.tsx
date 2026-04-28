@@ -157,7 +157,7 @@ function MetaBlock({
       >
         <p
           className={[
-            "font-mono font-semibold uppercase tracking-[0.14em] text-primary-accent",
+            "theme-eyebrow",
             variant === "home" ? "text-[13px]" : "text-[10px]",
           ].join(" ")}
         >
@@ -224,7 +224,7 @@ function WorkExperienceReadModal({
         role="presentation"
       />
       <div
-        className="relative z-10 w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl bg-white p-10 shadow-2xl dark:border dark:border-white/10 dark:bg-[#1C1C1E]"
+        className="relative z-10 w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-[var(--radius-lg)] bg-white p-10 shadow-2xl dark:border dark:border-white/10 dark:bg-[#1C1C1E]"
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
@@ -241,7 +241,7 @@ function WorkExperienceReadModal({
         </button>
 
         <div className="pr-4 md:pr-0">
-          <p className="mb-1 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
+          <p className="theme-eyebrow mb-1">
             {data.company}
           </p>
           <div className="mt-2 flex items-start gap-4">
@@ -304,13 +304,13 @@ function TimelineCard({
     <article
       className={[
         "theme-panel theme-panel-hover relative min-w-0 overflow-visible",
-        variant === "home" ? "rounded-[1.5rem] p-5 md:p-5" : "rounded-2xl p-4",
+        variant === "home" ? "rounded-[var(--radius-lg)] p-5 md:p-5" : "rounded-[var(--radius-md)] p-4",
       ].join(" ")}
     >
       <TimelineConnector pointer={pointer} />
 
       <div className="flex flex-col gap-2">
-        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
+        <p className="theme-eyebrow">
           {data.company}
         </p>
         <h3
@@ -332,12 +332,12 @@ function TimelineCard({
               ? [
                   "mt-4 grid w-full place-items-center",
                   variant === "home"
-                    ? "px-4 py-8 -mx-5 rounded-[1.25rem] border border-border/80 md:px-6 md:py-10"
-                    : "rounded-xl border border-border px-4 py-6 md:px-6 md:py-8",
+                    ? "px-4 py-8 -mx-5 rounded-[var(--radius-md)] border border-border/80 md:px-6 md:py-10"
+                    : "rounded-[var(--radius-sm)] border border-border px-4 py-6 md:px-6 md:py-8",
                 ].join(" ")
               : variant === "home"
-                ? "mt-4 -mx-5 rounded-[1.25rem] border border-border/80"
-                : "mt-4 rounded-xl border border-border",
+                ? "mt-4 -mx-5 rounded-[var(--radius-md)] border border-border/80"
+                : "mt-4 rounded-[var(--radius-sm)] border border-border",
           ].join(" ")}
         >
           <img
@@ -390,14 +390,10 @@ function TimelineCard({
             type="button"
             onClick={readMoreInModal ? onOpenReadMoreModal : onToggleReadMore}
             className={
-              readMoreInModal
-                ? [
-                    "inline-flex cursor-pointer text-sm font-semibold uppercase tracking-wider text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
-                    variant === "home" ? "mt-4" : "mt-3",
-                  ].join(" ")
-                : variant === "home"
-                  ? "mt-4 inline-flex text-sm font-semibold uppercase tracking-[0.12em] text-primary-accent transition-opacity duration-300 hover:opacity-80"
-                  : "mt-3 inline-flex text-sm font-semibold uppercase tracking-[0.12em] text-primary-accent transition-opacity duration-300 hover:opacity-80"
+              [
+                "inline-flex cursor-pointer text-sm font-semibold uppercase tracking-[0.12em] text-primary-accent transition-opacity duration-300 hover:opacity-80",
+                variant === "home" ? "mt-4" : "mt-3",
+              ].join(" ")
             }
           >
             {readMoreInModal ? "Read more" : expanded ? "Show less" : "Read more"}
@@ -538,7 +534,7 @@ export function WorkExperienceTimeline({ entries, variant = "default" }: WorkExp
                 />
                 <div className="mt-3 border-t border-border/80 pt-3">
                   <div className="flex w-full max-w-[13rem] flex-col gap-1">
-                    <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-accent">
+                    <p className="theme-eyebrow">
                       {periodLabel(data)}
                     </p>
                     {data.location ? <p className="text-xs text-text-muted">{data.location}</p> : null}

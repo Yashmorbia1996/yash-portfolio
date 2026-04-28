@@ -35,6 +35,8 @@ pnpm-debug.log*
 .omc/
 .claude/
 *.log
+.vscode/
+.playwright-mcp/
 
 # local temp
 temp-headshot-check.bin

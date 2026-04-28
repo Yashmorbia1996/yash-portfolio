@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Section } from "@/components/layout/Section";
+import { SectionHeading } from "@/components/SectionHeading";
 
 const pressTestFixtureCoverSlides = [
   "/images/Working%20concept_CAD2.png",
@@ -10,7 +11,6 @@ const pressTestFixtureCoverSlides = [
   "/images/Concept%203_pneumatic%20with%20optimized%20parts.png",
 ] as const;
 
-/** Same visuals as `liv-optical-test-rig.mdx` (bench POC + fixture SVGs). */
 const livOpticalTestRigCoverSlides = [
   "/images/liv-layman-bench-poc.png",
   "/images/LIV%20test.svg",
@@ -22,16 +22,14 @@ const caseStudies = [
     slug: "thermal-redesign-journey",
     title: "Thermal Redesign Journey",
     problem: "Field returns from overheating climbed to a commercially unsustainable rate; needed a real thermal-path fix.",
-    action:
-      "Grill/airflow iteration in Flow Simulation plus validation, then semiconductor and heatsink stack upgrade.",
+    action: "Grill/airflow iteration in Flow Simulation plus validation, then semiconductor and heatsink stack upgrade.",
     result: "16°C chip reduction; field returns to under 3%; both phases to production.",
   },
   {
     slug: "liv-optical-test-rig",
     title: "LIV Optical Test Rig",
     problem: "Manual laser testing caused high variability and weak beam-size screening.",
-    action:
-      "Bench POC, then two modular fixtures: magnetic-swap LIV (packaged engine + Headers) and optical beam sizing for the same form factors.",
+    action: "Bench POC, then two modular fixtures: magnetic-swap LIV (packaged engine + Headers) and optical beam sizing for the same form factors.",
     result: "~3× batch throughput; LIV + beam checks; software spec for technicians.",
   },
   {
@@ -44,27 +42,24 @@ const caseStudies = [
 ] as const;
 
 export function FeaturedProjects() {
-
   return (
-    <Section id="case-studies" surface="gray">
-      <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div className="max-w-4xl space-y-4">
-          <p className="theme-section-title text-5xl font-semibold md:text-6xl">
-            Selected Work Projects
-          </p>
-          <p className="text-base leading-relaxed text-text-secondary">
-            A quick look at the projects that best reflect my work in product development, manufacturing, and execution.
-          </p>
-        </div>
+    <Section id="case-studies" surface="gray" label="Case Studies">
+      <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <SectionHeading
+          title="Selected Work Projects"
+          sub="A quick look at the projects that best reflect my work in product development, manufacturing, and execution."
+        />
         <Button variant="ghost" size="sm" asChild className="hidden sm:flex">
           <a href="/projects">
             View all projects <ArrowRight className="ml-1 h-4 w-4" />
           </a>
         </Button>
       </div>
+
       <p className="mb-6 max-w-4xl text-sm leading-relaxed text-text-muted">
         Disclosure: Project details are limited to non-proprietary information. Images shown are public, recreated, or selected to avoid confidential content.
       </p>
+
       <div className="grid grid-cols-12 gap-5">
         {caseStudies.map((project) => (
           <div key={project.slug} className="col-span-12 md:col-span-6 xl:col-span-4">
@@ -93,6 +88,7 @@ export function FeaturedProjects() {
           </div>
         ))}
       </div>
+
       <div className="mt-8 sm:hidden">
         <Button variant="outline" asChild>
           <a href="/projects">

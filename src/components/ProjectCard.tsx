@@ -49,9 +49,9 @@ export function ProjectCard({
   const singleCoverSrc = slideList.length === 1 ? slideList[0] : cover;
 
   return (
-    <article className="theme-panel theme-panel-hover group flex h-full flex-col overflow-hidden rounded-xl">
+    <article className="theme-panel theme-panel-hover group flex h-full flex-col overflow-hidden rounded-[var(--radius-md)]">
       <a href={linkHref} className="block">
-        <div className="aspect-video rounded-t-xl border-b border-border bg-surface-elevated">
+        <div className="aspect-video rounded-t-[var(--radius-md)] border-b border-border bg-surface-elevated">
           {showSlideshow ? (
             <ProjectCardCoverSlideshow images={slideList} title={title} />
           ) : singleCoverSrc ? (
@@ -67,7 +67,7 @@ export function ProjectCard({
       </a>
 
       <div className="flex flex-1 flex-col p-6">
-        <p className="theme-eyebrow font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
+        <p className="theme-eyebrow">
           {cardEyebrow}
         </p>
         <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-text-primary">
@@ -82,19 +82,19 @@ export function ProjectCard({
         ) : null}
 
         {hasCaseStudyPreview ? (
-          <div className="mt-6 flex-1 space-y-4 text-base leading-relaxed text-text-secondary">
+          <div className="mt-6 flex-1 space-y-4 text-sm leading-relaxed text-text-secondary">
             <div>
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">
+              <p className="theme-eyebrow text-text-muted">
                 Situation / Problem
               </p>
               <p className="mt-1">{problem}</p>
             </div>
             <div>
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Action</p>
+              <p className="theme-eyebrow text-text-muted">Action</p>
               <p className="mt-1">{action}</p>
             </div>
             <div>
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">Result</p>
+              <p className="theme-eyebrow text-text-muted">Result</p>
               <p className="mt-1">{result}</p>
             </div>
           </div>

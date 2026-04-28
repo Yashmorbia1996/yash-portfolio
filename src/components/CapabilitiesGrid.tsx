@@ -1,5 +1,6 @@
 import { Cog, Users, Globe2, ClipboardCheck } from "lucide-react";
 import { Section } from "@/components/layout/Section";
+import { SectionHeading } from "@/components/SectionHeading";
 
 const capabilities = [
   {
@@ -61,21 +62,17 @@ const capabilities = [
 export function CapabilitiesGrid() {
   return (
     <Section label="Capabilities" id="capabilities" surface="gray">
-      <div className="mb-10 max-w-3xl space-y-3">
-        <h2 className="font-heading text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-4xl dark:text-white">
-          How I operate
-        </h2>
-        <p className="text-base leading-relaxed text-body-text">
-          Mechanical engineering is the core. The other three are areas I took real ownership of because the product required it, not to broaden my resume, but because no one else was doing it.
-        </p>
-      </div>
+      <SectionHeading
+        title="How I operate"
+        sub="Mechanical engineering is the core. The other three are areas I took real ownership of because the product required it, not to broaden my resume, but because no one else was doing it."
+      />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {capabilities.map(({ icon: Icon, eyebrow, title, summary, points, metric, featured }) => (
           <div
             key={title}
             className={[
-              "group rounded-2xl border border-border bg-card/60 p-6 transition-all duration-300 ease-out hover:border-primary-accent/40 hover:shadow-card-hover",
+              "group rounded-[var(--radius-md)] border border-border bg-card/60 p-6 transition-all duration-300 ease-out hover:border-primary-accent/40 hover:shadow-card-hover",
               featured ? "md:col-span-2" : "",
             ].join(" ")}
           >
@@ -83,25 +80,25 @@ export function CapabilitiesGrid() {
               <div className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-primary-accent/10 text-primary-accent">
                 <Icon className="h-8 w-8" strokeWidth={1.5} />
               </div>
-              <span className="rounded-full border border-primary-accent/25 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-primary-accent">
+              <span className="theme-eyebrow rounded-full border border-primary-accent/25 px-3 py-1">
                 {eyebrow}
               </span>
             </div>
-            <h3 className="mb-3 text-xl font-semibold tracking-[-0.01em] text-foreground">
-              {title}
-            </h3>
-            <p className="mb-5 max-w-2xl text-base leading-relaxed text-body-text">
-              {summary}
-            </p>
+
+            <h3 className="mb-3 text-xl font-semibold tracking-[-0.01em] text-text-primary">{title}</h3>
+
+            <p className="mb-5 max-w-2xl text-base leading-relaxed text-text-secondary">{summary}</p>
+
             <ul className="space-y-2">
               {points.map((point) => (
-                <li key={point} className="flex gap-2.5 text-[15px] text-muted-foreground">
+                <li key={point} className="flex gap-2.5 text-[15px] text-text-muted">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-current" aria-hidden />
                   <span>{point}</span>
                 </li>
               ))}
             </ul>
-            <div className="mt-6 inline-flex rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-semibold tracking-tight text-foreground">
+
+            <div className="mt-6 inline-flex rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-semibold tracking-tight text-text-primary">
               {metric}
             </div>
           </div>

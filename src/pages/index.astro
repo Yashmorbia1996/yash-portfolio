@@ -3,7 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { Hero } from '../components/Hero';
 import { HomeWorkExperienceSection } from '../components/HomeWorkExperienceSection';
 import { MyJourneySection } from '../components/MyJourneySection';
-import { TechnicalSkillsSection } from '../components/TechnicalSkillsSection';
+import { CapabilitiesGrid } from '../components/CapabilitiesGrid';
+import { FeaturedProjects } from '../components/FeaturedProjects';
 import { getCollection } from 'astro:content';
 import { workCollectionToTimelinePayload } from '../lib/workTimelinePayload';
 
@@ -13,7 +14,8 @@ const workEntriesPlain = workCollectionToTimelinePayload(await getCollection('wo
 <BaseLayout>
   <Hero client:load />
   <HomeWorkExperienceSection entries={workEntriesPlain} client:load />
-  <TechnicalSkillsSection client:visible />
+  <CapabilitiesGrid client:visible />
+  <FeaturedProjects client:visible />
   <MyJourneySection client:visible />
 </BaseLayout>
 

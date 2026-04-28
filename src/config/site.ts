@@ -10,7 +10,7 @@ export const siteConfig = {
 
   url: "https://your-portfolio.example.com",
   description: "Yash Morbia, senior mechanical engineer focused on regulated hardware, NPI, manufacturing scale-up, and product reliability.",
-  ogImage: "/images/og.jpg",
+  ogImage: "/images/Yash-morbia-headshot.jpeg",
 
   social: {
     github: "",

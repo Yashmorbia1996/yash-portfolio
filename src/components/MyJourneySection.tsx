@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Mail, Minus, Plus } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Section } from "@/components/layout/Section";
+import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 
 type JourneyMilestone = {
@@ -121,9 +122,7 @@ function JourneyGroup({
   return (
     <div>
       <div className="mb-5">
-        <p className="theme-eyebrow font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
-          {heading}
-        </p>
+        <p className="theme-eyebrow">{heading}</p>
         <p className="mt-2 max-w-lg text-sm leading-relaxed text-text-muted">{description}</p>
       </div>
 
@@ -138,10 +137,10 @@ function JourneyGroup({
             const isOpen = openId === item.id;
             const isFeatured = !!item.featured;
             const cardClassName = isFeatured
-              ? "theme-panel w-full rounded-[1.25rem] p-5 text-left transition-colors duration-200 md:p-6"
+              ? "theme-panel w-full rounded-[var(--radius-md)] p-5 text-left transition-colors duration-200 md:p-6"
               : tone === "quiet"
-                ? "theme-panel w-full rounded-[1.25rem] border-border/80 p-5 text-left shadow-[var(--shadow-soft)] transition-colors duration-200 hover:border-border-strong hover:bg-card-hover/50 md:p-6"
-                : "theme-panel theme-panel-hover w-full rounded-[1.25rem] p-5 text-left md:p-6";
+                ? "theme-panel w-full rounded-[var(--radius-md)] border-border/80 p-5 text-left shadow-[var(--shadow-soft)] transition-colors duration-200 hover:border-border-strong hover:bg-card-hover/50 md:p-6"
+                : "theme-panel theme-panel-hover w-full rounded-[var(--radius-md)] p-5 text-left md:p-6";
             const featuredCardStyle = isFeatured
               ? {
                   borderColor: "color-mix(in srgb, #b59666 45%, var(--color-border))",
@@ -179,9 +178,7 @@ function JourneyGroup({
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
-                        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-primary-accent">
-                          {item.stage}
-                        </p>
+                        <p className="theme-eyebrow">{item.stage}</p>
                       </div>
                       <h3 className="mt-2 text-[1.15rem] font-semibold tracking-[-0.02em] text-text-primary md:text-[1.25rem]">
                         {item.title}
@@ -235,15 +232,11 @@ export function MyJourneySection() {
   };
 
   return (
-    <Section id="my-journey" surface="gray">
-      <div className="mb-12 max-w-4xl space-y-4">
-        <h2 className="theme-section-title text-5xl font-semibold md:text-6xl">
-          My Journey &amp; What&apos;s Next
-        </h2>
-        <p className="max-w-3xl text-base leading-relaxed text-text-secondary">
-          The path that shaped how I work today, and the direction I want to grow next.
-        </p>
-      </div>
+    <Section id="my-journey" surface="gray" label="My Journey">
+      <SectionHeading
+        title="My Journey & What's Next"
+        sub="The path that shaped how I work today, and the direction I want to grow next."
+      />
 
       <div className="grid gap-10 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] xl:gap-12">
         <JourneyGroup
@@ -266,7 +259,7 @@ export function MyJourneySection() {
 
       <div className="mt-12 grid gap-10 border-t border-border pt-20 lg:grid-cols-12 lg:gap-12 lg:pt-24">
         <div className="lg:col-span-5">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">
+          <p className="theme-eyebrow">
             Looking ahead
           </p>
           <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
@@ -280,7 +273,7 @@ export function MyJourneySection() {
           </p>
         </div>
         <div className="lg:col-span-7">
-          <article className="theme-panel rounded-2xl border border-border bg-card p-6 text-center shadow-[0_1px_0_0_rgba(0,0,0,0.04)] md:p-7 dark:shadow-[0_1px_0_0_rgba(255,255,255,0.05)]">
+          <article className="theme-panel rounded-[var(--radius-md)] border border-border bg-card p-6 text-center md:p-7">
             <h4 className="text-lg font-semibold tracking-[-0.03em] text-text-primary md:text-xl">Next step</h4>
             <p className="mx-auto mt-3 max-w-lg text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">
               If this profile fits a role you are hiring for, I would welcome a conversation.
