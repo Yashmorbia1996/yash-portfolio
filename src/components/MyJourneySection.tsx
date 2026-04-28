@@ -232,7 +232,7 @@ export function MyJourneySection() {
   };
 
   return (
-    <Section id="my-journey" surface="gray" label="My Journey">
+    <Section id="my-journey" surface="gray" ariaLabel="My Journey">
       <SectionHeading
         title="My Journey & What's Next"
         sub="The path that shaped how I work today, and the direction I want to grow next."
@@ -259,10 +259,7 @@ export function MyJourneySection() {
 
       <div className="mt-12 grid gap-10 border-t border-border pt-20 lg:grid-cols-12 lg:gap-12 lg:pt-24">
         <div className="lg:col-span-5">
-          <p className="theme-eyebrow">
-            Looking ahead
-          </p>
-          <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+          <h3 className="text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
             What I&apos;m Looking For
           </h3>
           <p className="mt-4 text-base leading-[1.75] text-text-secondary md:text-[1.05rem]">

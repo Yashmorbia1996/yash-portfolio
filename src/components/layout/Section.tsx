@@ -5,7 +5,10 @@ type SectionSurface = "white" | "gray";
 interface SectionProps {
   children: React.ReactNode;
   className?: string;
+  /** Small blue section label above content; omit to hide while keeping an accessible name via `ariaLabel`. */
   label?: string;
+  /** Use when `label` is omitted but the section should still have an explicit accessible name. */
+  ariaLabel?: string;
   id?: string;
   /** Alternating homepage rhythm: pure white/black vs Apple gray / elevated dark gray */
   surface?: SectionSurface;
@@ -16,11 +19,13 @@ const surfaceClass: Record<SectionSurface, string> = {
   gray: "bg-[#f5f5f7] dark:bg-[#1C1C1E]",
 };
 
-export function Section({ children, className, label, id, surface }: SectionProps) {
+export function Section({ children, className, label, ariaLabel, id, surface }: SectionProps) {
+  const accessibleName = ariaLabel ?? label;
+
   return (
     <section
       id={id}
-      aria-label={label}
+      aria-label={accessibleName}
       data-surface={surface}
       className={cn("py-24 md:py-32 scroll-reveal", surface ? surfaceClass[surface] : undefined, className)}
     >

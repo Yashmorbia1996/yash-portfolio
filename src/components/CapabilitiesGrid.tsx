@@ -61,7 +61,7 @@ const capabilities = [
 
 export function CapabilitiesGrid() {
   return (
-    <Section label="Capabilities" id="capabilities" surface="gray">
+    <Section ariaLabel="Capabilities" id="capabilities" surface="gray">
       <SectionHeading
         title="How I operate"
         sub="Mechanical engineering is the core. The other three are areas I took real ownership of because the product required it, not to broaden my resume, but because no one else was doing it."
