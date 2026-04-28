@@ -24,7 +24,7 @@
   --border: rgba(0, 0, 0, 0.08);
   --border-strong: rgba(0, 0, 0, 0.14);
   --text-primary: #1d1d1f;
-  --text-secondary: #86868b;
+  --text-secondary: #4b4b53;
   --text-muted: #86868b;
   --accent: #0071e3;
   --accent-foreground: #ffffff;
@@ -34,6 +34,10 @@
   --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-elevated: 0 8px 28px rgba(0, 0, 0, 0.09);
   --dock-safe-2xl: 2rem;
+
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
 }
 
 .dark {
@@ -46,7 +50,7 @@
   --border: rgba(255, 255, 255, 0.1);
   --border-strong: rgba(255, 255, 255, 0.18);
   --text-primary: #ffffff;
-  --text-secondary: #a1a1a6;
+  --text-secondary: #c7c7cc;
   --text-muted: #6e6e73;
   --accent: #0a84ff;
   --accent-foreground: #ffffff;
@@ -61,7 +65,6 @@
   --color-background: var(--background);
   --color-background-secondary: var(--background-secondary);
   --color-foreground: var(--text-primary);
-  --color-body-text: var(--text-secondary);
   --color-card: var(--card-background);
   --color-card-background: var(--card-background);
   --color-card-hover: var(--card-hover);
@@ -93,9 +96,8 @@
   --color-button-primary: var(--button-primary);
   --color-button-secondary: var(--button-secondary);
 
-  /* Fonts, SF Pro system stack, DM Sans fallback */
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", ui-sans-serif, system-ui, "DM Sans", sans-serif;
-  --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", ui-sans-serif, system-ui, "DM Sans", sans-serif;
+  --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "DM Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* Letter-spacing, Apple-style tight tracking */
@@ -104,20 +106,12 @@
   --letter-spacing-heading-sm: -0.012em;
   --letter-spacing-label: 0.08em;
 
-  /* Major Third type scale (ratio 1.25, base 16px) */
-  --text-scale-0: 1rem;
-  --text-scale-1: 1.25rem;
-  --text-scale-2: 1.5625rem;
-  --text-scale-3: 1.953125rem;
-  --text-scale-4: 2.44140625rem;
-  --text-scale-5: 3.05175781rem;
-  --text-scale-6: 3.81469727rem;
+  --radius: var(--radius-md);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
 
-  /* Site-wide content width, cap at 1440px on large viewports */
   --container-max: 90rem;
-
-  /* Border radius, generous rounding baseline */
-  --radius: 0.75rem;
 }
 
 /* Single container for navbar, hero, sections, footer */
@@ -127,17 +121,14 @@
   max-width: min(100%, var(--container-max));
   margin-left: auto;
   margin-right: auto;
-  /* Fluid horizontal padding: tight on phones, ~4rem cap on large screens */
   padding-left: clamp(1rem, 3.5vw, 4rem);
   padding-right: clamp(1rem, 3.5vw, 4rem);
 }
 
-/* Allow flex rows (e.g. header) to shrink without forcing horizontal overflow */
 header .site-container {
   min-width: 0;
 }
 
-/* Media: scale inside layout without exceeding container (icons/SVGs use fixed classes; skip break) */
 main img,
 main video,
 .prose-content img {
@@ -157,14 +148,13 @@ h1, h2, h3 {
   color: var(--color-text-primary);
 }
 
-/* -- prose styles for MDX content -- */
 .prose-content {
-  --tw-prose-body: var(--color-body-text);
+  --tw-prose-body: var(--color-text-secondary);
   --tw-prose-headings: var(--color-foreground);
   --tw-prose-links: var(--color-primary);
   --tw-prose-bold: var(--color-foreground);
   --tw-prose-counters: var(--color-muted-foreground);
-  --tw-prose-bullets: var(--color-body-text);
+  --tw-prose-bullets: var(--color-text-secondary);
   --tw-prose-hr: var(--color-border);
   --tw-prose-quotes: var(--color-foreground);
   --tw-prose-quote-borders: var(--color-border);
@@ -182,7 +172,6 @@ h1, h2, h3 {
   font-weight: 400;
 }
 
-/* Fluid type in MDX prose only, prevents overflow on narrow viewports */
 .prose-content h1 {
   font-size: clamp(1.875rem, 1.35rem + 1.65vw, 2.5rem);
   line-height: 1.15;
@@ -212,10 +201,9 @@ h1, h2, h3 {
 }
 
 .prose-content img {
-  border-radius: 0.75rem;
+  border-radius: var(--radius-md);
 }
 
-/* Timeline node shell keeps the axis crisp against the page background */
 .timeline-node-shell {
   box-shadow: 0 0 0 10px color-mix(in srgb, var(--color-background) 96%, transparent);
 }
@@ -236,7 +224,6 @@ h1, h2, h3 {
   pointer-events: none;
 }
 
-/* Timeline connector, clean horizontal rule with a small terminal cap */
 .experience-card-pointer {
   position: absolute;
   left: 0;
@@ -286,7 +273,6 @@ h1, h2, h3 {
 }
 
 @layer utilities {
-  /* Depth via subtle ring + border instead of heavy drop shadows */
   .shadow-card { box-shadow: 0 0 0 1px var(--color-border); }
   .shadow-card-hover { box-shadow: 0 0 0 1px var(--color-border), 0 8px 32px color-mix(in srgb, var(--color-foreground) 8%, transparent); }
   .text-brand { color: var(--color-brand); }
@@ -306,7 +292,6 @@ h1, h2, h3 {
     background-color: var(--color-card-hover);
     box-shadow: var(--shadow-elevated);
   }
-  /* Matches My Journey "Next Step" featured milestone: warm border + soft lift */
   .journey-next-glow {
     border-width: 1px;
     border-style: solid;
@@ -318,11 +303,21 @@ h1, h2, h3 {
   }
   .theme-section-title {
     color: var(--color-text-primary);
-    font-weight: 600;
-    letter-spacing: -0.025em;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+    line-height: 1.2;
   }
   .theme-eyebrow {
     color: var(--color-primary-accent);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+  .theme-eyebrow--tight {
+    letter-spacing: 0.14em;
   }
   .blueprint-board {
     background-image:
@@ -332,7 +327,57 @@ h1, h2, h3 {
     background-size: 40px 40px, 40px 40px, 20px 20px;
     background-position: center;
   }
+}
 
+[data-surface="white"] .theme-panel {
+  background-color: #f5f5f7;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+[data-surface="white"] .theme-panel.theme-panel-hover:hover {
+  background-color: #ebebed;
+  box-shadow: none;
+}
+.dark [data-surface="white"] .theme-panel {
+  background-color: #1c1c1e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+.dark [data-surface="white"] .theme-panel.theme-panel-hover:hover {
+  background-color: #2c2c2e;
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: none;
+}
+
+[data-surface="gray"] .theme-panel {
+  background-color: #ffffff;
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.05);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+[data-surface="gray"] .theme-panel.theme-panel-hover:hover {
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgb(15 23 42 / 0.08), 0 2px 4px -2px rgb(15 23 42 / 0.05);
+}
+.dark [data-surface="gray"] .theme-panel {
+  background-color: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+.dark [data-surface="gray"] .theme-panel.theme-panel-hover:hover {
+  background-color: #000000;
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: none;
+}
+
+[data-surface="gray"] .timeline-node-shell {
+  box-shadow: 0 0 0 10px #f5f5f7;
+}
+.dark [data-surface="gray"] .timeline-node-shell {
+  box-shadow: 0 0 0 10px #1c1c1e;
 }
 
 /* Respect reduced-motion preference */
@@ -405,8 +450,6 @@ main {
    Hero Thermal Dynamics Background
    ============================================================ */
 
-/* Hero stripe: background comes from Tailwind on <section id="introduction"> */
-/* Base fill under thermal layers, matches section so orbs blend */
 .hero-bg-base {
   position: absolute;
   inset: 0;
@@ -417,10 +460,8 @@ main {
   background: #000000;
 }
 
-/* Subtle drafting grid, above base fill, under thermal orbs; JS parallax on .hero-interactive-grid */
 .hero-interactive-grid {
   position: absolute;
-  /* Overscan so parallax does not expose empty edges */
   left: -10%;
   top: -10%;
   width: 120%;
@@ -462,7 +503,6 @@ main {
     linear-gradient(to bottom, rgba(100, 116, 139, 0.05) 1px, transparent 1px);
 }
 
-/* Shared orb shell, animated by JS via transform */
 .hero-thermal-orb {
   position: absolute;
   left: 0;
@@ -473,7 +513,6 @@ main {
   will-change: transform;
 }
 
-/* Orb 1, Cool Slate, slowest (heaviest thermal mass), ultra-faint Apple-style */
 .hero-thermal-orb-1 {
   width: min(72vw, 680px);
   height: min(52vh, 520px);
@@ -489,7 +528,6 @@ main {
   background: radial-gradient(ellipse at center, rgba(10, 132, 255, 0.12) 0%, rgba(10, 132, 255, 0.04) 50%, transparent 72%);
 }
 
-/* Orb 2, Medical Blue, medium drift, ultra-faint */
 .hero-thermal-orb-2 {
   width: min(62vw, 560px);
   height: min(68vh, 620px);
@@ -504,7 +542,6 @@ main {
   background: radial-gradient(ellipse at center, rgba(10, 132, 255, 0.08) 0%, rgba(10, 132, 255, 0.03) 46%, transparent 68%);
 }
 
-/* Orb 3, pale slate accent, fastest response, ultra-faint */
 .hero-thermal-orb-3 {
   width: min(48vw, 420px);
   height: min(40vh, 380px);
@@ -518,36 +555,6 @@ main {
 .dark .hero-thermal-orb-3 {
   background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 52%, transparent 70%);
 }
-
-/* Hero cards, Rule A on white/black section base */
-#introduction .theme-panel {
-  background-color: #f5f5f7 !important;
-  border: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-#introduction .theme-panel.theme-panel-hover:hover {
-  background-color: #ebebed !important;
-  box-shadow: none !important;
-}
-.dark #introduction .theme-panel {
-  background-color: #1c1c1e !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: none !important;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-.dark #introduction .theme-panel.theme-panel-hover:hover {
-  background-color: #2c2c2e !important;
-  border-color: rgba(255, 255, 255, 0.16) !important;
-  box-shadow: none !important;
-}
-
-/* ============================================================
-   Work Experience, light thermal drift (home timeline only)
-   ============================================================ */
-
 #home-work-experience .we-bg-base {
   position: absolute;
   inset: 0;
@@ -556,10 +563,9 @@ main {
   background: #f5f5f7;
 }
 .dark #home-work-experience .we-bg-base {
-  background: #1c1c1e; /* matches Section surface */
+  background: #1c1c1e;
 }
 
-/* Thermal-map rainbow wash, extremely faint (Apple discipline: let whitespace speak) */
 #home-work-experience .we-rainbow-bloom {
   position: absolute;
   left: -18%;
@@ -589,7 +595,6 @@ main {
   filter: blur(72px) saturate(0.5);
 }
 
-/* Light drafting mesh, wireframe workflow read, stays behind orbs + cards */
 #home-work-experience .we-workflow-mesh {
   position: absolute;
   left: -8%;
@@ -626,11 +631,6 @@ main {
 }
 .dark #home-work-experience .we-workflow-mesh {
   opacity: 0.22;
-  background-image:
-    linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-    linear-gradient(to right, rgba(71, 85, 105, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(71, 85, 105, 0.05) 1px, transparent 1px);
 }
 
 #home-work-experience .we-thermal-orb {
@@ -643,7 +643,6 @@ main {
   will-change: transform;
 }
 
-/* Faint clinical mesh, ultra-soft, light-theme first */
 #home-work-experience .we-thermal-orb-1 {
   width: min(78vw, 640px);
   height: min(55vh, 520px);
@@ -701,7 +700,6 @@ main {
   );
 }
 
-/* Wireframe mesh canvas, sits above blurred orbs, below content */
 #home-work-experience .we-mesh-canvas {
   position: absolute;
   inset: 0;
@@ -713,100 +711,4 @@ main {
 }
 .dark #home-work-experience .we-mesh-canvas {
   opacity: 0.12;
-}
-
-/* Work experience timeline cards, Rule B on gray elevated section */
-#home-work-experience .work-experience-chain article.theme-panel {
-  background-color: #ffffff !important;
-  border: 1px solid rgba(229, 231, 235, 0.5) !important;
-  box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.05) !important;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-#home-work-experience .work-experience-chain article.theme-panel.theme-panel-hover:hover {
-  background-color: #ffffff !important;
-  box-shadow: 0 4px 6px -1px rgb(15 23 42 / 0.08), 0 2px 4px -2px rgb(15 23 42 / 0.05) !important;
-}
-.dark #home-work-experience .work-experience-chain article.theme-panel {
-  background-color: #000000 !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: none !important;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-.dark #home-work-experience .work-experience-chain article.theme-panel.theme-panel-hover:hover {
-  background-color: #000000 !important;
-  border-color: rgba(255, 255, 255, 0.16) !important;
-  box-shadow: none !important;
-}
-
-/* ============================================================
-   Apple Alternating Sections, My Journey (gray) & Capabilities (white)
-   ============================================================ */
-
-/* My Journey, section stripe from Section `surface="gray"`; cards = Rule B */
-#my-journey .theme-panel {
-  background-color: #ffffff !important;
-  border: 1px solid rgba(229, 231, 235, 0.5) !important;
-  box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.05) !important;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-#my-journey .theme-panel.theme-panel-hover:hover {
-  background-color: #ffffff !important;
-  box-shadow: 0 4px 6px -1px rgb(15 23 42 / 0.08), 0 2px 4px -2px rgb(15 23 42 / 0.05) !important;
-}
-
-/* Capabilities: white section, Rule B: flat #f5f5f7 cards, no border/shadow */
-#capabilities article.theme-panel {
-  background-color: #f5f5f7 !important;
-  border: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-#capabilities article.theme-panel.theme-panel-hover:hover {
-  background-color: #ebebed !important;
-  box-shadow: none !important;
-}
-#capabilities .bg-surface-elevated {
-  background-color: #ffffff !important;
-}
-
-/* Dark mode, My Journey cards Rule B on elevated gray */
-.dark #my-journey .theme-panel {
-  background-color: #000000 !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: none !important;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-.dark #my-journey .theme-panel.theme-panel-hover:hover {
-  background-color: #000000 !important;
-  border-color: rgba(255, 255, 255, 0.16) !important;
-  box-shadow: none !important;
-}
-
-/* Dark mode overrides for Capabilities, pure black section, #1c1c1e cards (Rule A) */
-.dark #capabilities article.theme-panel {
-  background-color: #1c1c1e !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: none !important;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-.dark #capabilities article.theme-panel.theme-panel-hover:hover {
-  background-color: #2c2c2e !important;
-  border-color: rgba(255, 255, 255, 0.16) !important;
-}
-.dark #capabilities .bg-surface-elevated {
-  background-color: #2c2c2e !important;
-}
-
-/* Timeline node shell matches new gray section background */
-#my-journey .timeline-node-shell {
-  box-shadow: 0 0 0 10px #f5f5f7;
-}
-.dark #my-journey .timeline-node-shell {
-  box-shadow: 0 0 0 10px #1c1c1e;
 }

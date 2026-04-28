@@ -1,5 +1,6 @@
 import { type MouseEvent, useCallback, useEffect, useRef } from "react";
 import { WorkExperienceTimeline, type WorkTimelineEntry } from "@/components/WorkExperienceTimeline";
+import { SectionHeading } from "@/components/SectionHeading";
 import { cn } from "@/lib/utils";
 
 interface HomeWorkExperienceSectionProps {
@@ -100,15 +101,14 @@ export function HomeWorkExperienceSection({ entries }: HomeWorkExperienceSection
     spring.current.live = false;
   }, []);
 
-  // Canvas animation is bootstrapped by the native <script> in index.astro
-  // (bypasses React useEffect hydration timing issues in Astro islands)
-
   return (
     <section
       id="home-work-experience"
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      aria-label="Work Experience"
+      data-surface="gray"
       className={cn(
         "relative overflow-hidden scroll-reveal bg-[#f5f5f7] py-24 pt-12 dark:bg-[#1C1C1E] md:py-32 md:pt-16",
       )}
@@ -122,15 +122,10 @@ export function HomeWorkExperienceSection({ entries }: HomeWorkExperienceSection
       <canvas className="we-mesh-canvas" aria-hidden="true" suppressHydrationWarning />
       <div className="site-container relative z-[1]">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-12 max-w-4xl space-y-4">
-            <p className="theme-section-title text-5xl font-semibold md:text-6xl">
-              Work Experience
-            </p>
-            <p className="text-base leading-relaxed text-text-secondary">
-              A closer look at the roles where design, production, and regulated hardware execution came together.
-            </p>
-          </div>
-
+          <SectionHeading
+            title="Work Experience"
+            sub="A closer look at the roles where design, production, and regulated hardware execution came together."
+          />
           <WorkExperienceTimeline entries={entries} variant="home" />
         </div>
       </div>

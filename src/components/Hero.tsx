@@ -1,14 +1,7 @@
-import { type MouseEvent, useCallback, useEffect, useRef, useState } from "react";
-import { ArrowRight, Award, ChevronRight, Handshake, LinkedinIcon, Mail, MapPin, Phone } from "lucide-react";
+import { type MouseEvent, useCallback, useEffect, useRef } from "react";
+import { ArrowRight, Award, Handshake, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
-
-const homepageSections = [
-  { label: "Introduction", href: "#introduction" },
-  { label: "Work Experience", href: "#home-work-experience" },
-  { label: "Capabilities", href: "#capabilities" },
-  { label: "My Journey & What's Next", href: "#my-journey" },
-] as const;
 
 const heroProofPoints = [
   "Scaled weekly output from 500 to 1,500 units through fixture strategy, process refinement, and manufacturing execution.",
@@ -52,26 +45,19 @@ const impactMetrics = [
 ] as const;
 
 export function Hero() {
-  const { social, phone, avatar, location, role } = siteConfig;
-  const [activeSection, setActiveSection] = useState<(typeof homepageSections)[number]["href"]>(
-    homepageSections[0].href,
-  );
+  const { social, phone, avatar, location } = siteConfig;
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Mutable spring state, no re-renders; mimics damped thermal / fluid lag vs cursor
   const spring = useRef({
     o1: { x: 0.28, y: 0.45 },
     o2: { x: 0.72, y: 0.38 },
     o3: { x: 0.50, y: 0.65 },
     tx: 0.50, ty: 0.50,
     live: false,
-    /* Subtle grid parallax (px); eases toward cursor offset from center */
     grid: { x: 0, y: 0 },
   });
 
-  // RAF loop, query `.hero-thermal-orb` and `.hero-interactive-grid` after mount
   useEffect(() => {
-    /* Per-orb gain: lower = heavier thermal mass, slower drift toward cursor */
     const K = [0.016, 0.032, 0.048] as const;
     const HOME = [{ x: 0.28, y: 0.45 }, { x: 0.72, y: 0.38 }, { x: 0.50, y: 0.65 }] as const;
     const K_GRID = 0.042;
@@ -137,63 +123,14 @@ export function Hero() {
     spring.current.live = false;
   }, []);
 
-  useEffect(() => {
-    const sections = homepageSections
-      .map((item) => {
-        const id = item.href.replace("#", "");
-        return document.getElementById(id);
-      })
-      .filter((section): section is HTMLElement => Boolean(section));
-
-    if (!sections.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntries = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (!visibleEntries.length) return;
-
-        setActiveSection(`#${visibleEntries[0].target.id}` as (typeof homepageSections)[number]["href"]);
-      },
-      {
-        rootMargin: "-20% 0px -55% 0px",
-        threshold: [0.2, 0.35, 0.5, 0.7],
-      },
-    );
-
-    sections.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
-  }, []);
-
-  const handleSectionClick = (event: MouseEvent<HTMLAnchorElement>, href: (typeof homepageSections)[number]["href"]) => {
-    const id = href.replace("#", "");
-    const target = document.getElementById(id);
-    if (!target) return;
-
-    event.preventDefault();
-
-    const targetTop = target.getBoundingClientRect().top + window.scrollY;
-    const desktop = window.innerWidth >= 1024;
-    const sectionOffset = href === "#introduction" ? (desktop ? -24 : -16) : desktop ? 56 : 40;
-    const scrollTop = Math.max(targetTop + sectionOffset, 0);
-
-    window.scrollTo({
-      top: scrollTop,
-      behavior: "smooth",
-    });
-
-    window.history.replaceState(null, "", href);
-  };
-
   return (
     <section
       id="introduction"
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      aria-label="Introduction"
+      data-surface="white"
       className="relative overflow-hidden bg-white pt-20 pb-24 dark:bg-black md:pt-28 md:pb-32"
     >
       <div className="hero-bg-base" aria-hidden="true" />
@@ -202,29 +139,29 @@ export function Hero() {
       <div className="hero-thermal-orb hero-thermal-orb-2" aria-hidden="true" />
       <div className="hero-thermal-orb hero-thermal-orb-3" aria-hidden="true" />
       <div className="site-container">
-        <div className="grid gap-10 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-14">
+        <div className="grid gap-10 lg:grid-cols-[19rem_minmax(0,1fr)] lg:gap-14">
           <aside className="hero-animate hero-animate-2">
             <div className="lg:sticky lg:top-28">
-              <div className="theme-panel rounded-[1.5rem] p-5 md:p-6">
+              <div className="theme-panel rounded-[var(--radius-lg)] p-5 md:p-6">
                 <img
                   src={avatar}
                   alt={siteConfig.name}
                   width={1200}
                   height={1168}
-                  className="mx-auto h-auto w-full max-w-[18.5rem] rounded-[1.75rem] border border-border object-contain"
+                  className="mx-auto h-auto w-full max-w-[18.5rem] rounded-[calc(var(--radius-lg)-0.25rem)] border border-border object-contain"
                   loading="eager"
                   decoding="async"
                 />
-                <div className="mt-7 space-y-2.5">
+                <div className="mt-7 space-y-1.5">
                   <h2 className="text-xl font-semibold tracking-[-0.03em] text-text-primary">
                     {siteConfig.name}
                   </h2>
                   <p className="text-sm leading-relaxed text-text-secondary">
-                    {role}
+                    Senior Mechanical Engineer<br />
+                    <span className="text-text-muted">Mechanical · Manufacturing · Product Dev</span>
                   </p>
                 </div>
-
-                <div className="mt-6 space-y-3.5 text-sm text-text-secondary">
+                <div className="mt-6 border-t border-border/80 pt-5 space-y-3 text-sm text-text-secondary">
                   <p className="flex items-start gap-2">
                     <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary-accent" />
                     <span>{location}</span>
@@ -251,67 +188,17 @@ export function Hero() {
                       rel="noopener noreferrer"
                       className="flex items-start gap-2 transition-colors duration-200 hover:text-text-primary"
                     >
-                      <LinkedinIcon className="mt-0.5 h-4 w-4 shrink-0 text-primary-accent" />
+                      <Linkedin className="mt-0.5 h-4 w-4 shrink-0 text-primary-accent" />
                       <span>LinkedIn</span>
                     </a>
                   )}
-                </div>
-
-                <div className="mt-6">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">
-                    Currently open to roles in
-                  </p>
-                  <ul className="mt-3 space-y-2 text-sm leading-relaxed text-text-secondary">
-                    <li className="flex items-start gap-2">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary-accent" aria-hidden />
-                      <span>Mechanical Engineering</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary-accent" aria-hidden />
-                      <span>Manufacturing</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary-accent" aria-hidden />
-                      <span>Product Development</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="mt-8 border-t border-border/80 pt-6">
-                  <p className="theme-eyebrow text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">
-                    On this page
-                  </p>
-                  <nav className="mt-4 flex flex-col gap-1">
-                    {homepageSections.map((item) => (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        onClick={(event) => handleSectionClick(event, item.href)}
-                        aria-current={activeSection === item.href ? "location" : undefined}
-                        className={[
-                          "inline-flex items-center gap-2 rounded-lg px-2.5 py-2 text-sm transition-colors duration-200",
-                          activeSection === item.href
-                            ? "bg-card-hover text-text-primary"
-                            : "text-text-muted hover:bg-card-hover/70 hover:text-text-primary",
-                        ].join(" ")}
-                      >
-                        <ChevronRight
-                          className={[
-                            "h-3.5 w-3.5 transition-colors duration-200",
-                            activeSection === item.href ? "text-primary-accent" : "text-text-muted",
-                          ].join(" ")}
-                        />
-                        <span>{item.label}</span>
-                      </a>
-                    ))}
-                  </nav>
                 </div>
               </div>
             </div>
           </aside>
 
           <div className="hero-animate hero-animate-3">
-            <p className="theme-eyebrow mb-3 font-mono text-xs uppercase tracking-[0.16em]">
+            <p className="theme-eyebrow mb-3">
               Hi! My name is,
             </p>
 
@@ -338,19 +225,19 @@ export function Hero() {
               </ul>
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Button asChild size="lg">
+                <Button asChild size="lg" variant="default">
                   <a href="/projects">
                     Engineering projects
                     <ArrowRight className="ml-1 h-4 w-4" />
                   </a>
                 </Button>
-                <Button asChild size="lg">
+                <Button asChild size="lg" variant="outline">
                   <a href="/certificates">
                     Certificates
                     <Award className="ml-1 h-4 w-4" />
                   </a>
                 </Button>
-                <Button asChild size="lg">
+                <Button asChild size="lg" variant="ghost">
                   <a href="/cross-functional-ownership">
                     Cross-functional ownership
                     <Handshake className="ml-1 h-4 w-4" />
@@ -363,27 +250,21 @@ export function Hero() {
                   Process improvements supported by GD&T, root-cause analysis, and Six Sigma-style discipline.
                 </p>
 
-                <div className="grid grid-cols-1 gap-[1.35rem] md:grid-cols-2 xl:grid-cols-3">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
                   {impactMetrics.map((metric) => (
                     <div
                       key={metric.label}
-                      className="theme-panel theme-panel-hover grid h-full grid-rows-[3.5rem_1.35rem_5.9rem] justify-items-center rounded-[1.4rem] p-[1.3rem] text-center md:grid-rows-[3.9rem_1.45rem_6.4rem] md:p-[1.45rem]"
+                      className="theme-panel theme-panel-hover flex flex-col items-center rounded-[var(--radius-md)] p-5 text-center"
                     >
-                      <div className="flex h-full w-full items-center justify-center">
-                        <p className="w-full whitespace-nowrap text-center font-mono text-[1.48rem] font-normal leading-none tracking-[-0.03em] text-text-primary md:text-[1.72rem]">
-                          {metric.value}
-                        </p>
-                      </div>
-                      <div className="flex h-full w-full items-center justify-center">
-                        <p className="w-full text-center font-mono text-[11px] uppercase leading-none tracking-[0.18em] text-text-muted">
-                          {metric.label}
-                        </p>
-                      </div>
-                      <div className="flex h-full w-full items-start justify-center pt-3">
-                        <p className="max-w-[19ch] text-center text-[0.9rem] leading-[1.6] text-text-secondary">
-                          {metric.detail}
-                        </p>
-                      </div>
+                      <p className="w-full whitespace-nowrap text-center font-mono text-[1.48rem] font-normal leading-none tracking-[-0.03em] text-text-primary md:text-[1.72rem]">
+                        {metric.value}
+                      </p>
+                      <p className="mt-2 w-full text-center font-mono text-[11px] uppercase leading-none tracking-[0.18em] text-text-muted">
+                        {metric.label}
+                      </p>
+                      <p className="mt-3 max-w-[19ch] text-center text-[0.9rem] leading-[1.6] text-text-secondary">
+                        {metric.detail}
+                      </p>
                     </div>
                   ))}
                 </div>
