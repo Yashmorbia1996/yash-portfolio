@@ -100,7 +100,7 @@ function hasExplicitCaseStudyPills(p: CarouselProject): boolean {
   return Boolean(p.problem?.trim() && p.action?.trim() && p.result?.trim());
 }
 
-/** ANSYS / SolidWorks hub slugs: full case study review only from the `CadSimulationStudyLinks` list, not the card. */
+/** ANSYS / SolidWorks hub slugs: study links go to full `/projects/[slug]` pages, not the hub card. */
 const CAD_HUB_REVIEW_VIA_STUDIES_ONLY = new Set([
   "ansys-simulation-studies",
   "solidworks-simulation-studies",
@@ -297,7 +297,6 @@ export function WorkProjectsCarousel({
                   {p.studyLinks && p.studyLinks.length > 0 && (
                     <CadSimulationStudyLinks
                       links={p.studyLinks}
-                      linkEyebrow="Simulation case study"
                       sectionLabel={studiesListOnly ? "Studies" : "Related studies"}
                     />
                   )}
