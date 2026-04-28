@@ -3,14 +3,6 @@ import { ArrowRight, Award, Handshake, Linkedin, Mail, MapPin, Phone } from "luc
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 
-const heroProofPoints = [
-  "Scaled weekly output from 500 to 1,500 units through fixture strategy, process refinement, and manufacturing execution.",
-  "Improved yield stability and reduced field returns through thermal management, structured root-cause analysis, and repeatable build control.",
-  "Developed 20+ production and test fixtures to control critical tolerances and reduce operator variability.",
-  "Improved first-pass yield from 85% to 95% through GD&T-informed design decisions, repeatable build control and process refinement.",
-  "Led cross-functional execution across engineering, suppliers, production, and ISO 13485-aligned quality systems.",
-] as const;
-
 const impactMetrics = [
   {
     value: "$4M to $15M",
@@ -214,15 +206,6 @@ export function Hero() {
               <p className="mt-6 text-left text-[1.02rem] leading-[1.78] text-text-primary md:text-[1.12rem]">
                 I work at the intersection of mechanical engineering, production scale-up, and technical execution, with 4+ years supporting FDA-cleared electromechanical devices. My work spans tolerance-driven design, GD&T, DFM/DFA, fixture development, verification, and production readiness, helping teams carry rigor from early prototype builds into stable manufacturing through disciplined cross-functional execution.
               </p>
-
-              <ul className="mt-7 space-y-4 text-left text-[0.98rem] leading-[1.75] text-text-secondary md:text-base">
-                {heroProofPoints.map((point) => (
-                  <li key={point} className="flex gap-3.5">
-                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-accent" aria-hidden />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Button asChild size="lg" variant="default">
