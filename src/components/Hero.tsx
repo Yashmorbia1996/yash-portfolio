@@ -215,15 +215,15 @@ export function Hero() {
                   </a>
                 </Button>
                 <Button asChild size="lg" variant="outline">
-                  <a href="/certificates">
-                    Certificates
-                    <Award className="ml-1 h-4 w-4" />
-                  </a>
-                </Button>
-                <Button asChild size="lg" variant="ghost">
                   <a href="/cross-functional-ownership">
                     Cross-functional ownership
                     <Handshake className="ml-1 h-4 w-4" />
+                  </a>
+                </Button>
+                <Button asChild size="lg" variant="ghost">
+                  <a href="/certificates">
+                    Certificates
+                    <Award className="ml-1 h-4 w-4" />
                   </a>
                 </Button>
               </div>
