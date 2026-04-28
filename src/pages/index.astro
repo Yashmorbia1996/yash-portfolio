@@ -4,7 +4,6 @@ import { Hero } from '../components/Hero';
 import { HomeWorkExperienceSection } from '../components/HomeWorkExperienceSection';
 import { MyJourneySection } from '../components/MyJourneySection';
 import { CapabilitiesGrid } from '../components/CapabilitiesGrid';
-import { FeaturedProjects } from '../components/FeaturedProjects';
 import { getCollection } from 'astro:content';
 import { workCollectionToTimelinePayload } from '../lib/workTimelinePayload';
 
@@ -15,7 +14,6 @@ const workEntriesPlain = workCollectionToTimelinePayload(await getCollection('wo
   <Hero client:load />
   <HomeWorkExperienceSection entries={workEntriesPlain} client:load />
   <CapabilitiesGrid client:visible />
-  <FeaturedProjects client:visible />
   <MyJourneySection client:visible />
 </BaseLayout>
 
