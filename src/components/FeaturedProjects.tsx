@@ -17,6 +17,13 @@ const livOpticalTestRigCoverSlides = [
   "/images/Optical%20test.svg",
 ] as const;
 
+/** Matches `workCarouselProjects` in portfolioCarousel.ts */
+const thermalRedesignCoverSlides = [
+  "/images/Option4_airflow.png",
+  "/images/Phase%202_Design%20change%202_1.png",
+  "/images/Phase%202_Design%20change%202_3.png",
+] as const;
+
 const caseStudies = [
   {
     slug: "thermal-redesign-journey",
@@ -75,14 +82,18 @@ export function FeaturedProjects() {
                   ? "/images/Working%20concept_CAD2.png"
                   : project.slug === "liv-optical-test-rig"
                     ? "/images/liv-layman-bench-poc.png"
-                    : undefined
+                    : project.slug === "thermal-redesign-journey"
+                      ? "/images/Option4_airflow.png"
+                      : undefined
               }
               coverSlides={
                 project.slug === "press-test-fixture"
                   ? [...pressTestFixtureCoverSlides]
                   : project.slug === "liv-optical-test-rig"
                     ? [...livOpticalTestRigCoverSlides]
-                    : undefined
+                    : project.slug === "thermal-redesign-journey"
+                      ? [...thermalRedesignCoverSlides]
+                      : undefined
               }
             />
           </div>
