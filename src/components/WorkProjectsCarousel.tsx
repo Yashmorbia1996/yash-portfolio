@@ -32,7 +32,7 @@ export interface CarouselProject {
 const COVER_FALLBACK = "/images/projects/project-2.svg";
 
 /** Work, personal, and undergrad projects: full case study in modal iframe (see `allProjectsCarouselProjects`) */
-const READ_MORE_MODAL_SLUGS = new Set(
+const READ_MORE_MODAL_SLUGS: ReadonlySet<string> = new Set(
   allProjectsCarouselProjects.map((p) => p.slug),
 );
 

@@ -1,4 +1,4 @@
-import { Linkedin, Mail, Phone } from "lucide-react";
+import { LinkedinIcon, Mail, Phone } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export function Footer() {
@@ -18,21 +18,16 @@ export function Footer() {
               <span>{phone}</span>
             </span>
           )}
-          {social.linkedin ? (
+          {social.linkedin && (
             <a
               href={social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 transition-colors duration-200 hover:text-text-primary"
             >
-              <Linkedin className="h-4 w-4" />
+              <LinkedinIcon className="h-4 w-4" />
               <span>LinkedIn</span>
             </a>
-          ) : (
-            <span className="inline-flex items-center gap-2">
-              <Linkedin className="h-4 w-4" />
-              <span>LinkedIn</span>
-            </span>
           )}
           {social.email && (
             <a
