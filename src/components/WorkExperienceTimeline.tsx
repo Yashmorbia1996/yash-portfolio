@@ -201,10 +201,19 @@ function WorkExperienceReadModal({
   const titleId = useId();
 
   useEffect(() => {
-    const prev = document.body.style.overflow;
+    const html = document.documentElement;
+    const prevHtmlOverflow = html.style.overflow;
+    const prevBodyOverflow = document.body.style.overflow;
+    html.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
+
+    const lenis = (window as Window & { __lenis?: { stop: () => void; start: () => void } }).__lenis;
+    lenis?.stop();
+
     return () => {
-      document.body.style.overflow = prev;
+      html.style.overflow = prevHtmlOverflow;
+      document.body.style.overflow = prevBodyOverflow;
+      lenis?.start();
     };
   }, []);
 
@@ -224,7 +233,8 @@ function WorkExperienceReadModal({
         role="presentation"
       />
       <div
-        className="relative z-10 w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-[var(--radius-lg)] bg-white p-10 shadow-2xl dark:border dark:border-white/10 dark:bg-[#1C1C1E]"
+        className="relative z-10 w-full max-w-3xl max-h-[85vh] overflow-y-auto overscroll-contain rounded-[var(--radius-lg)] bg-white p-10 shadow-2xl dark:border dark:border-white/10 dark:bg-[#1C1C1E]"
+        data-lenis-prevent
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
