@@ -1,4 +1,5 @@
-import { LinkedinIcon, Mail, Phone } from "lucide-react";
+import { LinkedinIcon, Phone } from "lucide-react";
+import { CopyEmail } from "@/components/CopyEmail";
 import { siteConfig } from "@/config/site";
 
 export function Footer() {
@@ -30,13 +31,12 @@ export function Footer() {
             </a>
           )}
           {social.email && (
-            <a
-              href={`mailto:${social.email}`}
-              className="inline-flex items-center gap-2 transition-colors duration-200 hover:text-text-primary"
-            >
-              <Mail className="h-4 w-4" />
-              <span>{social.email}</span>
-            </a>
+            <CopyEmail
+              email={social.email}
+              className="inline-flex items-center"
+              iconAlignStart={false}
+              mailIconClassName="text-current"
+            />
           )}
         </div>
       </div>

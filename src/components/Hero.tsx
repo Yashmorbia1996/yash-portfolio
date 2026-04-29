@@ -1,5 +1,6 @@
 import { type MouseEvent, useCallback, useEffect, useRef } from "react";
-import { ArrowRight, Award, Handshake, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Award, Handshake, Linkedin, MapPin, Phone } from "lucide-react";
+import { CopyEmail } from "@/components/CopyEmail";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 
@@ -159,13 +160,7 @@ export function Hero() {
                     <span>{location}</span>
                   </p>
                   {social.email && (
-                    <a
-                      href={`mailto:${social.email}`}
-                      className="flex items-start gap-2 transition-colors duration-200 hover:text-text-primary"
-                    >
-                      <Mail className="mt-0.5 h-4 w-4 shrink-0 text-primary-accent" />
-                      <span className="break-all">{social.email}</span>
-                    </a>
+                    <CopyEmail email={social.email} />
                   )}
                   {phone && (
                     <p className="flex items-start gap-2">
