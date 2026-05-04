@@ -144,6 +144,7 @@ export const cadCarouselProjects = [
       { label: 'Catalytic Converter: Flow Optimisation Study', meta: 'SolidWorks Flow Simulation · Porous media · 6-case parametric study', slug: 'catalytic-converter-flow-optimization' },
       { label: 'Wind Tunnel Simulation: Fan Design & Thermal Flow Analysis', meta: 'SolidWorks Flow Simulation · Forced convection · Fan speed parametric study', slug: 'wind-tunnel-fan-simulation' },
       { label: 'CHT: Electronics Enclosure Cooling', meta: 'SolidWorks Flow Simulation · 8-case · Fan config · Heat sink optimisation', slug: 'cht-electronics-cooling' },
+      { label: 'Shell & Tube HX: CHT & Flow Arrangement Study', meta: 'SolidWorks Flow Simulation · Conjugate heat transfer · 4-case · Water-water', slug: 'shell-and-tube-hx-flow-simulation' },
     ],
     tags: ['SolidWorks', 'Flow Simulation', 'CFD', 'Porous Media', 'Parametric Study'],
     cover: '/images/catalytic-converter/case6-trajectories.png',
@@ -274,6 +275,27 @@ export const simulationStudyCarouselProjects = [
       'Thermal Management',
     ],
     cover: '/images/cht-electronics/case08_cross_fan_temperature_cut.png',
+  },
+  {
+    title: 'Shell & Tube Heat Exchanger: Flow Simulation & CHT Study',
+    slug: 'shell-and-tube-hx-flow-simulation',
+    eyebrow: 'Case Study',
+    context: 'CHT · heat exchanger · internal flow',
+    problem:
+      'A shell and tube design needs defensible hot and cold outlet temperatures, heat duty, and tube/shell pressure drop before layout changes are committed; ideal counterflow vs parallel assumptions may not match baffle-dominated shell-side behavior.',
+    action:
+      'SolidWorks Flow Simulation: steady internal CHT with conduction in solids, water-water operation, local mesh at the bundle and baffles, four cases from counterflow baseline through parallel comparison, tube-side inlet refinement, and doubled shell-side velocity.',
+    result:
+      'Quantified table of bulk outlet temperatures, kW, and Δp: best heat transfer at high shell velocity, best balanced low-Δp design on the tube-inlet optimization case, with energy balance checks and full documentation in the engineering report.',
+    tags: [
+      'SolidWorks Flow Simulation',
+      'Conjugate Heat Transfer',
+      'Heat Exchanger',
+      'Internal Flow',
+      'Thermal Analysis',
+      'Parametric Study',
+    ],
+    cover: '/images/shell-tube-hx/case4-trajectories.png',
   },
 ] as const satisfies readonly PortfolioCarouselEntry[];
 
